@@ -221,14 +221,58 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
     <script>
-      const scriptURL = "<https://script.google.com/macros/s/AKfycby26hB0uf2zPadn00jvxD84tgQZlALpN4y5BEWApFIMekMef_wwJc_qQvsKQBLdqUkL0Q/exec>";
-      const form = document.forms["WPU-Contact-Form"];
+      const scriptURL = "https://script.google.com/macros/s/AKfycby26hB0uf2zPadn00jvxD84tgQZlALpN4y5BEWApFIMekMef_wwJc_qQvsKQBLdqUkL0Q/exec";
+      const form = document.forms["contact"];
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        fetch(scriptURL, { method: "POST", body: new FormData(form) })
-          .then((response) => console.log("Success!", response))
-          .catch((error) => console.error("Error!", error.message));
+
+        // Mendapatkan tombol submit
+        const submitButton = form.querySelector("[type='submit']");
+        const originalHTML = submitButton.innerHTML;
+
+        // Membuat spinner loading
+        const spinner = document.createElement("span");
+        spinner.className = "spinner";
+        spinner.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .spinner {
+            animation: rotate 1s linear infinite;
+          }
+          @keyframes rotate {
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" opacity="0.2"/>
+        <path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/>
+      </svg>
+    `;
+
+        // Menambahkan spinner dan mengubah teks tombol
+        submitButton.innerHTML = "";
+        submitButton.appendChild(spinner);
+        submitButton.insertAdjacentHTML("beforeend", " Mengirim...");
+        submitButton.disabled = true;
+
+        fetch(scriptURL, {
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then((response) => {
+            console.log("Success!", response);
+            alert("Form berhasil dikirim!");
+            form.reset();
+          })
+          .catch((error) => {
+            console.error("Error!", error.message);
+            alert("Terjadi kesalahan saat mengirim form. Silakan coba lagi.");
+          })
+          .finally(() => {
+            // Mengembalikan tombol ke keadaan semula
+            submitButton.innerHTML = originalHTML;
+            submitButton.disabled = false;
+          });
       });
     </script>
   </body>
