@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Nancy Akisya - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --galaxy-dark: #0a0a2a;
+        --galaxy-purple: #5d2e8e;
+        --neon-blue: #00f7ff;
+        --neon-pink: #ff00c8;
+        --star-gold: #ffd700;
+        --deep-space: #050518;
+      }
+
+      body {
+        background-color: var(--deep-space);
+        color: #ffffff;
+        font-family: "Space Grotesk", sans-serif;
+        overflow-x: hidden;
+        position: relative;
+        line-height: 1.6;
+      }
+
+      /* Background galaxy animation */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at 10% 20%, rgba(93, 46, 142, 0.15) 0%, transparent 20%), radial-gradient(circle at 80% 30%, rgba(0, 247, 255, 0.1) 0%, transparent 25%),
+          radial-gradient(circle at 40% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 30%);
+        z-index: -3;
+        animation: galaxyRotate 120s linear infinite;
+      }
+
+      @keyframes galaxyRotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Stars animation */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 1px, transparent 2px), radial-gradient(white, rgba(255, 255, 255, 0.15) 1px, transparent 1.5px), radial-gradient(white, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 550px 550px, 350px 350px, 250px 250px;
+        background-position: 0 0, 40px 60px, 130px 270px;
+        animation: stars 120s linear infinite;
+        z-index: -2;
+      }
+
+      @keyframes stars {
+        from {
+          background-position: 0 0, 40px 60px, 130px 270px;
+        }
+        to {
+          background-position: -550px 0, -310px 60px, -120px 270px;
+        }
+      }
+
+      /* Twinkling stars effect */
+      .twinkling {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        z-index: -1;
+      }
+
+      .twinkle-star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite ease-in-out;
+        opacity: 0;
+      }
+
+      @keyframes twinkle {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+      }
+
+      /* Shooting stars */
+      .shooting-star {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--neon-blue));
+        animation: shootingStar linear forwards;
+        z-index: -1;
+      }
+
+      @keyframes shootingStar {
+        0% {
+          transform: translate(0, 0) rotate(30deg);
+          opacity: 0;
+          width: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(300px, 150px) rotate(30deg);
+          opacity: 0;
+          width: 150px;
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Orbitron", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2.5rem;
+        padding-bottom: 10px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        border-radius: 3px;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: rgba(10, 10, 42, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(93, 46, 142, 0.5);
+        padding: 12px 0;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand {
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: var(--neon-blue);
+        text-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-brand i {
+        margin-right: 10px;
+        font-size: 1.5rem;
+      }
+
+      .nav-link {
+        color: #ffffff !important;
+        margin: 0 10px;
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--neon-pink);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Simplified Hero Section */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: 80px;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+        line-height: 1.2;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.03);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .hero-subtitle {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        color: #e0e0ff;
+      }
+
+      .btn-neon {
+        background: transparent;
+        color: var(--neon-blue);
+        border: 2px solid var(--neon-blue);
+        border-radius: 30px;
+        padding: 12px 30px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        font-size: 1.1rem;
+      }
+
+      .btn-neon::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        transition: width 0.5s ease;
+        z-index: -1;
+      }
+
+      .btn-neon:hover {
+        color: var(--galaxy-dark);
+        box-shadow: 0 0 20px rgba(0, 247, 255, 0.7);
+      }
+
+      .btn-neon:hover::before {
+        width: 100%;
+      }
+
+      .btn-neon-pink {
+        border-color: var(--neon-pink);
+        color: var(--neon-pink);
+      }
+
+      .btn-neon-pink::before {
+        background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+      }
+
+      /* Section styling */
+      section {
+        padding: 100px 0;
+        position: relative;
+      }
+
+      .section-card {
+        background: rgba(15, 15, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        border: 1px solid rgba(93, 46, 142, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        height: 100%;
+        margin-bottom: 30px;
+      }
+
+      .section-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(93, 46, 142, 0.4);
+      }
+
+      /* About Section with Photo */
+      .about-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .profile-photo-container {
+        flex: 0 0 300px;
+        max-width: 100%;
+      }
+
+      .profile-photo {
+        width: 100%;
+        height: 0;
+        padding-bottom: 177.78%; /* 9:16 ratio (16/9=1.7778) */
+        background-color: #1a0639;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .profile-photo-placeholder {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--neon-blue);
+        font-size: 4rem;
+        background: linear-gradient(135deg, var(--galaxy-purple), #1a0639);
+      }
+
+      .profile-info {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .info-item {
+        margin-bottom: 15px;
+        display: flex;
+      }
+
+      .info-label {
+        min-width: 140px;
+        font-weight: 600;
+        color: var(--neon-blue);
+      }
+
+      .info-value {
+        color: #e0e0ff;
+      }
+
+      /* Skills Section */
+      .skill-container {
+        margin-bottom: 40px;
+      }
+
+      .skill-title {
+        color: var(--neon-blue);
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+
+      .skill-item {
+        margin-bottom: 25px;
+      }
+
+      .skill-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        color: #e0e0ff;
+      }
+
+      .skill-bar {
+        height: 10px;
+        background: rgba(93, 46, 142, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+        border-radius: 5px;
+        position: relative;
+        animation: progressAnimation 1.5s ease-out forwards;
+      }
+
+      @keyframes progressAnimation {
+        from {
+          width: 0;
+        }
+      }
+
+      .soft-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .soft-skill-badge {
+        background: rgba(93, 46, 142, 0.3);
+        color: var(--neon-blue);
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .soft-skill-badge:hover {
+        background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+        color: var(--galaxy-dark);
+        transform: translateY(-3px);
+      }
+
+      /* Projects Section */
+      .projects-section {
+        background: rgba(5, 5, 20, 0.7);
+      }
+
+      .project-card {
+        background: rgba(15, 15, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(93, 46, 142, 0.3);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-blue));
+        z-index: -1;
+        border-radius: 17px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        border-color: transparent;
+      }
+
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      .project-img {
+        height: 200px;
+        background: linear-gradient(135deg, var(--galaxy-purple), #1a0639);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--neon-blue);
+        font-size: 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-img::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, transparent, rgba(0, 247, 255, 0.1));
+      }
+
+      .project-title {
+        color: var(--neon-blue);
+        margin-top: 15px;
+        font-size: 1.5rem;
+      }
+
+      .project-desc {
+        color: #c0c0ff;
+        margin-bottom: 20px;
+        min-height: 70px;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 15px;
+      }
+
+      .tech-badge {
+        background: rgba(93, 46, 142, 0.3);
+        color: var(--neon-blue);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+      }
+
+      /* Education & Experience Combined Section */
+      .combined-section {
+        background: rgba(5, 5, 20, 0.7);
+        padding: 100px 0;
+      }
+
+      .timeline-container {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .timeline-container::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        background-color: rgba(93, 46, 142, 0.5);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+      }
+
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-color: var(--neon-blue);
+        border: 4px solid rgba(0, 247, 255, 0.2);
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .left {
+        left: 0;
+      }
+
+      .right {
+        left: 50%;
+      }
+
+      .left::after {
+        right: -17px;
+      }
+
+      .right::after {
+        left: -17px;
+      }
+
+      .timeline-content {
+        padding: 20px 30px;
+        background: rgba(15, 15, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(93, 46, 142, 0.3);
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(93, 46, 142, 0.4);
+      }
+
+      .timeline-date {
+        color: var(--neon-blue);
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .timeline-date i {
+        margin-right: 10px;
+      }
+
+      .timeline-title {
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .timeline-type {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: rgba(93, 46, 142, 0.3);
+        color: var(--neon-pink);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .education-type {
+        background: rgba(0, 247, 255, 0.15);
+        color: var(--neon-blue);
+      }
+
+      .experience-type {
+        background: rgba(255, 0, 200, 0.15);
+        color: var(--neon-pink);
+      }
+
+      /* Contact Section */
+      .contact-form {
+        background: rgba(15, 15, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(93, 46, 142, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .contact-form:hover {
+        transform: translateY(-5px);
+      }
+
+      .form-control {
+        background: rgba(25, 25, 60, 0.7);
+        border: 1px solid rgba(93, 46, 142, 0.5);
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 12px 20px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        background: rgba(30, 30, 70, 0.9);
+        border-color: var(--neon-blue);
+        box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+        color: #ffffff;
+      }
+
+      .form-label {
+        color: var(--neon-blue);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .contact-info {
+        background: rgba(15, 15, 45, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid rgba(93, 46, 142, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        height: 100%;
+        transition: transform 0.3s ease;
+      }
+
+      .contact-info:hover {
+        transform: translateY(-5px);
+      }
+
+      .contact-item {
+        display: flex;
+        margin-bottom: 25px;
+        align-items: flex-start;
+      }
+
+      .contact-icon {
+        min-width: 50px;
+        height: 50px;
+        background: rgba(93, 46, 142, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: var(--neon-blue);
+        transition: all 0.3s ease;
+      }
+
+      .contact-item:hover .contact-icon {
+        background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+        color: var(--galaxy-dark);
+        transform: scale(1.1);
+      }
+
+      .contact-details h4 {
+        color: var(--neon-blue);
+        margin-bottom: 5px;
+      }
+
+      /* Connect With Me Section */
+      .social-links-container {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(93, 46, 142, 0.3);
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .social-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(93, 46, 142, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--neon-blue);
+        font-size: 1.4rem;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .social-icon:hover {
+        background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+        color: var(--galaxy-dark);
+        transform: translateY(-5px);
+      }
+
+      .social-icon span {
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(15, 15, 45, 0.9);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .social-icon:hover span {
+        opacity: 1;
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(5, 5, 15, 0.9);
+        padding: 30px 0;
+        border-top: 1px solid rgba(93, 46, 142, 0.3);
+        position: relative;
+      }
+
+      /* Floating planets */
+      .planet {
+        position: absolute;
+        border-radius: 50%;
+        z-index: -1;
+        filter: blur(1px);
+        opacity: 0.7;
+      }
+
+      .planet-1 {
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle at 30% 30%, #5d2e8e, #2a0b4a);
+        top: 10%;
+        left: 5%;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .planet-2 {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle at 30% 30%, #ff00c8, #8a0b5c);
+        bottom: 15%;
+        right: 10%;
+        animation: float 10s ease-in-out infinite reverse;
+      }
+
+      /* Animations */
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(3deg);
+        }
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+      }
+
+      .floating {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .delay-1 {
+        animation-delay: 0.2s;
+      }
+      .delay-2 {
+        animation-delay: 0.4s;
+      }
+      .delay-3 {
+        animation-delay: 0.6s;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 1200px) {
+        .hero-title {
+          font-size: 4.5rem;
+        }
+        .hero-subtitle {
+          font-size: 2.2rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .hero-title {
+          font-size: 3.8rem;
+        }
+        .hero-subtitle {
+          font-size: 1.8rem;
+        }
+
+        .section-card {
+          padding: 25px;
+        }
+
+        .contact-form,
+        .contact-info {
+          padding: 30px;
+        }
+
+        .profile-photo-container {
+          flex: 0 0 250px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 3rem;
+        }
+        .hero-subtitle {
+          font-size: 1.5rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .btn-neon {
+          padding: 10px 25px;
+          font-size: 1rem;
+        }
+
+        .info-item {
+          flex-direction: column;
+        }
+
+        .info-label {
+          min-width: 100%;
+          margin-bottom: 5px;
+        }
+
+        .timeline-container::after {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::after {
+          left: 18px;
+        }
+
+        .right {
+          left: 0;
+        }
+
+        .social-icon {
+          width: 45px;
+          height: 45px;
+          font-size: 1.2rem;
+        }
+
+        .social-icon span {
+          font-size: 0.6rem;
+          bottom: -20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+        .hero-subtitle {
+          font-size: 1.3rem;
+        }
+
+        .navbar-brand {
+          font-size: 1.5rem;
+        }
+
+        .section-card {
+          padding: 20px;
+        }
+
+        .contact-form,
+        .contact-info {
+          padding: 20px;
+        }
+
+        .btn-container {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .btn-neon {
+          width: 100%;
+          margin-right: 0 !important;
+        }
+
+        .project-img {
+          height: 150px;
+        }
+
+        .project-title {
+          font-size: 1.3rem;
+        }
+
+        .project-desc {
+          min-height: auto;
+        }
+
+        .social-links {
+          gap: 10px;
+        }
+
+        .social-icon {
+          width: 40px;
+          height: 40px;
+          font-size: 1.1rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .hero-title {
+          font-size: 2.2rem;
+        }
+
+        .profile-photo-container {
+          flex: 0 0 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background elements -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="planet planet-1"></div>
+    <div class="planet planet-2"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-rocket"></i>
+          Nzie<span style="color: var(--neon-pink)">raaa</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#skills">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#edu-exp">Edu & Exp</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Simplified Hero Section -->
+    <section id="hero">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 hero-content">
+            <h1 class="hero-title">Nancy Akisya</h1>
+            <h2 class="hero-subtitle">Software & Game Developer</h2>
+            <div class="d-flex btn-container justify-content-center mt-4">
+              <a href="#projects" class="btn btn-neon me-3">View Projects</a>
+              <a href="#contact" class="btn btn-neon btn-neon-pink">Contact Me</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Hero Section -->
+
+    <!-- Enhanced About Section -->
+    <section id="about">
+      <div class="container">
+        <h2 class="text-center section-title">About Me</h2>
+        <div class="row">
+          <!-- Kolom untuk foto profil -->
+          <div class="col-lg-4 mb-4">
+            <div class="section-card floating">
+              <div class="profile-photo-container">
+                <div class="profile-photo">
+                  <img src="ncy.jpeg" alt="Nancy Akisya" style="position: absolute; width: 100%; height: 100%; object-fit: cover; border-radius: 10px" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom untuk informasi pribadi -->
+          <div class="col-lg-8 mb-4">
+            <div class="section-card floating">
+              <h3 class="mb-4">Professional Profile</h3>
+              <p>
+                I'm Nancy Akisya Nurwijayanti, a dedicated student at SMK Negeri 5 Malang specializing in Software and Game Development (PPLG). With a passion for creating innovative digital solutions, I'm constantly expanding my skills in
+                both web and mobile application development.
+              </p>
+              <p>My approach combines technical expertise with creative problem-solving to deliver user-centric solutions that make an impact. I thrive in collaborative environments and enjoy tackling complex challenges.</p>
+
+              <div class="about-info mt-4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="info-item">
+                      <span class="info-label">Full Name:</span>
+                      <span class="info-value">Nancy Akisya Nurwijayanti</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Date of Birth:</span>
+                      <span class="info-value">February 13, 2009</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Education:</span>
+                      <span class="info-value">SMK Negeri 5 Malang (PPLG)</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="info-item">
+                      <span class="info-label">Email:</span>
+                      <span class="info-value">nancy.akisya.n@gmail.com</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Phone:</span>
+                      <span class="info-value">+62 851-1729-4311</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Location:</span>
+                      <span class="info-value">Malang, East Java</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Languages:</span>
+                      <span class="info-value">Indonesian (Native), English (Fluent)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hobi & Minat -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="section-card floating">
+              <h3 class="mb-4">Hobbies & Interests</h3>
+              <div class="soft-skills">
+                <div class="soft-skill-badge">Game Development</div>
+                <div class="soft-skill-badge">UI/UX Design</div>
+                <div class="soft-skill-badge">Digital Art</div>
+                <div class="soft-skill-badge">Technology Trends</div>
+                <div class="soft-skill-badge">Open Source Projects</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End About Section -->
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="text-center section-title">Skills & Expertise</h2>
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="section-card floating">
+              <div class="skill-container">
+                <h3 class="skill-title">Technical Skills</h3>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>HTML5 & CSS3</span>
+                    <span>90%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>JavaScript</span>
+                    <span>85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>PHP</span>
+                    <span>80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>Python</span>
+                    <span>75%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>SQL</span>
+                    <span>85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>C++</span>
+                    <span>70%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 70%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="section-card floating">
+              <div class="skill-container">
+                <h3 class="skill-title">Development Tools</h3>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>Visual Studio Code</span>
+                    <span>95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>Git & GitHub</span>
+                    <span>85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>Unity Engine</span>
+                    <span>80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 80%"></div>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-name">
+                    <span>Adobe Photoshop</span>
+                    <span>75%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="skill-container mt-5">
+                <h3 class="skill-title">Soft Skills</h3>
+                <div class="soft-skills">
+                  <div class="soft-skill-badge">Communication</div>
+                  <div class="soft-skill-badge">Teamwork</div>
+                  <div class="soft-skill-badge">Time Management</div>
+                  <div class="soft-skill-badge">Problem Solving</div>
+                  <div class="soft-skill-badge">Creativity</div>
+                  <div class="soft-skill-badge">Adaptability</div>
+                  <div class="soft-skill-badge">Leadership</div>
+                  <div class="soft-skill-badge">Attention to Detail</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Skills Section -->
+
+    <!-- Combined Education & Experience Section -->
+    <section id="edu-exp" class="combined-section">
+      <div class="container">
+        <h2 class="text-center section-title mb-5">Education & Experience</h2>
+
+        <div class="timeline-container">
+          <!-- Education Item -->
+          <div class="timeline-item left">
+            <div class="timeline-content floating">
+              <div class="timeline-type education-type"><i class="fas fa-graduation-cap me-1"></i> Education</div>
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2024 - Present</div>
+              <h3 class="timeline-title">SMK Negeri 5 Malang</h3>
+              <p>Software and Game Development (PPLG)</p>
+              <p>Specializing in web development, mobile applications, and game design</p>
+            </div>
+          </div>
+
+          <!-- Experience Item -->
+          <div class="timeline-item right">
+            <div class="timeline-content floating">
+              <div class="timeline-type education-type"><i class="fas fa-briefcase me-1"></i> Education</div>
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2024</div>
+              <h3 class="timeline-title">Inntexia Academy</h3>
+              <p>Intensive Coding Bootcamp</p>
+              <p>Specializing in web development, mobile applications, and game design</p>
+            </div>
+          </div>
+
+          <!-- Experience Item -->
+          <div class="timeline-item left">
+            <div class="timeline-content floating">
+              <div class="timeline-type experience-type"><i class="fas fa-briefcase me-1"></i> Experience</div>
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2025</div>
+              <h3 class="timeline-title">Mobile App Development</h3>
+              <p>Created a mobile inventory management application using Thunkable</p>
+            </div>
+          </div>
+
+          <!-- Experience Item -->
+          <div class="timeline-item right">
+            <div class="timeline-content floating">
+              <div class="timeline-type experience-type"><i class="fas fa-briefcase me-1"></i> Experience</div>
+              <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2024</div>
+              <h3 class="timeline-title">Game Development Project</h3>
+              <p>Developed a 2D platformer game using Unity and C# with physics-based mechanics</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Combined Section -->
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <h2 class="text-center section-title mb-5">Featured Projects</h2>
+
+        <div class="row">
+          <!-- Project 1 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(0.2s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-calculator"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">Advanced Calculator App</h3>
+                <p class="project-desc">Feature-rich calculator with scientific functions and intuitive UI for seamless mathematical operations.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">HTML</span>
+                  <span class="tech-badge">CSS</span>
+                  <span class="tech-badge">JavaScript</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(0.4s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">Self-Service Shop System</h3>
+                <p class="project-desc">Retail management platform with integrated inventory tracking and customer self-checkout features.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">PHP</span>
+                  <span class="tech-badge">MySQL</span>
+                  <span class="tech-badge">Bootstrap</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(0.6s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-warehouse"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">Warehouse Inventory System</h3>
+                <p class="project-desc">Real-time inventory management solution with analytics dashboard for efficient warehouse operations.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">Laravel</span>
+                  <span class="tech-badge">Vue.js</span>
+                  <span class="tech-badge">REST API</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(0.8s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">E-Commerce Marketplace</h3>
+                <p class="project-desc">Full-featured online marketplace with integrated payment processing and order management.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">React</span>
+                  <span class="tech-badge">Node.js</span>
+                  <span class="tech-badge">MongoDB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(1s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">Food Delivery Platform</h3>
+                <p class="project-desc">Mobile food ordering system with real-time tracking and restaurant management dashboard.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">Flutter</span>
+                  <span class="tech-badge">Firebase</span>
+                  <span class="tech-badge">Google Maps API</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6 -->
+          <div class="col-md-6 col-lg-4">
+            <div class="project-card floating" style="animation-delay: calc(1.2s * var(--delay))">
+              <div class="project-img">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="project-title">Space Adventure Game</h3>
+                <p class="project-desc">2D platformer game with physics-based mechanics and immersive space-themed environments.</p>
+                <div class="project-tech">
+                  <span class="tech-badge">Unity</span>
+                  <span class="tech-badge">C#</span>
+                  <span class="tech-badge">Blender</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Projects Section -->
+
+    <!-- Contact Section with Google Sheets Integration -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="text-center section-title mb-5">Get In Touch</h2>
+
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="contact-form floating">
+              <h3 class="mb-4 text-center">Send a Message</h3>
+              <form name="contactForm" id="contactForm">
+                <div class="mb-3">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" name="name" placeholder="Enter your full name" required />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-control" name="email" placeholder="your@email.com" required />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Subject</label>
+                  <input type="text" class="form-control" name="subject" placeholder="What would you like to discuss?" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Your Message</label>
+                  <textarea class="form-control" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-neon w-100" id="submitBtn">
+                  <span id="submitText">Send Message</span>
+                  <span id="submitSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                </button>
+                <div id="formMessage" class="mt-3 text-center"></div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="contact-info floating">
+              <h3 class="mb-4 text-center">Contact Information</h3>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Location</h4>
+                  <p>Malang, East Java, Indonesia</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <p>nancy.akisya.n@gmail.com</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Phone</h4>
+                  <p>+62 851-1729-4311</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Education</h4>
+                  <p>SMK Negeri 5 Malang, Software & Game Development</p>
+                </div>
+              </div>
+
+              <!-- Connect With Me Section -->
+              <div class="social-links-container">
+                <h4 class="text-center mb-3">Connect With Me</h4>
+                <div class="social-links">
+                  <a href="https://github.com/Nzieraaa" class="social-icon" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                  </a>
+                  <a href="https://www.instagram.com/cyeraaa.zy?utm_source=qr" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                  </a>
+                  <a href="https://www.youtube.com/@Ncy_A13" class="social-icon" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube</span>
+                  </a>
+                  <a href="https://www.tiktok.com/@cleancy13putri_aurora?is_from_webapp=1&sender_device=pc" class="social-icon" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                    <span>TikTok</span>
+                  </a>
+                  <a href="https://wa.me/6285117294311" class="social-icon" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                  </a>
+                  <a href="https://t.me/Syahraz" class="social-icon" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Contact Section -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="text-center">
+          <p class="mb-0">&copy; 2025 N'zier. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Create twinkling stars
+      function createTwinklingStars() {
+        const container = document.querySelector(".twinkling");
+        if (!container) return;
+
+        const starCount = 150;
+
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.className = "twinkle-star";
+
+          // Random position
+          const top = Math.random() * 100;
+          const left = Math.random() * 100;
+
+          // Random size
+          const size = Math.random() * 2.5;
+
+          // Random animation duration
+          const duration = 2 + Math.random() * 5;
+          const delay = Math.random() * 5;
+
+          star.style.top = `${top}%`;
+          star.style.left = `${left}%`;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.animationDuration = `${duration}s`;
+          star.style.animationDelay = `${delay}s`;
+
+          container.appendChild(star);
+        }
+      }
+
+      // Create shooting stars
+      function createShootingStar() {
+        const star = document.createElement("div");
+        star.className = "shooting-star";
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        document.body.appendChild(star);
+
+        setTimeout(() => {
+          star.remove();
+        }, 5000);
+      }
+
+      // Create multiple shooting stars
+      setInterval(createShootingStar, 5000);
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.style.padding = "10px 0";
+          navbar.style.backgroundColor = "rgba(10, 10, 42, 0.95)";
+        } else {
+          navbar.style.padding = "12px 0";
+          navbar.style.backgroundColor = "rgba(10, 10, 42, 0.95)";
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 70,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Add random delays to floating elements
+      function addRandomDelays() {
+        const floatingElements = document.querySelectorAll(".floating");
+        floatingElements.forEach((el) => {
+          const randomDelay = Math.floor(Math.random() * 10) + 1; // 1-10
+          el.style.setProperty("--delay", randomDelay);
+          el.style.animationDelay = `calc(0.2s * ${randomDelay})`;
+        });
+      }
+
+      // Google Sheets integration for contact form
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById("submitBtn");
+        const submitText = document.getElementById("submitText");
+        const submitSpinner = document.getElementById("submitSpinner");
+        const formMessage = document.getElementById("formMessage");
+
+        // Show loading state
+        submitText.textContent = "Sending...";
+        submitSpinner.classList.remove("d-none");
+        submitBtn.disabled = true;
+        formMessage.textContent = "";
+
+        // Get form data
+        const formData = {
+          name: this.querySelector('[name="name"]').value,
+          email: this.querySelector('[name="email"]').value,
+          subject: this.querySelector('[name="subject"]').value,
+          message: this.querySelector('[name="message"]').value,
+        };
+
+        // Kirim data ke Google Apps Script
+        fetch("https://script.google.com/macros/s/AKfycbwZLbFWgGNzEFyaaoJ9ZnyDbK997WDqdRDCpUc_i0w_E946enukNxqWnnaNm9WpyfddCQ/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(formData).toString(),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result === "success") {
+              // Reset form
+              this.reset();
+              formMessage.innerHTML = '<div class="alert alert-success">Your message has been sent successfully!</div>';
+            } else {
+              throw new Error(data.error || "Unknown error");
+            }
+          })
+          .catch((error) => {
+            formMessage.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+          })
+          .finally(() => {
+            // Reset button state
+            submitText.textContent = "Send Message";
+            submitSpinner.classList.add("d-none");
+            submitBtn.disabled = false;
+
+            // Clear message after 5 seconds
+            setTimeout(() => {
+              formMessage.textContent = "";
+            }, 5000);
+          });
+      });
+
+      // Initialize animations
+      document.addEventListener("DOMContentLoaded", function () {
+        createTwinklingStars();
+        addRandomDelays();
+
+        // Create multiple shooting stars
+        setInterval(createShootingStar, 5000);
+      });
+    </script>
+  </body>
+</html>
