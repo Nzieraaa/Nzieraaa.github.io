@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API-Nancy Akisya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #0f0520;
+        --secondary: #1a0639;
+        --accent: #2d0b5c;
+        --highlight: #6a2c8c;
+        --text: #e6e6fa;
+        --star: #ffd700;
+        --success: #5cb85c;
+        --warning: #f0ad4e;
+        --danger: #d9534f;
+        --info: #5bc0de;
+        --neon-pink: #ff2d75;
+        --neon-green: #0aff9d;
+        --space-blue: #5e2bff;
+        --space-purple: #9546ff;
+        --card-bg: rgba(45, 11, 92, 0.5);
+      }
+
+      body {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+        padding-top: 70px;
+      }
+
+      /* Efek bintang */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .star {
+        position: absolute;
+        background-color: var(--star);
+        border-radius: 50%;
+        animation: twinkle var(--duration, 5s) infinite var(--delay, 0s);
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Splash Screen */
+      .splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0a0215 0%, #1a0639 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 1000;
+        cursor: pointer;
+        transition: opacity 1s ease, transform 1s ease;
+      }
+
+      .splash-content {
+        max-width: 800px;
+        padding: 20px;
+        animation: float 3s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .splash-title {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c, #2d0b5c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 5px #b83bca;
+        }
+        to {
+          text-shadow: 0 0 20px #b83bca, 0 0 30px #6a2c8c;
+        }
+      }
+
+      .splash-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      /* Header & Navigation */
+      header {
+        background: rgba(26, 6, 57, 0.95);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        border-bottom: 1px solid rgba(184, 59, 202, 0.3);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo i {
+        margin-right: 10px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .nav-links a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        padding: 8px 15px;
+        border-radius: 5px;
+        white-space: nowrap;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--highlight);
+        background: rgba(106, 44, 140, 0.3);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--text);
+      }
+
+      /* Main Content */
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 40px 20px;
+        margin-bottom: 40px;
+        background: rgba(45, 11, 92, 0.4);
+        border-radius: 15px;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        max-width: 900px;
+        margin: 0 auto 25px;
+        line-height: 1.6;
+      }
+
+      .content-section {
+        margin-bottom: 50px;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+        margin: 40px 0 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent);
+        display: inline-block;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .section-subtitle {
+        font-size: 1.6rem;
+        margin: 30px 0 15px;
+        color: var(--highlight);
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .two-column-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 0.5s ease forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(106, 44, 140, 0.3);
+      }
+
+      .card h3 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+        color: var(--highlight);
+      }
+
+      .card p {
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .card ul {
+        padding-left: 20px;
+        margin: 15px 0;
+      }
+
+      .card li {
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+
+      .visualization {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+        text-align: center;
+      }
+
+      .api-flow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin: 30px 0;
+      }
+
+      .flow-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 150px;
+      }
+
+      .flow-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--secondary);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        border: 2px solid var(--accent);
+      }
+
+      .flow-arrow {
+        font-size: 2rem;
+        color: var(--highlight);
+      }
+
+      .interactive-section {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      .api-type {
+        background: var(--primary);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border: 1px solid var(--accent);
+      }
+
+      .api-type:hover {
+        transform: translateY(-5px);
+        border-color: var(--highlight);
+      }
+
+      .api-type h4 {
+        color: var(--highlight);
+        margin-bottom: 10px;
+      }
+
+      .code-container {
+        background: #1e1e1e;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        overflow-x: auto;
+      }
+
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+
+      .copy-btn {
+        background: rgba(106, 44, 140, 0.3);
+        border: none;
+        color: var(--text);
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .copy-btn:hover {
+        background: rgba(106, 44, 140, 0.5);
+      }
+
+      pre {
+        margin: 0;
+        padding: 0;
+        background: transparent !important;
+      }
+
+      /* API Key Section */
+      .api-key-section {
+        background: rgba(30, 20, 60, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid var(--space-purple);
+        box-shadow: 0 0 20px rgba(94, 43, 255, 0.2);
+      }
+
+      .api-key-demo {
+        margin-top: 15px;
+      }
+
+      .api-key-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .api-key-status {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .unauthorized {
+        background: rgba(255, 45, 85, 0.2);
+        color: var(--neon-pink);
+      }
+
+      .authorized {
+        background: rgba(0, 255, 136, 0.2);
+        color: var(--neon-green);
+      }
+
+      .btn-add-key {
+        background: rgba(94, 43, 255, 0.2);
+        color: var(--space-blue);
+        border: 1px solid var(--space-blue);
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-add-key:hover {
+        background: rgba(94, 43, 255, 0.4);
+      }
+
+      .api-key-input {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .api-key-input input {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--space-purple);
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+      }
+
+      .btn-validate {
+        background: linear-gradient(45deg, var(--neon-pink), var(--space-purple));
+        color: white;
+        border: none;
+        padding: 0 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-validate:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 45, 117, 0.4);
+      }
+
+      @keyframes shoot {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(300px) translateY(50px);
+          opacity: 0;
+        }
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 2px var(--space-blue);
+        top: 20px;
+        left: -20px;
+        animation: shoot 1s linear;
+      }
+
+      .api-demo {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      /* NASA API Demo */
+      .nasa-demo {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      .nasa-controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .nasa-controls input,
+      .nasa-controls select {
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: 1px solid var(--accent);
+        background: rgba(26, 6, 57, 0.7);
+        color: var(--text);
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .nasa-controls button {
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .nasa-controls button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(106, 44, 140, 0.4);
+      }
+
+      .nasa-results {
+        margin-top: 20px;
+      }
+
+      .nasa-item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: center;
+        background: rgba(26, 6, 57, 0.4);
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--accent);
+      }
+
+      .nasa-image-container img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .nasa-item h4 {
+        color: var(--highlight);
+        margin-bottom: 10px;
+      }
+
+      .nasa-item p {
+        margin-top: 10px;
+        font-size: 0.9rem;
+      }
+
+      .quiz-container {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 40px 0;
+        border: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      .quiz-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .quiz-input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .quiz-input input {
+        width: 300px;
+        padding: 12px 20px;
+        border-radius: 30px;
+        border: 1px solid var(--accent);
+        background: rgba(26, 6, 57, 0.7);
+        color: var(--text);
+        font-size: 1.1rem;
+        text-align: center;
+        outline: none;
+      }
+
+      .quiz-input button {
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        color: white;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .quiz-input button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(106, 44, 140, 0.4);
+      }
+
+      .quiz-content {
+        display: none;
+      }
+
+      .quiz-progress {
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        text-align: center;
+      }
+
+      .progress-bar {
+        height: 10px;
+        background: rgba(26, 6, 57, 0.7);
+        border-radius: 5px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+
+      .quiz-question {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: rgba(26, 6, 57, 0.4);
+        border-radius: 10px;
+      }
+
+      .quiz-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .quiz-option {
+        background: rgba(26, 6, 57, 0.7);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid var(--accent);
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .quiz-option:hover {
+        background: rgba(106, 44, 140, 0.3);
+      }
+
+      .quiz-option.selected {
+        background: rgba(106, 44, 140, 0.5);
+        border-color: var(--highlight);
+      }
+
+      .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .quiz-btn {
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .quiz-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(106, 44, 140, 0.4);
+      }
+
+      .quiz-btn:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .quiz-result {
+        display: none;
+        text-align: center;
+        padding: 30px;
+      }
+
+      .score-display {
+        font-size: 4rem;
+        font-weight: bold;
+        margin: 20px 0;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .score-message {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+      }
+
+      .quiz-feedback {
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: none;
+      }
+
+      .quiz-feedback.correct {
+        background: rgba(92, 184, 92, 0.2);
+        border: 1px solid var(--success);
+        display: block;
+      }
+
+      .quiz-feedback.incorrect {
+        background: rgba(217, 83, 79, 0.2);
+        border: 1px solid var(--danger);
+        display: block;
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(10, 2, 21, 0.9);
+        padding: 50px 20px 20px;
+        text-align: center;
+        border-top: 1px solid rgba(184, 59, 202, 0.3);
+        margin-top: 50px;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: all 0.3s;
+        padding: 8px 15px;
+        border-radius: 30px;
+        background: rgba(45, 11, 92, 0.5);
+      }
+
+      .social-link:hover {
+        color: var(--highlight);
+        background: rgba(106, 44, 140, 0.3);
+        transform: translateY(-3px);
+      }
+
+      .social-link i {
+        margin-right: 8px;
+        font-size: 1.2rem;
+      }
+
+      .signature {
+        font-size: 1.1rem;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(184, 59, 202, 0.2);
+      }
+
+      .signature span {
+        color: var(--highlight);
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(90deg, #b83bca, #6a2c8c);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 99;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Responsiveness */
+      @media (max-width: 1100px) {
+        .nav-container {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .splash-title {
+          font-size: 2.2rem;
+        }
+
+        .splash-subtitle {
+          font-size: 1.3rem;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 70px;
+          left: 0;
+          right: 0;
+          background: rgba(26, 6, 57, 0.95);
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 0;
+          gap: 15px;
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          transition: clip-path 0.4s ease;
+        }
+
+        .nav-links.active {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1.1rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .two-column-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow-arrow {
+          transform: rotate(90deg);
+          margin: 15px 0;
+        }
+
+        .quiz-input input {
+          width: 100%;
+        }
+
+        .api-key-input {
+          flex-direction: column;
+        }
+
+        .api-key-input input {
+          width: 100%;
+        }
+
+        .nasa-controls {
+          flex-direction: column;
+        }
+
+        .nasa-item {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Efek Bintang -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+      <div class="splash-content">
+        <h1 class="splash-title">Application Programming Interface (API)</h1>
+        <p class="splash-subtitle">Selamat datang, Saya Nancy Akisya<br />Siswi SMKN 5 Malang kelas XI-PPLG 1<br />Mempresentasikan materi API</p>
+      </div>
+    </div>
+
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="nav-container">
+        <div class="logo"><i class="fas fa-code"></i>Nzier<span style="color: var(--highlight)">aaa</span></div>
+
+        <div class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+        <nav class="nav-links" id="navLinks">
+          <a href="#pengertian">Pengertian API</a>
+          <a href="#cara-kerja">Cara Kerja</a>
+          <a href="#jenis-api">Jenis API</a>
+          <a href="#rest-api">REST API</a>
+          <a href="#implementasi">Implementasi</a>
+          <a href="#demo-nasa">Demo NASA API</a>
+          <a href="#kuis">Kuis</a>
+          <a href="ncy.html" class="active">Portofolio</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <section class="hero">
+        <h1>Memahami Application Programming Interface (API)</h1>
+        <p>API adalah mekanisme yang memungkinkan dua komponen perangkat lunak untuk saling berkomunikasi menggunakan serangkaian definisi dan protokol.</p>
+      </section>
+
+      <section id="pengertian" class="content-section">
+        <h2 class="section-title">Apa itu API?</h2>
+        <div class="content-grid">
+          <div class="card">
+            <h3><i class="fas fa-info-circle"></i> Definisi API</h3>
+            <p>API (Application Programming Interface) adalah mekanisme yang memungkinkan dua komponen perangkat lunak untuk saling berkomunikasi menggunakan serangkaian definisi dan protokol.</p>
+            <p>
+              Misalnya, sistem perangkat lunak badan meteorologi, klimatologi, dan geofisika (BMKG) berisi data cuaca harian. Aplikasi cuaca di ponsel Anda "berkomunikasi" dengan sistem ini melalui API dan menampilkan pembaruan cuaca harian
+              di ponsel Anda.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-signature"></i> Kepanjangan API</h3>
+            <p>API merupakan kepanjangan dari Application Programming Interface (Antarmuka Pemrograman Aplikasi).</p>
+            <p>
+              Kata "Aplikasi" pada API merujuk pada perangkat lunak dengan fungsi yang berbeda. Kata "Antarmuka" dapat diartikan sebagai kontrak layanan antara dua aplikasi. Kontrak ini menjelaskan cara keduanya saling berkomunikasi dengan
+              menggunakan permintaan (request) dan respons (response).
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-cogs"></i> Komponen Utama API</h3>
+          <p>API terdiri dari beberapa komponen utama yang membentuk fungsionalitasnya:</p>
+          <ul>
+            <li><strong>Endpoint</strong>: URL yang digunakan untuk mengakses API</li>
+            <li><strong>Metode HTTP</strong>: GET, POST, PUT, DELETE, dll.</li>
+            <li><strong>Header</strong>: Informasi tambahan seperti autentikasi</li>
+            <li><strong>Body</strong>: Data yang dikirimkan dalam permintaan</li>
+            <li><strong>Response</strong>: Data yang dikembalikan oleh API</li>
+            <li><strong>Status Code</strong>: Kode yang menunjukkan status permintaan (200, 404, 500, dll.)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="cara-kerja" class="content-section">
+        <h2 class="section-title">Bagaimana Cara Kerja API?</h2>
+
+        <div class="visualization">
+          <h3 class="section-subtitle"><i class="fas fa-sitemap"></i> Arsitektur API</h3>
+          <p>Arsitektur API biasanya dijelaskan dalam kaitannya dengan klien dan server. Aplikasi yang mengirimkan permintaan disebut sebagai klien dan aplikasi yang mengirimkan respons disebut sebagai server.</p>
+
+          <div class="api-flow">
+            <div class="flow-item">
+              <div class="flow-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <h3>Klien</h3>
+              <p>(Aplikasi Pengguna)</p>
+            </div>
+
+            <div class="flow-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <div class="flow-item">
+              <div class="flow-icon">
+                <i class="fas fa-exchange-alt"></i>
+              </div>
+              <h3>API</h3>
+              <p>(Perantara)</p>
+            </div>
+
+            <div class="flow-arrow">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+
+            <div class="flow-item">
+              <div class="flow-icon">
+                <i class="fas fa-server"></i>
+              </div>
+              <h3>Server</h3>
+              <p>(Penyedia Data)</p>
+            </div>
+
+            <div class="flow-arrow">
+              <i class="fas fa-arrow-left"></i>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-subtitle"><i class="fas fa-history"></i> Perkembangan API</h3>
+        <div class="content-grid">
+          <div class="card">
+            <h3><i class="fab fa-xing"></i> API SOAP</h3>
+            <p>API ini menggunakan Simple Object Access Protocol. Klien dan server saling bertukar pesan menggunakan XML. API yang kurang fleksibel ini populer di masa lalu.</p>
+            <p><strong>Karakteristik:</strong></p>
+            <ul>
+              <li>Menggunakan XML untuk pertukaran data</li>
+              <li>Berbasis protokol (biasanya HTTP atau SMTP)</li>
+              <li>Mendefinisikan struktur pesan yang ketat</li>
+              <li>Mendukung keamanan WS-Security</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-network-wired"></i> API RPC</h3>
+            <p>API ini disebut sebagai Panggilan Prosedur Jarak Jauh (Remote Procedure Calls). Klien menjalankan fungsi (atau prosedur) pada server, dan server akan mengirimkan output kembali ke klien.</p>
+            <p><strong>Jenis:</strong></p>
+            <ul>
+              <li>XML-RPC: Menggunakan XML untuk mengodekan panggilan</li>
+              <li>JSON-RPC: Menggunakan JSON untuk mengodekan panggilan</li>
+              <li>gRPC: Dikembangkan oleh Google, menggunakan Protobuf</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-sync-alt"></i> API Websocket</h3>
+            <p>API WebSocket mendukung komunikasi dua arah antara aplikasi klien dan server. Server dapat mengirimkan pesan callback ke klien yang terhubung, menjadikannya lebih efisien daripada API REST.</p>
+            <p><strong>Keunggulan:</strong></p>
+            <ul>
+              <li>Komunikasi real-time</li>
+              <li>Overhead rendah</li>
+              <li>Persisten koneksi</li>
+              <li>Ideal untuk aplikasi chat, notifikasi real-time</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-cloud"></i> API REST</h3>
+            <p>
+              API REST merupakan API yang paling populer dan fleksibel di web saat ini. Klien akan mengirimkan permintaan ke server sebagai data. Server akan menggunakan input klien untuk memulai fungsi internal dan mengembalikan data
+              output ke klien.
+            </p>
+            <p><strong>Karakteristik:</strong></p>
+            <ul>
+              <li>Stateless</li>
+              <li>Menggunakan metode HTTP standar</li>
+              <li>Resource-based</li>
+              <li>Representasi data fleksibel (JSON, XML)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="jenis-api" class="content-section">
+        <h2 class="section-title">Jenis-Jenis API</h2>
+
+        <div class="card">
+          <h3><i class="fas fa-layer-group"></i> Klasifikasi Berdasarkan Aksesibilitas</h3>
+          <div class="two-column-grid">
+            <div class="api-type">
+              <h4>Public API</h4>
+              <p>API yang terbuka untuk umum dan dapat diakses oleh siapa saja tanpa batasan signifikan</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Private API</h4>
+              <p>API yang digunakan secara internal dalam sebuah organisasi untuk meningkatkan kolaborasi</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Partner API</h4>
+              <p>API yang hanya tersedia untuk mitra bisnis tertentu melalui perjanjian khusus</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Composite API</h4>
+              <p>Kombinasi dari berbagai API yang memungkinkan pengembang mengakses beberapa endpoint dalam satu panggilan</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-shield-alt"></i> API Berdasarkan Tingkat Keamanan</h3>
+          <div class="two-column-grid">
+            <div class="api-type">
+              <h4>Open API</h4>
+              <p>Tanpa autentikasi atau dengan autentikasi minimal</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Authenticated API</h4>
+              <p>Membutuhkan autentikasi pengguna untuk mengakses</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Secured API</h4>
+              <p>Menggunakan enkripsi dan protokol keamanan tingkat tinggi</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rest-api" class="content-section">
+        <h2 class="section-title">API REST - Yang Paling Populer</h2>
+
+        <div class="content-grid">
+          <div class="card">
+            <h3><i class="fas fa-cogs"></i> Apa itu API REST?</h3>
+            <p>
+              REST merupakan kepanjangan dari Representational State Transfer. REST mendefinisikan fungsi-fungsi seperti GET, PUT, DELETE, dll. yang dapat digunakan klien untuk mengakses data server. Klien dan server saling bertukar data
+              dengan menggunakan HTTP.
+            </p>
+            <p>
+              Fitur utama API REST adalah sifat stateless-nya. Bersifat stateless berarti server tidak menyimpan data klien di antara permintaan. Permintaan klien ke server mirip dengan URL yang Anda ketik di peramban untuk mengunjungi
+              sebuah situs web.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-globe"></i> Apa itu API Web?</h3>
+            <p>
+              API Web atau API Layanan Web merupakan sebuah antarmuka pemrosesan aplikasi antara server web dan peramban web. Semua layanan web merupakan API, tetapi tidak semua API merupakan layanan web. API REST merupakan tipe khusus API
+              Web yang menggunakan gaya arsitektur standar.
+            </p>
+            <p><strong>Contoh penggunaan:</strong></p>
+            <ul>
+              <li>Integrasi dengan aplikasi pihak ketiga</li>
+              <li>Membangun aplikasi mobile backend</li>
+              <li>Mikroservis arsitektur</li>
+              <li>Single Page Applications (SPA)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="section-subtitle"><i class="fas fa-medal"></i> Keuntungan REST API</h3>
+        <div class="two-column-grid">
+          <div class="api-type">
+            <h4><i class="fas fa-link"></i> Integrasi</h4>
+            <p>API digunakan untuk mengintegrasi aplikasi baru dengan sistem perangkat lunak yang sudah ada. Hal ini meningkatkan kecepatan pengembangan, karena masing-masing fungsionalitas tidak harus ditulis dari scratch.</p>
+          </div>
+
+          <div class="api-type">
+            <h4><i class="fas fa-lightbulb"></i> Inovasi</h4>
+            <p>Dengan datangnya aplikasi baru, seluruh industri dapat mengalami perubahan. Bisnis dapat merespons dengan membuat perubahan pada tingkat API tanpa harus menulis ulang seluruh kode.</p>
+          </div>
+
+          <div class="api-type">
+            <h4><i class="fas fa-expand-arrows-alt"></i> Ekspansi</h4>
+            <p>API memberikan peluang yang unik bagi bisnis untuk memenuhi kebutuhan kliennya di seluruh platform. Misalnya, API peta memungkinkan integrasi informasi peta melalui situs web, Android, iOS, dll.</p>
+          </div>
+
+          <div class="api-type">
+            <h4><i class="fas fa-tools"></i> Kemudahan Pemeliharaan</h4>
+            <p>
+              API bertindak sebagai gateway antara dua sistem. Masing-masing sistem wajib melakukan perubahan internal agar API tidak terpengaruh. Dengan cara ini, perubahan kode apa pun di kemudian hari yang dilakukan oleh salah satu pihak
+              tidak akan berdampak pada pihak lainnya.
+            </p>
+          </div>
+        </div>
+
+        <h3 class="section-subtitle"><i class="fas fa-shield-alt"></i> Keamanan REST API</h3>
+        <div class="content-grid">
+          <div class="card">
+            <h3><i class="fas fa-key"></i> Token Autentikasi</h3>
+            <p>Digunakan untuk mengizinkan pengguna melakukan panggilan API. Token autentikasi memeriksa bahwa pengguna adalah pengguna yang sebenarnya dan memiliki hak akses untuk panggilan API tersebut.</p>
+            <p><strong>Contoh:</strong> JWT (JSON Web Tokens), OAuth</p>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-lock"></i> Kunci API</h3>
+            <p>Memverifikasi program atau aplikasi yang membuat panggilan API. Kunci-kunci ini mengidentifikasi aplikasi dan memastikan aplikasi tersebut memiliki hak akses yang diperlukan.</p>
+            <p><strong>Penggunaan:</strong> Untuk API publik yang tidak memerlukan autentikasi pengguna</p>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-user-shield"></i> OAuth</h3>
+            <p>Protokol otorisasi yang memungkinkan aplikasi untuk mengakses sumber daya server atas nama pengguna tanpa harus membagikan kredensial mereka.</p>
+            <p><strong>Protokol:</strong> OAuth 1.0, OAuth 2.0</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="implementasi" class="content-section">
+        <h2 class="section-title">Implementasi API</h2>
+
+        <div class="api-demo">
+          <h3 class="section-subtitle"><i class="fas fa-key"></i> Demo API Key</h3>
+          <p>API Key adalah kode unik yang digunakan untuk mengotentikasi aplikasi pengguna API. Berikut simulasi penggunaan API Key:</p>
+
+          <div class="api-key-demo">
+            <div class="api-key-header">
+              <span class="api-key-status unauthorized">❌ Tidak Terotorisasi</span>
+              <button class="btn-add-key" id="addKeyBtn"><i class="fas fa-plus"></i> Tambah API Key</button>
+            </div>
+
+            <div class="api-key-input">
+              <input type="text" id="api-key-input" placeholder="Masukkan API Key Anda" />
+              <button class="btn-validate" id="validateKeyBtn"><i class="fas fa-check"></i> Validasi</button>
+            </div>
+
+            <div class="api-key-example">
+              <p>Contoh penggunaan API Key NASA:</p>
+              <div class="code-container">
+                <pre><code class="language-javascript">fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
+    .then(response => response.json())
+    .then(data => console.log(data));</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-code"></i> Langkah-Langkah Membuat API</h3>
+          <ol>
+            <li><strong>Perencanaan</strong>: Tentukan tujuan, fungsi, dan target pengguna API</li>
+            <li><strong>Desain</strong>: Buat struktur endpoint, metode HTTP, dan format data</li>
+            <li><strong>Implementasi</strong>: Kembangkan API menggunakan bahasa pemrograman dan framework</li>
+            <li><strong>Pengujian</strong>: Uji setiap endpoint untuk memastikan fungsionalitas yang benar</li>
+            <li><strong>Dokumentasi</strong>: Buat dokumentasi yang jelas untuk pengembang</li>
+            <li><strong>Deployment</strong>: Publikasikan API ke server produksi</li>
+            <li><strong>Pemantauan</strong>: Pantau kinerja dan penggunaan API secara berkala</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-tools"></i> Alat Pengembangan API</h3>
+          <div class="two-column-grid">
+            <div class="api-type">
+              <h4>Postman</h4>
+              <p>Platform kolaborasi untuk pengembangan API</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Swagger</h4>
+              <p>Framework untuk mendesain, membangun, dan mendokumentasikan API</p>
+            </div>
+
+            <div class="api-type">
+              <h4>Insomnia</h4>
+              <p>Klien API open-source untuk GraphQL, REST, dan gRPC</p>
+            </div>
+
+            <div class="api-type">
+              <h4>SoapUI</h4>
+              <p>Alat pengujian API untuk SOAP dan REST</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo-nasa" class="content-section">
+        <h2 class="section-title">Demo NASA API</h2>
+
+        <div class="nasa-demo">
+          <h3 class="section-subtitle"><i class="fas fa-satellite"></i> Implementasi Langsung NASA API</h3>
+          <p>Berikut adalah implementasi langsung dari NASA API untuk menampilkan Astronomy Picture of the Day (APOD) dan gambar bumi:</p>
+
+          <div class="nasa-controls">
+            <input type="date" id="nasaDate" />
+            <select id="nasaApiType">
+              <option value="apod">Astronomy Picture of the Day</option>
+              <option value="earth">Gambar Bumi</option>
+            </select>
+            <button id="fetchNasaData"><i class="fas fa-rocket"></i> Ambil Data</button>
+          </div>
+
+          <div class="nasa-results" id="nasaResults">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+      </section>
+      <section id="kuis" class="content-section">
+        <h2 class="section-title">Kuis Pemahaman API</h2>
+
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <h3><i class="fas fa-graduation-cap"></i> Uji Pemahamanmu Tentang API</h3>
+            <p>Isi nama Anda dan jawab 10 pertanyaan untuk menguji pemahaman Anda tentang API</p>
+          </div>
+
+          <div class="quiz-input" id="quizStart">
+            <input type="text" id="studentName" placeholder="Masukkan Nama Anda" required />
+            <button id="startQuiz">Mulai Kuis</button>
+          </div>
+
+          <div class="quiz-content" id="quizContent">
+            <div class="quiz-progress">
+              <div>Pertanyaan <span id="currentQuestion">1</span> dari <span id="totalQuestions">10</span></div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+            </div>
+
+            <div class="quiz-question" id="questionText"></div>
+
+            <div class="quiz-options" id="optionsContainer"></div>
+
+            <div class="quiz-feedback" id="quizFeedback"></div>
+
+            <div class="quiz-navigation">
+              <button class="quiz-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Sebelumnya</button>
+              <button class="quiz-btn" id="nextBtn">Selanjutnya <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <div class="quiz-result" id="quizResult">
+            <h3><i class="fas fa-trophy"></i> Hasil Kuis</h3>
+            <p>Selamat <span id="resultName"></span>, Anda telah menyelesaikan kuis!</p>
+            <div class="score-display" id="finalScore"></div>
+            <p class="score-message" id="scoreMessage"></p>
+            <button class="quiz-btn" id="restartQuiz"><i class="fas fa-redo"></i> Ulangi Kuis</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="social-links">
+        <a href="https://github.com/Nzieraaa" class="social-link" target="_blank"> <i class="fab fa-github"></i> GitHub </a>
+        <a href="https://www.instagram.com/cyeraaa.zy" class="social-link" target="_blank"> <i class="fab fa-instagram"></i> Instagram </a>
+        <a href="https://www.youtube.com/@Ncy_A13" class="social-link" target="_blank"> <i class="fab fa-youtube"></i> YouTube </a>
+        <a href="https://www.tiktok.com/@cleancy13putri_aurora" class="social-link" target="_blank"> <i class="fab fa-tiktok"></i> TikTok </a>
+        <a href="https://wa.me/6285117294311" class="social-link" target="_blank"> <i class="fab fa-whatsapp"></i> WhatsApp </a>
+        <a href="https://t.me/Syahraz" class="social-link" target="_blank"> <i class="fab fa-telegram"></i> Telegram </a>
+      </div>
+
+      <div class="signature">dibuat dengan <i class="fas fa-heart" style="color: #ff3366"></i> oleh <span>Nzieraaa</span></div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+      // Inisialisasi highlight.js
+      hljs.highlightAll();
+
+      // Generate stars
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        const starCount = 200;
+
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement("div");
+          star.classList.add("star");
+
+          // Random properties
+          const size = Math.random() * 3;
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          const duration = 2 + Math.random() * 8;
+          const delay = Math.random() * 5;
+
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.left = `${posX}%`;
+          star.style.top = `${posY}%`;
+          star.style.setProperty("--duration", `${duration}s`);
+          star.style.setProperty("--delay", `${delay}s`);
+
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Splash screen functionality
+      function handleSplashScreen() {
+        const splashScreen = document.getElementById("splashScreen");
+
+        // Hide splash screen on click
+        splashScreen.addEventListener("click", () => {
+          splashScreen.style.opacity = "0";
+          splashScreen.style.pointerEvents = "none";
+          setTimeout(() => {
+            splashScreen.style.display = "none";
+          }, 3000);
+        });
+
+        // Hide splash screen on Enter key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            splashScreen.style.opacity = "0";
+            splashScreen.style.pointerEvents = "none";
+            setTimeout(() => {
+              splashScreen.style.display = "none";
+            }, 3000);
+          }
+        });
+
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+          splashScreen.style.opacity = "0";
+          splashScreen.style.pointerEvents = "none";
+          setTimeout(() => {
+            splashScreen.style.display = "none";
+          }, 1000);
+        }, 5000);
+      }
+
+      // Mobile menu toggle
+      function setupMobileMenu() {
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("navLinks");
+
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+        });
+      }
+
+      // Back to top button
+      function setupBackToTop() {
+        const backToTop = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+          if (window.pageYOffset > 300) {
+            backToTop.classList.add("visible");
+          } else {
+            backToTop.classList.remove("visible");
+          }
+        });
+
+        backToTop.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+      }
+
+      // API Key Demo functionality
+      function setupAPIKeyDemo() {
+        const addKeyBtn = document.getElementById("addKeyBtn");
+        const validateKeyBtn = document.getElementById("validateKeyBtn");
+        const apiKeyInput = document.getElementById("api-key-input");
+        const apiKeyStatus = document.querySelector(".api-key-status");
+
+        addKeyBtn.addEventListener("click", () => {
+          apiKeyInput.value = "DEMO_KEY";
+        });
+
+        validateKeyBtn.addEventListener("click", () => {
+          if (apiKeyInput.value === "DEMO_KEY") {
+            apiKeyStatus.textContent = "✅ Terotorisasi";
+            apiKeyStatus.classList.remove("unauthorized");
+            apiKeyStatus.classList.add("authorized");
+
+            // Create shooting star effect
+            createShootingStar();
+          } else {
+            apiKeyStatus.textContent = "❌ Key Tidak Valid";
+            apiKeyStatus.classList.add("unauthorized");
+            apiKeyStatus.classList.remove("authorized");
+            apiKeyInput.style.border = "1px solid var(--neon-pink)";
+          }
+        });
+      }
+
+      function createShootingStar() {
+        const apiDemo = document.querySelector(".api-key-demo");
+        const star = document.createElement("div");
+        star.classList.add("shooting-star");
+
+        // Append the star
+        apiDemo.appendChild(star);
+
+        // Remove after animation completes
+        setTimeout(() => {
+          star.remove();
+        }, 1000);
+      }
+
+      // NASA API Demo functionality
+      function setupNasaDemo() {
+        const fetchBtn = document.getElementById("fetchNasaData");
+        const resultsContainer = document.getElementById("nasaResults");
+        const apiTypeSelect = document.getElementById("nasaApiType");
+        const dateInput = document.getElementById("nasaDate");
+
+        // Set default date to today
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.value = today;
+        dateInput.max = today; // Prevent future dates
+
+        fetchBtn.addEventListener("click", async () => {
+          const apiType = apiTypeSelect.value;
+          const date = dateInput.value;
+
+          // Show loading state
+          resultsContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Memuat data...</div>';
+
+          try {
+            if (apiType === "apod") {
+              const response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`);
+              const data = await response.json();
+
+              if (data.media_type === "video") {
+                resultsContainer.innerHTML = `
+                  <div class="nasa-item">
+                    <div class="nasa-image-container">
+                      <iframe width="100%" height="400" src="${data.url}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="nasa-info">
+                      <h4>${data.title}</h4>
+                      <p>${data.date}</p>
+                      <p>${data.explanation}</p>
+                      <p>Copyright: ${data.copyright || "NASA"}</p>
+                    </div>
+                  </div>
+                `;
+              } else {
+                resultsContainer.innerHTML = `
+                  <div class="nasa-item">
+                    <div class="nasa-image-container">
+                      <img src="${data.url}" alt="${data.title}" style="width:100%; border-radius:10px;">
+                    </div>
+                    <div class="nasa-info">
+                      <h4>${data.title}</h4>
+                      <p>${data.date}</p>
+                      <p>${data.explanation}</p>
+                      <p>Copyright: ${data.copyright || "NASA"}</p>
+                    </div>
+                  </div>
+                `;
+              }
+            } else if (apiType === "earth") {
+              // For Earth API, we need latitude and longitude - using default values
+              const lat = 0; // Equator
+              const lon = 100; // Example longitude (Indonesia)
+              const dim = 0.15; // Dimension in degrees
+
+              const response = await fetch(`https://api.nasa.gov/planetary/earth/imagery?lon=${lon}&lat=${lat}&date=${date}&dim=${dim}&api_key=DEMO_KEY`);
+
+              if (!response.ok) {
+                throw new Error("Gambar tidak tersedia untuk tanggal ini. Coba tanggal lain.");
+              }
+
+              // Get the image URL from the response
+              const imageUrl = response.url;
+
+              resultsContainer.innerHTML = `
+                <div class="nasa-item">
+                  <div class="nasa-image-container">
+                    <img src="${imageUrl}" alt="Gambar Bumi" style="width:100%; border-radius:10px;">
+                  </div>
+                  <div class="nasa-info">
+                    <h4>Gambar Bumi</h4>
+                    <p>Tanggal: ${date}</p>
+                    <p>Gambar bumi yang diambil oleh satelit NASA pada tanggal ${date}</p>
+                    <p>Lokasi: Latitude ${lat}°, Longitude ${lon}°</p>
+                  </div>
+                </div>
+              `;
+            }
+          } catch (error) {
+            resultsContainer.innerHTML = `
+              <div class="nasa-item" style="text-align:center; padding:30px;">
+                <p style="color:var(--neon-pink); font-size:1.2rem;">❌ ${error.message}</p>
+                <p>Silakan coba dengan tanggal yang berbeda atau pilih jenis API lain.</p>
+              </div>
+            `;
+          }
+        });
+
+        // Trigger first load on page load
+        fetchBtn.click();
+      }
+      // Quiz functionality
+      function setupQuiz() {
+        const quizData = [
+          {
+            question: "Apa kepanjangan dari API?",
+            options: ["Application Programming Interface", "Advanced Programming Interface", "Application Protocol Interface", "Automated Programming Interface"],
+            correct: 0,
+          },
+          {
+            question: "Manakah yang BUKAN jenis API berdasarkan cara kerjanya?",
+            options: ["API SOAP", "API REST", "API Private", "API RPC"],
+            correct: 2,
+          },
+          {
+            question: "Apa karakteristik utama dari REST API?",
+            options: ["Stateful", "Menggunakan XML secara eksklusif", "Stateless", "Hanya mendukung metode GET"],
+            correct: 2,
+          },
+          {
+            question: "Apa yang dimaksud dengan integrasi API?",
+            options: ["Proses mengembangkan API baru", "Mengotomatisasi pembaruan data antara klien dan server", "Mendokumentasikan API", "Menguji keamanan API"],
+            correct: 1,
+          },
+          {
+            question: "Manakah yang merupakan keuntungan REST API?",
+            options: ["Integrasi yang sulit", "Pemeliharaan yang kompleks", "Ekspansi ke berbagai platform", "Inovasi yang terbatas"],
+            correct: 2,
+          },
+          {
+            question: "Apa fungsi utama dari token autentikasi dalam API?",
+            options: ["Mempercepat kinerja API", "Mengizinkan pengguna melakukan panggilan API", "Mengurangi biaya penggunaan API", "Menyederhanakan dokumentasi API"],
+            correct: 1,
+          },
+          {
+            question: "Manakah yang termasuk kategori API berdasarkan ruang lingkup penggunaannya?",
+            options: ["API REST", "API SOAP", "API Partner", "API Websocket"],
+            correct: 2,
+          },
+          {
+            question: "Apa yang dimaksud dengan titik akhir (endpoint) API?",
+            options: ["Dokumentasi API", "Lokasi digital tempat informasi dikirim dan diterima", "Kunci keamanan API", "Protokol komunikasi API"],
+            correct: 1,
+          },
+          {
+            question: "Manakah yang BUKAN langkah dalam membuat API?",
+            options: ["Merencanakan API", "Membuat dokumentasi", "Memasarkan API", "Mengabaikan pengujian"],
+            correct: 3,
+          },
+          {
+            question: "Apa yang dimaksud dengan API Gateway?",
+            options: ["Bahasa pemrograman untuk membuat API", "Alat pengelolaan API untuk klien korporasi", "Protokol keamanan API", "Jenis API yang digunakan untuk game"],
+            correct: 1,
+          },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let studentName = "";
+        const quizStart = document.getElementById("quizStart");
+        const quizContent = document.getElementById("quizContent");
+        const quizResult = document.getElementById("quizResult");
+        const studentNameInput = document.getElementById("studentName");
+        const startQuizBtn = document.getElementById("startQuiz");
+        const questionText = document.getElementById("questionText");
+        const optionsContainer = document.getElementById("optionsContainer");
+        const currentQuestionEl = document.getElementById("currentQuestion");
+        const totalQuestionsEl = document.getElementById("totalQuestions");
+        const progressFill = document.getElementById("progressFill");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const quizFeedback = document.getElementById("quizFeedback");
+        const resultName = document.getElementById("resultName");
+        const finalScore = document.getElementById("finalScore");
+        const scoreMessage = document.getElementById("scoreMessage");
+        const restartQuizBtn = document.getElementById("restartQuiz");
+
+        totalQuestionsEl.textContent = quizData.length;
+
+        // Start quiz
+        startQuizBtn.addEventListener("click", () => {
+          if (studentNameInput.value.trim() === "") {
+            alert("Silakan masukkan nama Anda terlebih dahulu!");
+            return;
+          }
+
+          studentName = studentNameInput.value.trim();
+          quizStart.style.display = "none";
+          quizContent.style.display = "block";
+          loadQuestion();
+        });
+
+        // Load question
+        function loadQuestion() {
+          const question = quizData[currentQuestion];
+          questionText.textContent = question.question;
+          optionsContainer.innerHTML = "";
+
+          currentQuestionEl.textContent = currentQuestion + 1;
+          progressFill.style.width = `${(currentQuestion / quizData.length) * 100}%`;
+
+          question.options.forEach((option, index) => {
+            const optionElement = document.createElement("div");
+            optionElement.classList.add("quiz-option");
+            optionElement.textContent = option;
+            optionElement.dataset.index = index;
+
+            optionElement.addEventListener("click", () => {
+              // Remove selected class from all options
+              document.querySelectorAll(".quiz-option").forEach((opt) => {
+                opt.classList.remove("selected");
+              });
+
+              // Add selected class to clicked option
+              optionElement.classList.add("selected");
+
+              // Check if answer is correct
+              const isCorrect = index === question.correct;
+
+              if (isCorrect) {
+                quizFeedback.textContent = "Jawaban Anda benar!";
+                quizFeedback.className = "quiz-feedback correct";
+              } else {
+                quizFeedback.textContent = `Jawaban yang benar: ${question.options[question.correct]}`;
+                quizFeedback.className = "quiz-feedback incorrect";
+              }
+            });
+
+            optionsContainer.appendChild(optionElement);
+          });
+
+          // Update button states
+          prevBtn.disabled = currentQuestion === 0;
+          nextBtn.textContent = currentQuestion === quizData.length - 1 ? "Selesai" : "Selanjutnya";
+        }
+
+        // Navigation
+        prevBtn.addEventListener("click", () => {
+          if (currentQuestion > 0) {
+            currentQuestion--;
+            loadQuestion();
+            quizFeedback.style.display = "none";
+          }
+        });
+
+        nextBtn.addEventListener("click", () => {
+          const selectedOption = document.querySelector(".quiz-option.selected");
+
+          if (!selectedOption) {
+            alert("Silakan pilih jawaban terlebih dahulu!");
+            return;
+          }
+
+          // Check if answer is correct
+          if (parseInt(selectedOption.dataset.index) === quizData[currentQuestion].correct) {
+            score++;
+          }
+
+          if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            loadQuestion();
+            quizFeedback.style.display = "none";
+          } else {
+            showResult();
+          }
+        });
+
+        // Show result
+        function showResult() {
+          quizContent.style.display = "none";
+          quizResult.style.display = "block";
+
+          resultName.textContent = studentName;
+          finalScore.textContent = `${score}/${quizData.length}`;
+
+          const percentage = Math.round((score / quizData.length) * 100);
+          let message = "";
+
+          if (percentage >= 80) {
+            message = "Luar biasa! Anda sangat memahami konsep API.";
+          } else if (percentage >= 60) {
+            message = "Bagus! Pemahaman Anda tentang API sudah baik.";
+          } else if (percentage >= 40) {
+            message = "Cukup baik. Pelajari lagi materi yang belum Anda kuasai.";
+          } else {
+            message = "Anda perlu mempelajari lebih lanjut tentang API.";
+          }
+
+          scoreMessage.textContent = message;
+
+          // Kirim data ke Google Spreadsheet
+          const scriptURL = "https://script.google.com/macros/s/AKfycbxArvRuflqEZUeOv6eywSaP3o2NEUgm0kxDNie6TPAUzRvgVvnvWQSzQTKSzyBBuhKH3w/exec"; // Ganti dengan URL dari Apps Script
+          const data = {
+            studentName: studentName,
+            score: score,
+            totalQuestions: quizData.length,
+            percentage: percentage,
+            message: message,
+          };
+
+          fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then(() => {
+              console.log("Data berhasil dikirim ke spreadsheet");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              // Anda bisa menambahkan notifikasi ke pengguna jika pengiriman gagal
+            });
+        }
+
+        // Restart quiz
+        restartQuizBtn.addEventListener("click", () => {
+          currentQuestion = 0;
+          score = 0;
+          quizResult.style.display = "none";
+          quizStart.style.display = "flex";
+          studentNameInput.value = "";
+          quizFeedback.style.display = "none";
+        });
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        createStars();
+        handleSplashScreen();
+        setupMobileMenu();
+        setupBackToTop();
+        setupAPIKeyDemo();
+        setupNasaDemo();
+        setupQuiz();
+
+        // Add scroll animations
+        const observerOptions = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.1,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll(".card, .api-type, .visualization, .interactive-section, .api-demo, .quiz-container, .api-key-section, .nasa-demo").forEach((el) => {
+          el.style.opacity = 0;
+          el.style.transform = "translateY(20px)";
+          el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          observer.observe(el);
+        });
+      });
+    </script>
+  </body>
+</html>
