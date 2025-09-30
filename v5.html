@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vohi5ma Batik Soul - Galeri Batik Indonesia</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-primary: #8C1C13; 
+            --color-secondary: #BF4342; 
+            --color-background: #E7D7C1; 
+            --color-text-dark: #4B3832; 
+            --color-text-muted: #735751; 
+            --color-white: #FFFFFF;
+            --color-accent: #A78A7F;
+            
+            --font-display: 'Playfair Display', serif;
+            --font-script: 'Dancing Script', cursive;
+            --font-sans: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text-dark);
+            background-color: var(--color-background);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* ============ SPLASH SCREEN ============ */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-background) 0%, #f5ebe0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+            cursor: pointer;
+        }
+
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #splash-screen .logo-container {
+            text-align: center;
+            animation: fadeInScale 1.2s ease-out;
+        }
+
+        #splash-screen img {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 8px 20px rgba(140, 28, 19, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        #splash-screen .vohi5ma-title {
+            font-family: var(--font-script);
+            font-size: 4.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8C1C13 0%, #BF4342 50%, #8C1C13 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        #splash-screen .subtitle {
+            font-family: var(--font-display);
+            font-size: 1.8em;
+            color: var(--color-text-dark);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        #splash-screen .creator {
+            font-size: 1.1em;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ============ NAVBAR ============ */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box img {
+            height: 50px;
+            width: 50px;
+        }
+
+        .logo-vohi5ma {
+            font-family: var(--font-script);
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8C1C13 0%, #BF4342 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: none;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-dark);
+            padding: 10px 18px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.95em;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--color-white);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .menu-toggle {
+            display: block;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: var(--color-primary);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        /* ============ HERO BANNER SLIDER ============ */
+        .hero-slider {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+.hero-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    
+    /* --- Multiple Backgrounds --- */
+    background-image: 
+        url("latar.jpg"),   /* motif megamendung transparan */
+        var(--slide-bg);          /* gambar / warna utama */
+    background-repeat: repeat, no-repeat;
+    background-size: 250px auto, cover; /* atur ukuran motif & cover bg utama */
+    background-position: center, center;
+}
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(140, 28, 19, 0.85) 0%, rgba(191, 67, 66, 0.75) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--color-white);
+            max-width: 900px;
+            padding: 40px;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .hero-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: var(--color-white);
+            width: 35px;
+            border-radius: 6px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============ SECTIONS ============ */
+        section {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            font-weight: 900;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--color-text-muted);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============ TIMELINE HORIZONTAL ============ */
+        .timeline-container {
+            position: relative;
+            padding: 50px 0;
+            overflow-x: auto;
+        }
+
+        .timeline-horizontal {
+            display: flex;
+            gap: 80px;
+            padding: 40px 20px;
+            position: relative;
+            min-width: max-content;
+        }
+
+        .timeline-horizontal::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+        }
+
+        .timeline-card {
+            position: relative;
+            width: 350px;
+            background: var(--color-white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            border: 5px solid var(--color-white);
+            box-shadow: 0 0 0 5px var(--color-secondary);
+        }
+
+        .timeline-year {
+            font-family: var(--font-display);
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .timeline-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5em;
+            color: var(--color-text-dark);
+            margin-bottom: 12px;
+        }
+
+        /* ============ MOTIF CAROUSEL 4x9 ============ */
+        .motif-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .motif-carousel-container {
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .motif-row {
+            display: grid;
+            grid-template-columns: repeat(9, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .motif-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .motif-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(140, 28, 19, 0.2);
+        }
+
+        .motif-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: var(--color-text-muted);
+            font-size: 0.9em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motif-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .motif-card:hover .motif-img::before {
+            left: 100%;
+        }
+
+        .motif-info {
+            padding: 20px;
+        }
+
+        .motif-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.4em;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .motif-info p {
+            font-size: 0.95em;
+            color: var(--color-text-muted);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            color: var(--color-primary);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .carousel-prev {
+            left: 10px;
+        }
+
+        .carousel-next {
+            right: 10px;
+        }
+
+        /* ============ MODAL DETAIL ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-white);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlide 0.4s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-white);
+            padding: 40px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            color: var(--color-white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-header h2 {
+            font-family: var(--font-display);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .modal-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.8em;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-section i {
+            font-size: 0.8em;
+        }
+
+        .info-grid-modal {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-item {
+            background: var(--color-background);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .info-item strong {
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* ============ TEKNIK SECTION ============ */
+        .teknik-grid {
+            display: grid;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .teknik-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .teknik-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .teknik-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .teknik-visual {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, var(--color-background), #f5f5f5);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: var(--color-primary);
+        }
+
+        .teknik-content h3 {
+            font-family: var(--font-display);
+            font-size: 2em;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .teknik-steps {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .teknik-steps li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 15px;
+        }
+
+        .teknik-steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        /* ============ FUNGSI TABS ============ */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--color-white);
+            border: 2px solid var(--color-background);
+            padding: 15px 30px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--color-text-dark);
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-white);
+            border-color: var(--color-primary);
+        }
+
+        .tab-content-box {
+            display: none;
+            background: var(--color-white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content-box.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content-box h3 {
+            font-family: var(--font-display);
+            font-size: 2.2em;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        /* ============ BAJU BATIK CAROUSEL ============ */
+        .baju-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .baju-carousel {
+            display: flex;
+            gap: 25px;
+            transition: transform 0.5s ease;
+            padding: 10px;
+        }
+
+        .baju-card {
+            min-width: 300px;
+            background: var(--color-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .baju-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(140, 28, 19, 0.2);
+        }
+
+        .baju-img {
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: var(--color-text-muted);
+        }
+
+        .baju-info {
+            padding: 25px;
+        }
+
+        .baju-info h4 {
+            font-family: var(--font-display);
+            font-size: 1.5em;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        /* ============ CONTACT FORM ============ */
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--color-white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid var(--color-background);
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(140, 28, 19, 0.3);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, var(--color-text-dark), #2a1f1a);
+            color: var(--color-background);
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        footer .vohi5ma-footer {
+            font-family: var(--font-script);
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #BF4342, #8C1C13);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .hero-slider {
+                height: 500px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+
+            .hero-content p {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 2.2em;
+            }
+
+            .timeline-horizontal {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .timeline-card {
+                width: 100%;
+            }
+
+            .motif-row {
+                grid-template-columns: repeat(9, minmax(200px, 1fr));
+            }
+
+            .teknik-item {
+                grid-template-columns: 1fr;
+            }
+
+            .teknik-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .baju-card {
+                min-width: 250px;
+            }
+
+            .contact-container {
+                padding: 30px;
+            }
+
+            .modal-body {
+                padding: 25px;
+            }
+
+            #splash-screen .vohi5ma-title {
+                font-size: 3em;
+            }
+
+            #splash-screen .subtitle {
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .motif-row {
+                grid-template-columns: repeat(9, minmax(180px, 1fr));
+            }
+
+            #splash-screen img {
+                width: 120px;
+                height: 120px;
+            }
+
+            #splash-screen .vohi5ma-title {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Vohi5ma">
+            <h1 class="vohi5ma-title">Vohi5ma</h1>
+            <p class="subtitle">Batik Soul</p>
+            <p class="creator">Created by Nancy Akisya XI-PPLG 1</p>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <div class="logo-box">
+                <img src="logo.png" alt="Logo">
+                <span class="logo-vohi5ma">Vohi5ma</span>
+            </div>
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="#home" class="nav-item active">Home</a></li>
+                <li><a href="#ragam-corak" class="nav-item">Ragam Corak</a></li>
+                <li><a href="#teknik" class="nav-item">Teknik</a></li>
+                <li><a href="#fungsi" class="nav-item">Fungsi</a></li>
+                <li><a href="#baju" class="nav-item">Baju Batik</a></li>
+                <li><a href="#contact" class="nav-item">Contact</a></li>
+                <li><a href="https://nzieraaa.github.io/ncy.html" class="nav-item">Portofolio</a></li>
+            </ul>
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SLIDER -->
+    <section id="home">
+        <div class="hero-slider">
+            <!-- Slide 1: Pengertian -->
+            <div class="hero-slide active" style="background-image: url('https://via.placeholder.com/1920x600/8C1C13/ffffff?text=Batik+Indonesia');">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <h1>Apa itu Batik?</h1>
+                        <p>Batik berasal dari kata "amba" (menulis) dan "titik". Batik adalah kain bergambar yang pembuatannya secara khusus dengan menuliskan atau menerakan malam (lilin) pada kain itu, kemudian pengolahannya diproses dengan cara tertentu yang melibatkan pewarnaan dan pelorodan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Sejarah -->
+            <div class="hero-slide" style="background-image: url('https://via.placeholder.com/1920x600/BF4342/ffffff?text=Sejarah+Batik');">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <h1>Sejarah Batik Indonesia</h1>
+                        <p>Batik telah dikenal sejak zaman Majapahit dan berkembang pesat pada masa Kesultanan Mataram. Awalnya terbatas pada kalangan keraton sebagai simbol status sosial, kini batik telah menjadi warisan budaya yang dibanggakan seluruh bangsa Indonesia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: UNESCO -->
+            <div class="hero-slide" style="background-image: url('https://via.placeholder.com/1920x600/735751/ffffff?text=UNESCO+Recognition');">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <h1>Pengakuan UNESCO</h1>
+                        <p>Pada 2 Oktober 2009, UNESCO menetapkan Batik sebagai Warisan Kemanusiaan untuk Budaya Lisan dan Nonbendawi. Sebuah pengakuan global atas nilai seni, filosofi luhur, dan kekayaan budaya yang terkandung dalam setiap helai kain batik Indonesia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-indicators">
+                <span class="indicator active" data-slide="0"></span>
+                <span class="indicator" data-slide="1"></span>
+                <span class="indicator" data-slide="2"></span>
+            </div>
+        </div>
+
+        <!-- TIMELINE HORIZONTAL -->
+        <h2 class="section-title">Perjalanan Sejarah Batik</h2>
+        <p class="section-subtitle">Menelusuri jejak waktu dari masa kerajaan hingga pengakuan dunia</p>
+        
+        <div class="timeline-container">
+            <div class="timeline-horizontal">
+                <div class="timeline-card">
+                    <div class="timeline-year">Abad 17</div>
+                    <h3>Era Kerajaan</h3>
+                    <p>Pusat pengembangan Batik di Jawa (Solo, Yogyakarta). Motif Parang dan Kawung diciptakan sebagai motif larangan yang hanya boleh dipakai oleh keluarga keraton. Batik menjadi simbol status dan kehormatan.</p>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-year">Abad 19</div>
+                    <h3>Masa Kolonial</h3>
+                    <p>Munculnya Batik Pesisir (Pekalongan, Cirebon, Lasem) dengan warna dan motif yang lebih bebas. Pengaruh budaya Eropa dan Tionghoa menciptakan akulturasi yang indah. Batik mulai diproduksi secara massal.</p>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-year">1945-2000</div>
+                    <h3>Era Kemerdekaan</h3>
+                    <p>Batik menjadi identitas nasional. Presiden Soekarno mempopulerkan batik dalam diplomasi internasional. Batik tidak lagi eksklusif untuk kalangan tertentu, melainkan pakaian kebanggaan seluruh rakyat Indonesia.</p>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-year">2009</div>
+                    <h3>Pengakuan UNESCO</h3>
+                    <p>Batik resmi diakui UNESCO sebagai Masterpiece of Oral and Intangible Heritage of Humanity. Tanggal 2 Oktober ditetapkan sebagai Hari Batik Nasional. Prestise batik meningkat di kancah global.</p>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="timeline-year">2010-Sekarang</div>
+                    <h3>Era Modern</h3>
+                    <p>Batik bertransformasi menjadi fashion global. Desainer internasional mengadopsi motif batik. Batik kontemporer berkembang dengan inovasi teknologi sambil mempertahankan nilai filosofis tradisional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RAGAM CORAK 36 MOTIF -->
+    <section id="ragam-corak">
+        <h2 class="section-title">Ragam Corak Batik Nusantara</h2>
+        <p class="section-subtitle">Eksplorasi keindahan visual dan makna filosofis dari motif-motif legendaris Indonesia</p>
+
+        <div class="motif-carousel-wrapper">
+            <button class="carousel-nav carousel-prev" id="motif-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-nav carousel-next" id="motif-next"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="motif-carousel-container" id="motif-carousel">
+                
+                <div class="motif-row">
+                    
+                    <div class="motif-card" data-name="Parang Rusak Barong" data-origin="Yogyakarta" data-makna="Kekuatan, pengendalian diri, dan kejayaan" data-filosofi="Motif ombak laut melambangkan perjuangan hidup yang tidak pernah putus" data-warna="Sogan dan putih" data-penggunaan="Upacara keraton, pernikahan agung" data-sejarah="Motif larangan, hanya boleh dipakai Sultan dan keluarga inti">
+                        <div class="motif-img">
+                            <img src="parang_rusak_barong.jpg" alt="Motif Parang Rusak Barong">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Parang Rusak Barong</h3>
+                            <p>Simbol Kekuatan & Kendali Diri</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Mega Mendung" data-origin="Cirebon" data-makna="Kesabaran dan ketenangan" data-filosofi="Awan pembawa hujan sebagai berkah" data-warna="Biru gradasi, merah, putih" data-penggunaan="Busana sehari-hari" data-sejarah="Pengaruh kuat dari budaya Tionghoa">
+                        <div class="motif-img">
+                            <img src="mega_mendung.jpg" alt="Motif Mega Mendung">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Mega Mendung</h3>
+                            <p>Simbol Kesabaran & Kebijaksanaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Kawung" data-origin="Yogyakarta/Solo" data-makna="Kebijaksanaan dan kemurnian hati" data-filosofi="Buah kolang-kaling simetris melambangkan keseimbangan" data-warna="Sogan dan putih" data-penggunaan="Upacara adat" data-sejarah="Motif tertua sejak Majapahit">
+                        <div class="motif-img">
+                            <img src="kawung.jpg" alt="Motif Kawung">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Kawung</h3>
+                            <p>Simbol Kebijaksanaan & Kesucian</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Truntum" data-origin="Solo" data-makna="Kasih sayang abadi" data-filosofi="Bintang kecil melambangkan cinta yang bersemi kembali" data-warna="Hitam, coklat, putih" data-penggunaan="Pernikahan" data-sejarah="Diciptakan permaisuri Pakubuwono III">
+                        <div class="motif-img">
+                            <img src="truntum.jpg" alt="Motif Truntum">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Truntum</h3>
+                            <p>Simbol Kasih Sayang Abadi</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sidomukti" data-origin="Solo/Yogyakarta" data-makna="Kemakmuran dan kebahagiaan" data-filosofi="Harapan hidup makmur dan tenteram" data-warna="Sogan" data-penggunaan="Upacara pernikahan" data-sejarah="Sering dipakai bangsawan Jawa">
+                        <div class="motif-img">
+                            <img src="sidomukti.jpg" alt="Motif Sidomukti">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sidomukti</h3>
+                            <p>Simbol Kemakmuran & Kebahagiaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Ceplok" data-origin="Jawa Tengah" data-makna="Keteraturan dan keselarasan" data-filosofi="Geometri berbentuk bunga, bintang, atau lingkaran" data-warna="Sogan, putih" data-penggunaan="Busana tradisional" data-sejarah="Dipakai sejak era Mataram">
+                        <div class="motif-img">
+                            <img src="ceplok.jpg" alt="Motif Ceplok">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Ceplok</h3>
+                            <p>Simbol Keteraturan Hidup</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Lereng" data-origin="Solo" data-makna="Keteguhan & konsistensi" data-filosofi="Garis diagonal tak terputus melambangkan ketekunan" data-warna="Sogan, hitam" data-penggunaan="Pakaian resmi" data-sejarah="Populer di era Mataram Islam">
+                        <div class="motif-img">
+                            <img src="lereng.jpg" alt="Motif Lereng">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Lereng</h3>
+                            <p>Simbol Konsistensi & Tekad</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Parang Kusumo" data-origin="Yogyakarta" data-makna="Cinta & kasih sayang tulus" data-filosofi="Parang berpadu bunga kusuma melambangkan cinta abadi" data-warna="Sogan, putih" data-penggunaan="Pernikahan keraton" data-sejarah="Dipakai calon pengantin keraton">
+                        <div class="motif-img">
+                            <img src="parang_kusumo.jpg" alt="Motif Parang Kusumo">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Parang Kusumo</h3>
+                            <p>Simbol Cinta Abadi</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sidoluhur" data-origin="Solo" data-makna="Ketinggian derajat & kehormatan" data-filosofi="Harapan hidup terhormat & mulia" data-warna="Sogan" data-penggunaan="Upacara pernikahan" data-sejarah="Sering dipakai pengantin bangsawan">
+                        <div class="motif-img">
+                            <img src="sidoluhur.jpg" alt="Motif Sidoluhur">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sidoluhur</h3>
+                            <p>Simbol Kehormatan & Kemuliaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Tambal" data-origin="Jawa Tengah" data-makna="Kekuatan penyembuhan" data-filosofi="Tambalan motif berbeda melambangkan kesempurnaan" data-warna="Beragam warna" data-penggunaan="Busana sehari-hari" data-sejarah="Dipercaya menyembuhkan orang sakit">
+                        <div class="motif-img">
+                            <img src="tambal.jpg" alt="Motif Tambal">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Tambal</h3>
+                            <p>Simbol Penyembuhan & Harapan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Nitik" data-origin="Yogyakarta" data-makna="Kerajinan & ketekunan" data-filosofi="Motif titik-titik menyerupai tenun ikat" data-warna="Sogan, indigo" data-penggunaan="Busana resmi" data-sejarah="Terinspirasi tenun patola India">
+                        <div class="motif-img">
+                            <img src="nitik.jpg" alt="Motif Nitik">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Nitik</h3>
+                            <p>Simbol Ketekunan & Keuletan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Lasem" data-origin="Lasem, Jawa Tengah" data-makna="Keberanian & semangat" data-filosofi="Dominasi warna merah sebagai lambang keberanian" data-warna="Merah, hitam, putih" data-penggunaan="Busana harian" data-sejarah="Dipengaruhi budaya Tionghoa">
+                        <div class="motif-img">
+                            <img src="lasem.jpg" alt="Motif Lasem">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Lasem</h3>
+                            <p>Simbol Keberanian & Semangat</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sekar Jagad" data-origin="Yogyakarta" data-makna="Keindahan & keragaman" data-filosofi="Motif menyerupai peta dunia, lambang persatuan" data-warna="Beragam warna cerah" data-penggunaan="Busana pesta" data-sejarah="Lambang keberagaman budaya Nusantara">
+                        <div class="motif-img">
+                            <img src="sekar_jagad.jpg" alt="Motif Sekar Jagad">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sekar Jagad</h3>
+                            <p>Simbol Keindahan & Persatuan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Garuda" data-origin="Solo" data-makna="Kekuasaan & kebebasan" data-filosofi="Burung garuda lambang kekuatan bangsa" data-warna="Sogan, emas" data-penggunaan="Upacara kebangsawanan" data-sejarah="Terinspirasi burung Garuda, lambang negara">
+                        <div class="motif-img">
+                            <img src="garuda.jpg" alt="Motif Garuda">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Garuda</h3>
+                            <p>Simbol Kekuasaan & Kemerdekaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sidoasih" data-origin="Yogyakarta" data-makna="Kasih sayang & keharmonisan rumah tangga" data-filosofi="Doa agar rumah tangga rukun penuh cinta" data-warna="Sogan" data-penggunaan="Busana pengantin" data-sejarah="Sering dipakai mempelai putri">
+                        <div class="motif-img">
+                            <img src="sidoasih.jpg" alt="Motif Sidoasih">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sidoasih</h3>
+                            <p>Simbol Kasih & Keharmonisan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sogan" data-origin="Solo/Yogyakarta" data-makna="Kesederhanaan & kewibawaan" data-filosofi="Dominasi warna sogan (coklat)" data-warna="Sogan" data-penggunaan="Busana adat" data-sejarah="Warna klasik batik Jawa">
+                        <div class="motif-img">
+                            <img src="sogan.jpg" alt="Motif Sogan">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sogan</h3>
+                            <p>Simbol Kesederhanaan & Wibawa</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Parang Klithik" data-origin="Yogyakarta" data-makna="Ketekunan dalam hidup" data-filosofi="Parang kecil melambangkan perjuangan sederhana" data-warna="Sogan, putih" data-penggunaan="Busana sehari-hari" data-sejarah="Dulu dipakai prajurit muda">
+                        <div class="motif-img">
+                            <img src="parang_klithik.jpg" alt="Motif Parang Klithik">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Parang Klithik</h3>
+                            <p>Simbol Ketekunan Hidup</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Satrio Manah" data-origin="Solo" data-makna="Ketulusan hati & kesungguhan" data-filosofi="Motif panah melambangkan keseriusan tujuan" data-warna="Sogan" data-penggunaan="Busana lamaran" data-sejarah="Dipakai calon pengantin pria">
+                        <div class="motif-img">
+                            <img src="satrio_manah.jpg" alt="Motif Satrio Manah">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Satrio Manah</h3>
+                            <p>Simbol Ketulusan & Kesungguhan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="motif-row">
+                    
+                    <div class="motif-card" data-name="Wahyu Tumurun" data-origin="Yogyakarta" data-makna="Turunnya berkah & petunjuk Tuhan" data-filosofi="Doa untuk mendapatkan anugerah dan pangkat" data-warna="Sogan" data-penggunaan="Upacara adat, pernikahan" data-sejarah="Populer di kalangan bangsawan Jawa">
+                        <div class="motif-img">
+                            <img src="wahyu_tumurun.jpg" alt="Motif Wahyu Tumurun">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Wahyu Tumurun</h3>
+                            <p>Simbol Berkah & Anugerah</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Udan Liris" data-origin="Solo" data-makna="Kesuburan & kesejahteraan" data-filosofi="Garis miring seperti hujan, lambang rezeki turun" data-warna="Sogan, indigo" data-penggunaan="Busana harian" data-sejarah="Melambangkan kesuburan bumi">
+                        <div class="motif-img">
+                            <img src="udan_liris.jpg" alt="Motif Udan Liris">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Udan Liris</h3>
+                            <p>Simbol Rezeki & Kesuburan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Buketan" data-origin="Pekalongan" data-makna="Keceriaan & keindahan" data-filosofi="Motif buket bunga melambangkan kebahagiaan" data-warna="Berwarna cerah" data-penggunaan="Busana pesta" data-sejarah="Dipengaruhi gaya Belanda">
+                        <div class="motif-img">
+                            <img src="buketan.jpg" alt="Motif Buketan">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Buketan</h3>
+                            <p>Simbol Keindahan & Kebahagiaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Cuwiri" data-origin="Yogyakarta" data-makna="Kebahagiaan & keberkahan" data-filosofi="Motif kecil rapat melambangkan kemakmuran" data-warna="Sogan" data-penggunaan="Upacara mitoni (7 bulanan)" data-sejarah="Dipakai ibu hamil">
+                        <div class="motif-img">
+                            <img src="cuwiri.jpg" alt="Motif Cuwiri">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Cuwiri</h3>
+                            <p>Simbol Kebahagiaan & Berkah</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Semen Rama" data-origin="Yogyakarta" data-makna="Kesuburan & kemakmuran" data-filosofi="Tumbuhan & hewan simbol kehidupan" data-warna="Coklat sogan" data-penggunaan="Upacara adat keraton" data-sejarah="Motif sakral & kompleks">
+                        <div class="motif-img">
+                            <img src="semen_rama.jpg" alt="Motif Semen Rama">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Semen Rama</h3>
+                            <p>Simbol Kesuburan & Kehidupan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Ratu Ratih" data-origin="Bali" data-makna="Kecantikan & kemewahan" data-filosofi="Motif bunga indah lambang keanggunan" data-warna="Cerahan emas" data-penggunaan="Busana adat Bali" data-sejarah="Dipakai bangsawan Bali">
+                        <div class="motif-img">
+                            <img src="ratu_ratih.jpg" alt="Motif Ratu Ratih">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Ratu Ratih</h3>
+                            <p>Simbol Kecantikan & Keanggunan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Grompol" data-origin="Solo" data-makna="Persatuan & kebahagiaan" data-filosofi="Motif berkumpul melambangkan kebersamaan" data-warna="Sogan" data-penggunaan="Pernikahan" data-sejarah="Dipakai saat upacara temu manten">
+                        <div class="motif-img">
+                            <img src="grompol.jpg" alt="Motif Grompol">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Grompol</h3>
+                            <p>Simbol Persatuan & Kebahagiaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Pamiluto" data-origin="Solo" data-makna="Daya tarik & cinta kasih" data-filosofi="Makna memikat hati" data-warna="Sogan" data-penggunaan="Pernikahan" data-sejarah="Dipakai calon pengantin">
+                        <div class="motif-img">
+                            <img src="pamiluto.jpg" alt="Motif Pamiluto">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Pamiluto</h3>
+                            <p>Simbol Cinta & Daya Tarik</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Sawat" data-origin="Yogyakarta" data-makna="Kekuatan & perlindungan" data-filosofi="Sayap garuda sebagai pelindung" data-warna="Sogan, emas" data-penggunaan="Upacara keraton" data-sejarah="Hanya dipakai bangsawan">
+                        <div class="motif-img">
+                            <img src="sawat.jpg" alt="Motif Sawat">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Sawat</h3>
+                            <p>Simbol Kekuatan & Perlindungan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Tumpal" data-origin="Jawa" data-makna="Keteguhan & keberanian" data-filosofi="Segitiga menyerupai gunung" data-warna="Sogan, putih" data-penggunaan="Busana adat" data-sejarah="Terinspirasi relief candi">
+                        <div class="motif-img">
+                            <img src="tumpal.jpg" alt="Motif Tumpal">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Tumpal</h3>
+                            <p>Simbol Keteguhan & Ketabahan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Singa Barong" data-origin="Cirebon" data-makna="Kekuatan & kewibawaan" data-filosofi="Singa mitologi sebagai penjaga" data-warna="Merah, emas" data-penggunaan="Upacara adat" data-sejarah="Terinspirasi mitos lokal">
+                        <div class="motif-img">
+                            <img src="singa_barong.jpg" alt="Motif Singa Barong">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Singa Barong</h3>
+                            <p>Simbol Kekuatan & Wibawa</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Pring Sedapur" data-origin="Banyumas" data-makna="Kerukunan & kesederhanaan" data-filosofi="Bambu sebagai lambang kerukunan keluarga" data-warna="Hijau, coklat" data-penggunaan="Busana sehari-hari" data-sejarah="Populer di masyarakat Banyumas">
+                        <div class="motif-img">
+                            <img src="pring_sedapur.jpg" alt="Motif Pring Sedapur">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Pring Sedapur</h3>
+                            <p>Simbol Kerukunan & Kesederhanaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Parang Slobog" data-origin="Yogyakarta" data-makna="Kerendahan hati" data-filosofi="Parang jarang-jarang melambangkan keterbukaan" data-warna="Sogan" data-penggunaan="Upacara adat & pemakaman" data-sejarah="Dipakai saat acara duka">
+                        <div class="motif-img">
+                            <img src="parang_slobog.jpg" alt="Motif Parang Slobog">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Parang Slobog</h3>
+                            <p>Simbol Kerendahan Hati</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Bledak" data-origin="Madura" data-makna="Kesuburan & semangat hidup" data-filosofi="Motif bunga mekar melambangkan pertumbuhan" data-warna="Merah, hitam" data-penggunaan="Busana sehari-hari" data-sejarah="Populer di Madura">
+                        <div class="motif-img">
+                            <img src="bledak.jpg" alt="Motif Bledak">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Bledak</h3>
+                            <p>Simbol Kesuburan & Semangat</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Lung-Lungan" data-origin="Yogyakarta" data-makna="Kehidupan yang terus tumbuh" data-filosofi="Rangkaian sulur tanaman lambang kehidupan" data-warna="Sogan" data-penggunaan="Busana keraton" data-sejarah="Dipakai keluarga bangsawan">
+                        <div class="motif-img">
+                            <img src="lung_lungan.jpg" alt="Motif Lung-Lungan">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Lung-Lungan</h3>
+                            <p>Simbol Kehidupan & Pertumbuhan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Parang Klisik" data-origin="Solo" data-makna="Kesinambungan hidup" data-filosofi="Ukuran kecil melambangkan kesederhanaan" data-warna="Sogan, putih" data-penggunaan="Busana sehari-hari" data-sejarah="Dipakai kalangan muda">
+                        <div class="motif-img">
+                            <img src="parang_klisik.jpg" alt="Motif Parang Klisik">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Parang Klisik</h3>
+                            <p>Simbol Kesinambungan & Kesederhanaan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Cemukiran" data-origin="Banyumas" data-makna="Kekuatan & pelindung" data-filosofi="Motif sisik naga lambang keberanian" data-warna="Merah, hitam, coklat" data-penggunaan="Busana adat Banyumas" data-sejarah="Dipengaruhi cerita rakyat lokal">
+                        <div class="motif-img">
+                            <img src="cemukiran.jpg" alt="Motif Cemukiran">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Cemukiran</h3>
+                            <p>Simbol Kekuatan & Perlindungan</p>
+                        </div>
+                    </div>
+
+                    <div class="motif-card" data-name="Tuntang" data-origin="Jawa Tengah" data-makna="Kesetiaan & keteguhan" data-filosofi="Motif tumbuhan melambangkan keteguhan hati" data-warna="Sogan" data-penggunaan="Busana adat desa" data-sejarah="Motif khas daerah Tuntang, Semarang">
+                        <div class="motif-img">
+                            <img src="tuntang.jpg" alt="Motif Tuntang">
+                        </div>
+                        <div class="motif-info">
+                            <h3>Tuntang</h3>
+                            <p>Simbol Kesetiaan & Keteguhan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEKNIK PEMBUATAN -->
+    <section id="teknik">
+        <h2 class="section-title">Teknik Pembuatan Batik</h2>
+        <p class="section-subtitle">Proses artistik resisten malam yang menciptakan karya seni bernilai tinggi</p>
+
+        <div class="teknik-grid">
+            <!-- Batik Tulis -->
+            <div class="teknik-item">
+                <div class="teknik-visual">
+                    <img src="canting_tulis.jpg" alt="Canting Tulis" style="width:100px; height:auto; display:block; margin:0 auto;">
+                    <p style="font-size: 0.8em; margin-top: 10px; text-align: center;">Canting Tulis</p>
+                </div>
+                <div class="teknik-content">
+                    <h3>Batik Tulis</h3>
+                    <p>Teknik paling otentik dan bernilai tinggi. Menggunakan canting untuk melukiskan lilin malam panas pada kain dengan tangan. Setiap karya adalah unik dan tidak ada yang identik.</p>
+                    <ul class="teknik-steps">
+                        <li><strong>Nyorek (Membuat Pola)</strong> - Menggambar pola motif dengan pensil pada kain mori putih</li>
+                        <li><strong>Nyanthing (Membatik)</strong> - Melukis mengikuti pola dengan canting berisi malam panas</li>
+                        <li><strong>Nembok</strong> - Menutup bagian yang tidak akan diwarnai dengan malam tebal</li>
+                        <li><strong>Medel/Pewarnaan</strong> - Mencelupkan kain ke larutan pewarna alami atau sintetis</li>
+                        <li><strong>Nglorod</strong> - Menghilangkan malam dengan air mendidih</li>
+                        <li><strong>Mbironi</strong> - Membatik ulang pada sisi sebaliknya (untuk batik dua sisi)</li>
+                    </ul>
+                    <p><strong>Waktu Pengerjaan:</strong> 1-6 bulan tergantung kompleksitas</p>
+                </div>
+            </div>
+
+            <!-- Batik Cap -->
+            <div class="teknik-item">
+                <div class="teknik-visual">
+                    <img src="cap_tembaga.jpg" alt="Cap Tembaga" style="width:100px; height:auto; display:block; margin:0 auto;">
+                    <p style="font-size: 0.8em; margin-top: 10px; text-align: center;">Cap Tembaga</p>
+                </div>
+                <div class="teknik-content">
+                    <h3>Batik Cap</h3>
+                    <p>Teknik lebih modern menggunakan stempel tembaga (cap) untuk efisiensi produksi. Menghasilkan pola repetitif yang seragam dengan waktu lebih cepat.</p>
+                    <ul class="teknik-steps">
+                        <li><strong>Pembuatan Cap</strong> - Membuat stempel dari kawat tembaga dengan motif tertentu</li>
+                        <li><strong>Pemanasan Malam</strong> - Menyiapkan malam cair dalam wajan khusus</li>
+                        <li><strong>Ngecap</strong> - Mencelupkan cap ke malam, lalu dicapkan pada kain secara berulang</li>
+                        <li><strong>Pewarnaan</strong> - Proses pewarnaan sama seperti batik tulis</li>
+                        <li><strong>Nglorod</strong> - Pelepasan malam dengan air panas</li>
+                    </ul>
+                    <p><strong>Waktu Pengerjaan:</strong> 1-2 minggu untuk produksi massal</p>
+                </div>
+            </div>
+
+            <!-- Batik Kombinasi -->
+            <div class="teknik-item">
+                <div class="teknik-visual">
+                    <img src="kombinasi.jpg" alt="Batik Kombinasi" style="width:100px; height:auto; display:block; margin:0 auto;">
+                    <p style="font-size: 0.8em; margin-top: 10px; text-align: center;">Kombinasi</p>
+                </div>
+                <div class="teknik-content">
+                    <h3>Batik Kombinasi (Tulis-Cap)</h3>
+                    <p>Menggabungkan efisiensi batik cap dengan keindahan detail batik tulis. Bagian luas menggunakan cap, detail halus dikerjakan dengan canting.</p>
+                    <ul class="teknik-steps">
+                        <li><strong>Ngecap Dasar</strong> - Membuat pola dasar dengan teknik cap</li>
+                        <li><strong>Nyanthing Detail</strong> - Menambahkan detail dengan canting tulis</li>
+                        <li><strong>Isen-isen</strong> - Mengisi ornamen kecil dengan canting</li>
+                        <li><strong>Pewarnaan Bertahap</strong> - Pewarnaan dari warna terang ke gelap</li>
+                        <li><strong>Finishing</strong> - Nglorod dan pencucian akhir</li>
+                    </ul>
+                    <p><strong>Waktu Pengerjaan:</strong> 2-4 minggu, kualitas premium dengan harga lebih terjangkau</p>
+                </div>
+            </div>
+
+            <!-- Batik Lukis -->
+            <div class="teknik-item">
+                <div class="teknik-visual">
+                    <img src="batik_lukis.jpg" alt="Batik Lukis" style="width:100px; height:auto; display:block; margin:0 auto;">
+                    <p style="font-size: 0.8em; margin-top: 10px; text-align: center;">Batik Lukis</p>
+                </div>
+                <div class="teknik-content">
+                    <h3>Batik Lukis (Painting)</h3>
+                    <p>Teknik modern di mana pewarna langsung dilukiskan pada kain tanpa proses malam. Lebih bebas dalam ekspresi artistik dan gradasi warna.</p>
+                    <ul class="teknik-steps">
+                        <li><strong>Sketsa</strong> - Membuat desain pada kain dengan pensil</li>
+                        <li><strong>Pewarnaan Langsung</strong> - Melukis dengan kuas dan pewarna tekstil</li>
+                        <li><strong>Gradasi Warna</strong> - Teknik blending untuk hasil artistik</li>
+                        <li><strong>Fiksasi</strong> - Mengunci warna dengan steam atau setrika</li>
+                        <li><strong>Finishing</strong> - Pencucian dan pengeringan</li>
+                    </ul>
+                    <p><strong>Waktu Pengerjaan:</strong> 3-7 hari, cocok untuk karya seni kontemporer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- FUNGSI BATIK -->
+    <section id="fungsi">
+        <h2 class="section-title">Fungsi Batik dari Masa ke Masa</h2>
+        <p class="section-subtitle">Evolusi peran batik dalam kehidupan masyarakat Indonesia</p>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="era-klasik">Era Klasik</button>
+            <button class="tab-btn" data-tab="era-kolonial">Era Kolonial</button>
+            <button class="tab-btn" data-tab="era-kemerdekaan">Era Kemerdekaan</button>
+            <button class="tab-btn" data-tab="era-kontemporer">Era Kontemporer</button>
+        </div>
+
+        <div id="era-klasik" class="tab-content-box active">
+            <h3><i class="fas fa-crown"></i> Simbol Status & Ritual Keraton</h3>
+            <p>Pada era klasik (abad 17-19), batik memiliki fungsi yang sangat eksklusif dan sakral:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-user-crown"></i> Penanda Stratifikasi Sosial</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Motif Larangan (Forbidden Pattern):</strong> Parang Rusak Barong, Kawung, dan Semen Rama hanya boleh dipakai Sultan dan keluarga inti</li>
+                        <li><strong>Motif Bangsawan:</strong> Parang Gendreh, Lereng untuk kalangan aristokrat</li>
+                        <li><strong>Motif Rakyat:</strong> Motif sederhana untuk masyarakat umum</li>
+                        <li>Pelanggaran aturan ini dapat dikenai sanksi berat</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-hands-praying"></i> Fungsi Ritual & Spiritual</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Upacara Penobatan:</strong> Batik Wahyu Tumurun untuk raja yang baru dinobatkan</li>
+                        <li><strong>Pernikahan Agung:</strong> Sidomukti dan Truntum untuk pengantin keraton</li>
+                        <li><strong>Ritual Spiritual:</strong> Batik tertentu untuk meditasi dan upacara keagamaan</li>
+                        <li><strong>Pusaka:</strong> Batik kuno dianggap memiliki kekuatan spiritual</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: var(--color-background); border-radius: 10px;">
+                <strong>Filosofi Era Ini:</strong> Batik adalah "bahasa tanpa kata" yang mengkomunikasikan status, martabat, dan spiritualitas pemakainya. Setiap motif memiliki makna filosofis yang dalam dan tidak boleh dipakai sembarangan.
+            </p>
+        </div>
+
+        <div id="era-kolonial" class="tab-content-box">
+            <h3><i class="fas fa-ship"></i> Media Akulturasi & Perlawanan Budaya</h3>
+            <p>Era kolonial (abad 19 - awal 20) membawa transformasi besar pada dunia batik:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-globe-asia"></i> Akulturasi Multikultural</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Pengaruh Tionghoa:</strong> Motif naga, phoenix, burung hong di Lasem dan Cirebon</li>
+                        <li><strong>Pengaruh Eropa:</strong> Motif buketan (bouquet), bunga mawar di Pekalongan</li>
+                        <li><strong>Pengaruh Arab:</strong> Motif kaligrafi dan geometris islami</li>
+                        <li><strong>Warna Cerah:</strong> Penggunaan pewarna sintetis dari Eropa (merah, biru, ungu)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-store"></i> Komersialisasi & Demokratisasi</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Batik Pesisir:</strong> Produksi massal untuk ekspor dan kelas menengah</li>
+                        <li><strong>Batik Indo-Eropa:</strong> Digemari oleh wanita Belanda dan Indo</li>
+                        <li><strong>Tidak Ada Motif Larangan:</strong> Kebebasan berkreasi di luar tembok keraton</li>
+                        <li><strong>Fashion Statement:</strong> Batik menjadi tren busana urban</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: var(--color-background); border-radius: 10px;">
+                <strong>Filosofi Era Ini:</strong> Batik menjadi simbol identitas hybrid - mempertahankan akar Jawa sambil menyerap pengaruh global. Fungsi bergeser dari eksklusivitas keraton menjadi komoditas budaya yang inklusif.
+            </p>
+        </div>
+
+        <div id="era-kemerdekaan" class="tab-content-box">
+            <h3><i class="fas fa-flag"></i> Identitas Nasional & Diplomasi</h3>
+            <p>Pasca kemerdekaan hingga era Orde Baru, batik diangkat sebagai simbol nasional:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-university"></i> Nation Building</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Presiden Soekarno:</strong> Mempopulerkan batik dalam kunjungan kenegaraan internasional</li>
+                        <li><strong>Seragam Nasional:</strong> Batik untuk pegawai pemerintah dan acara resmi</li>
+                        <li><strong>Identitas Bangsa:</strong> "Berbatik adalah berbangga pada budaya sendiri"</li>
+                        <li><strong>Kurikulum Pendidikan:</strong> Batik diajarkan di sekolah sebagai warisan budaya</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-handshake"></i> Soft Diplomacy</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Hadiah Diplomatik:</strong> Batik sebagai cendera mata untuk tamu negara</li>
+                        <li><strong>KAA Bandung 1955:</strong> Delegasi mengenakan batik</li>
+                        <li><strong>APEC 2013:</strong> Batik sebagai seragam pemimpin dunia</li>
+                        <li><strong>Promosi Global:</strong> Indonesia dikenal lewat batik</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: var(--color-background); border-radius: 10px;">
+                <strong>Filosofi Era Ini:</strong> Batik bertransformasi dari simbol kelas menjadi simbol bangsa. Fungsi utama adalah mempersatukan keberagaman etnis di Indonesia dan memproyeksikan identitas nasional ke dunia.
+            </p>
+        </div>
+
+        <div id="era-kontemporer" class="tab-content-box">
+            <h3><i class="fas fa-rocket"></i> Fashion Global & Inovasi Kreatif</h3>
+            <p>Era modern (2009 - sekarang) pasca pengakuan UNESCO membawa revolusi batik:</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-tshirt"></i> Fashion Revolution</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Runway Internasional:</strong> Batik di Paris, Milan, New York Fashion Week</li>
+                        <li><strong>Streetwear:</strong> Batik hoodie, sneakers, tas, aksesoris</li>
+                        <li><strong>Haute Couture:</strong> Desainer ternama mengintegrasikan batik dalam koleksi premium</li>
+                        <li><strong>Fast Fashion:</strong> Brand global menciptakan koleksi batik-inspired</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-laptop-code"></i> Inovasi & Teknologi</h4>
+                    <ul style="line-height: 2;">
+                        <li><strong>Batik Digital Printing:</strong> Produksi cepat dengan desain kompleks</li>
+                        <li><strong>Eco-Friendly:</strong> Pewarna alami, kain organik, zero waste</li>
+                        <li><strong>NFT Batik:</strong> Koleksi digital batik di blockchain</li>
+                        <li><strong>AI Design:</strong> Algoritma menciptakan motif batik baru</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h4 style="color: var(--color-primary); margin-bottom: 15px;"><i class="fas fa-briefcase"></i> Fungsi Praktis Modern</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    <div style="background: var(--color-background); padding: 20px; border-radius: 10px;">
+                        <strong>Seragam Kerja</strong>
+                        <p>Wajib di kantor pemerintah, perusahaan setiap Jumat atau acara tertentu</p>
+                    </div>
+                    <div style="background: var(--color-background); padding: 20px; border-radius: 10px;">
+                        <strong>Busana Formal</strong>
+                        <p>Pengganti jas untuk resepsi, pertemuan bisnis, acara resmi</p>
+                    </div>
+                    <div style="background: var(--color-background); padding: 20px; border-radius: 10px;">
+                        <strong>Casual Fashion</strong>
+                        <p>Outfit sehari-hari yang stylish dan nyaman untuk berbagai kesempatan</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: var(--color-background); border-radius: 10px;">
+                <strong>Filosofi Era Ini:</strong> Batik adalah "living heritage" yang terus berevolusi. Fungsi utama adalah membuktikan bahwa tradisi dapat relevan di era modern, menjembatani masa lalu dengan masa depan, lokal dengan global.
+            </p>
+        </div>
+    </section>
+
+    <!-- BAJU BATIK -->
+    <section id="baju">
+        <h2 class="section-title">Koleksi Baju Batik Modern</h2>
+        <p class="section-subtitle">Dari casual hingga haute couture, batik untuk setiap momen</p>
+
+        <div class="tab-buttons baju-tabs">
+            <button class="tab-btn active" data-tab="baju-wanita">Koleksi Wanita</button>
+            <button class="tab-btn" data-tab="baju-pria">Koleksi Pria</button>
+        </div>
+
+        <!-- Koleksi Wanita -->
+        <div id="baju-wanita" class="tab-content-box active" style="padding: 30px;">
+            <h3 style="margin-bottom: 30px;"><i class="fas fa-female"></i> 6 Style Batik Wanita</h3>
+            
+            <div class="baju-carousel-wrapper">
+                <button class="carousel-nav carousel-prev" id="baju-wanita-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-nav carousel-next" id="baju-wanita-next"><i class="fas fa-chevron-right"></i></button>
+
+                <div class="baju-carousel" id="baju-wanita-carousel">
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="dress_malam_elegant.jpg" alt="Dress Malam Elegant"></div>
+                        <div class="baju-info">
+                            <h4>Batik Evening Dress</h4>
+                            <p><strong>Motif:</strong> Truntum kombinasi dengan payet<br>
+                            <strong>Bahan:</strong> Sutra halus<br>
+                            <strong>Kesempatan:</strong> Gala dinner, pesta formal, acara malam<br>
+                            <strong>Style:</strong> A-line, panjang hingga mata kaki, aksen modern</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="tunik_kerja.jpg" alt="Tunik Kerja"></div>
+                        <div class="baju-info">
+                            <h4>Batik Tunik Office</h4>
+                            <p><strong>Motif:</strong> Mega Mendung minimalis<br>
+                            <strong>Bahan:</strong> Katun premium<br>
+                            <strong>Kesempatan:</strong> Kantor, meeting, acara semi-formal<br>
+                            <strong>Style:</strong> Tunik panjang, celana kulot, modern chic</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="kaftan_casual.jpg" alt="Kaftan Casual"></div>
+                        <div class="baju-info">
+                            <h4>Batik Kaftan Resort</h4>
+                            <p><strong>Motif:</strong> Kawung kontemporer<br>
+                            <strong>Bahan:</strong> Rayon adem<br>
+                            <strong>Kesempatan:</strong> Santai, jalan-jalan, acara outdoor<br>
+                            <strong>Style:</strong> Longgar, nyaman, bohemian chic</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="blazer_formal.jpg" alt="Blazer Formal"></div>
+                        <div class="baju-info">
+                            <h4>Batik Blazer Executive</h4>
+                            <p><strong>Motif:</strong> Parang Rusak modern<br>
+                            <strong>Bahan:</strong> Katun stretch<br>
+                            <strong>Kesempatan:</strong> Presentasi, rapat penting, acara bisnis<br>
+                            <strong>Style:</strong> Blazer fit, celana bahan, professional</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="kebaya_modern.jpg" alt="Kebaya Modern"></div>
+                        <div class="baju-info">
+                            <h4>Batik Kebaya Kutubaru</h4>
+                            <p><strong>Motif:</strong> Sekar Jagad eksklusif<br>
+                            <strong>Bahan:</strong> Batik tulis premium<br>
+                            <strong>Kesempatan:</strong> Pernikahan, lamaran, acara adat<br>
+                            <strong>Style:</strong> Kutubaru, rok lilit, sangat elegant</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="jumpsuit_trendy.jpg" alt="Jumpsuit Trendy"></div>
+                        <div class="baju-info">
+                            <h4>Batik Jumpsuit Contemporary</h4>
+                            <p><strong>Motif:</strong> Nitik geometric<br>
+                            <strong>Bahan:</strong> Katun jeans<br>
+                            <strong>Kesempatan:</strong> Hangout, date, event casual-formal<br>
+                            <strong>Style:</strong> Wide leg, modern cut, statement piece</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Koleksi Pria -->
+        <div id="baju-pria" class="tab-content-box" style="padding: 30px;">
+            <h3 style="margin-bottom: 30px;"><i class="fas fa-male"></i> 6 Style Batik Pria</h3>
+            
+            <div class="baju-carousel-wrapper">
+                <button class="carousel-nav carousel-prev" id="baju-pria-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-nav carousel-next" id="baju-pria-next"><i class="fas fa-chevron-right"></i></button>
+
+                <div class="baju-carousel" id="baju-pria-carousel">
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="kemeja_slim_fit.jpg" alt="Kemeja Slim Fit"></div>
+                        <div class="baju-info">
+                            <h4>Batik Kemeja Modern</h4>
+                            <p><strong>Motif:</strong> Parang kontemporer<br>
+                            <strong>Bahan:</strong> Katun combed<br>
+                            <strong>Kesempatan:</strong> Kantor, meeting, acara formal<br>
+                            <strong>Style:</strong> Slim fit, lengan panjang/pendek, profesional</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="blazer_premium.jpg" alt="Blazer Premium"></div>
+                        <div class="baju-info">
+                            <h4>Batik Blazer Signature</h4>
+                            <p><strong>Motif:</strong> Sidomukti ekslusif<br>
+                            <strong>Bahan:</strong> Batik cap kombinasi tulis<br>
+                            <strong>Kesempatan:</strong> Gala dinner, pernikahan, acara VIP<br>
+                            <strong>Style:</strong> Tailored fit, sangat berwibawa</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="koko_modern.jpg" alt="Koko Modern"></div>
+                        <div class="baju-info">
+                            <h4>Batik Koko Contemporary</h4>
+                            <p><strong>Motif:</strong> Truntum soft tone<br>
+                            <strong>Bahan:</strong> Katun toyobo<br>
+                            <strong>Kesempatan:</strong> Sholat Jumat, pengajian, Lebaran<br>
+                            <strong>Style:</strong> Kerah shanghai, button down, elegan</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="hem_casual.jpg" alt="Hem Casual"></div>
+                        <div class="baju-info">
+                            <h4>Batik Hem Santai</h4>
+                            <p><strong>Motif:</strong> Kawung playful<br>
+                            <strong>Bahan:</strong> Katun viscose<br>
+                            <strong>Kesempatan:</strong> Jalan-jalan, nongkrong, acara santai<br>
+                            <strong>Style:</strong> Regular fit, nyaman, stylish</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="surjan_traditional.jpg" alt="Surjan Traditional"></div>
+                        <div class="baju-info">
+                            <h4>Batik Surjan Heritage</h4>
+                            <p><strong>Motif:</strong> Lurik kombinasi batik<br>
+                            <strong>Bahan:</strong> Katun tenun tradisional<br>
+                            <strong>Kesempatan:</strong> Upacara adat, pernikahan Jawa<br>
+                            <strong>Style:</strong> Traditional cut, sangat autentik</p>
+                        </div>
+                    </div>
+
+                    <div class="baju-card">
+                        <div class="baju-img"><img src="shirt_streetwear.jpg" alt="Shirt Streetwear"></div>
+                        <div class="baju-info">
+                            <h4>Batik Shirt Urban</h4>
+                            <p><strong>Motif:</strong> Mega Mendung bold<br>
+                            <strong>Bahan:</strong> Katun linen blend<br>
+                            <strong>Kesempatan:</strong> Hangout, musik festival, event casual<br>
+                            <strong>Style:</strong> Oversized fit, trendy, statement fashion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2 class="section-title">Hubungi Kami</h2>
+        <p class="section-subtitle">Sampaikan pertanyaan, saran, atau kolaborasi kepada tim Vohi5ma Batik Soul</p>
+
+        <div class="contact-container">
+            <form class="contact-form" id="contact-form">
+                <input type="text" id="name" placeholder="Nama Lengkap" required>
+                <input type="email" id="email" placeholder="Email Anda" required>
+                <input type="text" id="subject" placeholder="Subjek Pesan" required>
+                <textarea id="message" rows="6" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                <button type="submit">
+                    <i class="fas fa-paper-plane"></i> Kirim Pesan
+                </button>
+                <p id="form-status" style="margin-top: 15px; text-align: center; display: none;"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="vohi5ma-footer">Vohi5ma</div>
+        <p style="font-size: 1.1em; margin-bottom: 10px;">Batik Soul - Melestarikan Warisan, Menginspirasi Masa Depan</p>
+        <p>&copy; 2025 Vohi5ma Batik Soul. All Rights Reserved.</p>
+        <p style="margin-top: 10px;">Created with passion by <strong>Nancy Akisya</strong> - XI PPLG 1</p>
+        <p style="margin-top: 15px; font-size: 0.9em;">SMK Negeri Malang</p>
+    </footer>
+
+    <!-- MODAL MOTIF DETAIL -->
+    <div class="modal" id="motif-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h2 id="modal-title">Nama Motif</h2>
+                <span class="modal-badge" id="modal-origin">Asal Daerah</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3><i class="fas fa-heart"></i> Makna & Filosofi</h3>
+                    <p id="modal-makna"></p>
+                    <p id="modal-filosofi" style="margin-top: 15px; font-style: italic;"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fas fa-palette"></i> Karakteristik Visual</h3>
+                    <div class="info-grid-modal">
+                        <div class="info-item">
+                            <strong>Warna Dominan</strong>
+                            <p id="modal-warna"></p>
+                        </div>
+                        <div class="info-item">
+                            <strong>Penggunaan</strong>
+                            <p id="modal-penggunaan"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fas fa-scroll"></i> Latar Belakang Sejarah</h3>
+                    <p id="modal-sejarah"></p>
+                </div>
+
+                <div class="modal-section" style="background: var(--color-background); padding: 20px; border-radius: 10px;">
+                    <h3><i class="fas fa-lightbulb"></i> Kapan Sebaiknya Dipakai?</h3>
+                    <p id="modal-rekomendasi"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== SPLASH SCREEN ==========
+        const splashScreen = document.getElementById('splash-screen');
+        let splashTimeout;
+
+        const hideSplash = () => {
+            splashScreen.classList.add('hidden');
+        };
+
+        splashTimeout = setTimeout(hideSplash, 5000);
+        splashScreen.addEventListener('click', () => {
+            clearTimeout(splashTimeout);
+            hideSplash();
+        });
+
+        // ========== MOBILE MENU ==========
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            if (navMenu.style.display === 'flex') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '70px';
+                navMenu.style.right = '5%';
+                navMenu.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navMenu.style.padding = '20px';
+                navMenu.style.borderRadius = '10px';
+                navMenu.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+                navMenu.style.zIndex = '999';
+            }
+        });
+
+        // Close menu when clicking nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    navMenu.style.display = 'none';
+                }
+            });
+        });
+
+        // ========== HERO SLIDER ==========
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        const showSlide = (index) => {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(ind => ind.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        };
+
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        // Auto slide every 6 seconds
+        setInterval(nextSlide, 6000);
+
+        // Manual control
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        // ========== MOTIF CAROUSEL ==========
+        const motifCarousel = document.getElementById('motif-carousel');
+        const motifPrev = document.getElementById('motif-prev');
+        const motifNext = document.getElementById('motif-next');
+        let motifScrollPosition = 0;
+        const motifScrollAmount = 300;
+
+        motifNext.addEventListener('click', () => {
+            motifScrollPosition += motifScrollAmount;
+            motifCarousel.style.transform = `translateX(-${motifScrollPosition}px)`;
+        });
+
+        motifPrev.addEventListener('click', () => {
+            motifScrollPosition = Math.max(0, motifScrollPosition - motifScrollAmount);
+            motifCarousel.style.transform = `translateX(-${motifScrollPosition}px)`;
+        });
+
+        // Auto scroll motif carousel
+        let motifAutoScroll = setInterval(() => {
+            motifScrollPosition += 1;
+            motifCarousel.style.transform = `translateX(-${motifScrollPosition}px)`;
+            
+            // Reset when reaching end (approximate)
+            if (motifScrollPosition > 4000) {
+                motifScrollPosition = 0;
+            }
+        }, 30);
+
+        // Pause auto-scroll on hover
+        motifCarousel.addEventListener('mouseenter', () => {
+            clearInterval(motifAutoScroll);
+        });
+
+        motifCarousel.addEventListener('mouseleave', () => {
+            motifAutoScroll = setInterval(() => {
+                motifScrollPosition += 1;
+                motifCarousel.style.transform = `translateX(-${motifScrollPosition}px)`;
+                if (motifScrollPosition > 4000) motifScrollPosition = 0;
+            }, 30);
+        });
+
+        // ========== MOTIF MODAL ==========
+        const modal = document.getElementById('motif-modal');
+        const modalClose = document.getElementById('modal-close');
+        const motifCards = document.querySelectorAll('.motif-card');
+
+        motifCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const name = card.dataset.name;
+                const origin = card.dataset.origin;
+                const makna = card.dataset.makna;
+                const filosofi = card.dataset.filosofi;
+                const warna = card.dataset.warna;
+                const penggunaan = card.dataset.penggunaan;
+                const sejarah = card.dataset.sejarah;
+
+                document.getElementById('modal-title').textContent = name;
+                document.getElementById('modal-origin').textContent = `Asal: ${origin}`;
+                document.getElementById('modal-makna').textContent = makna;
+                document.getElementById('modal-filosofi').textContent = `"${filosofi}"`;
+                document.getElementById('modal-warna').textContent = warna;
+                document.getElementById('modal-penggunaan').textContent = penggunaan;
+                document.getElementById('modal-sejarah').textContent = sejarah;
+                
+                // Dynamic recommendation based on usage
+                let rekomendasi = `Motif ${name} sangat cocok untuk ${penggunaan.toLowerCase()}. `;
+                if (penggunaan.includes('pernikahan')) {
+                    rekomendasi += 'Pilihan sempurna untuk momen sakral yang penuh makna filosofis.';
+                } else if (penggunaan.includes('formal') || penggunaan.includes('keraton')) {
+                    rekomendasi += 'Menampilkan kesan berwibawa dan profesional dalam setiap kesempatan.';
+                } else {
+                    rekomendasi += 'Memberikan sentuhan elegan pada penampilan Anda.';
+                }
+                document.getElementById('modal-rekomendasi').textContent = rekomendasi;
+
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // ========== TABS (FUNGSI & BAJU) ==========
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.dataset.tab;
+                const section = btn.closest('section');
+                
+                // Remove active from all tabs in this section
+                section.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                section.querySelectorAll('.tab-content-box').forEach(box => box.classList.remove('active'));
+                
+                // Add active to clicked tab
+                btn.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // ========== BAJU CAROUSEL ==========
+        const setupBajuCarousel = (carouselId, prevBtnId, nextBtnId) => {
+            const carousel = document.getElementById(carouselId);
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
+            let scrollPos = 0;
+
+            nextBtn.addEventListener('click', () => {
+                scrollPos += 325;
+                carousel.style.transform = `translateX(-${scrollPos}px)`;
+            });
+
+            prevBtn.addEventListener('click', () => {
+                scrollPos = Math.max(0, scrollPos - 325);
+                carousel.style.transform = `translateX(-${scrollPos}px)`;
+            });
+        };
+
+        setupBajuCarousel('baju-wanita-carousel', 'baju-wanita-prev', 'baju-wanita-next');
+        setupBajuCarousel('baju-pria-carousel', 'baju-pria-prev', 'baju-pria-next');
+
+        // ========== CONTACT FORM ==========
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Email tujuan - GANTI DENGAN EMAIL CLIENT
+            const recipientEmail = 'nancyakisya@student.smkn.sch.id';
+            
+            const mailtoSubject = encodeURIComponent(`${subject} - dari ${name}`);
+            const mailtoBody = encodeURIComponent(
+                `Nama: ${name}\nEmail: ${email}\n\n${message}\n\n---\nDikirim melalui Website Vohi5ma Batik Soul`
+            );
+
+            window.location.href = `mailto:${recipientEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+            formStatus.textContent = 'Membuka aplikasi email Anda...';
+            formStatus.style.display = 'block';
+            formStatus.style.color = 'var(--color-primary)';
+
+            setTimeout(() => {
+                contactForm.reset();
+                formStatus.style.display = 'none';
+            }, 3000);
+        });
+
+        // ========== ACTIVE NAV ON SCROLL ==========
+        window.addEventListener('scroll', () => {
+            const sections = ['home', 'ragam-corak', 'teknik', 'fungsi', 'baju', 'contact'];
+            let current = '';
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    if (window.scrollY >= sectionTop - 200 && window.scrollY < sectionTop + sectionHeight - 200) {
+                        current = sectionId;
+                    }
+                }
+            });
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ========== SMOOTH SCROLL ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
