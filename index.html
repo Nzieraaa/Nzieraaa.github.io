@@ -1,282 +1,1460 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.rtl.min.css" integrity="sha384-Xbg45MqvDIk1e563NLpGEulpX6AvL404DP+/iCgW9eFa2BqztiwTexswJo2jLMue" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-    <!-- My CSS -->
-    <style>
-      .jumbotron {
-        padding-top: 6rem;
-        background-color: #e2edff;
-      }
-      #projects {
-        background-color: #e2edff;
-      }
-      .card {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nancy Akisya — Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Poppins','sans-serif'],display:['Playfair Display','serif'],decorative:['Cormorant Garamond','serif']},colors:{
+lbg:'#fef0fb',dbg:'#0a0a2a',dbg2:'#050518',dcard:'rgba(15,15,45,0.7)',daccent:'#00f7ff',daccent2:'#ff00c8',dtxt:'#fff',dsub:'#c0c0ff'}}}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;transition:background .5s,color .5s}
 
-      .card-img-top.img-project {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        object-position: center;
-      }
+/* ===== LIGHT MODE ===== */
+body{
+  background:linear-gradient(135deg,#fdf0fb 0%,#f4eaff 18%,#eae8ff 36%,#e6f0ff 54%,#ebf8ff 72%,#f6edff 90%,#fdf0fb 100%);
+  background-attachment:fixed;
+  color:#2D1B4E;
+}
+.card{
+  background:linear-gradient(135deg,rgba(255,255,255,0.82),rgba(246,221,255,0.55),rgba(235,240,255,0.5));
+  border:1px solid rgba(223,184,253,0.38);
+  box-shadow:0 4px 24px rgba(156,103,176,.10);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.section-alt{
+  background:linear-gradient(135deg,rgba(242,214,233,0.35),rgba(221,192,220,0.25),rgba(184,183,253,0.20),rgba(184,206,255,0.18));
+  position:relative;
+}
+.section-alt::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 15% 50%,rgba(223,184,253,.12),transparent 50%),
+             radial-gradient(circle at 85% 50%,rgba(184,206,255,.12),transparent 50%);
+}
+.badge{
+  background:linear-gradient(135deg,rgba(223,184,253,0.4),rgba(184,183,253,0.4));
+  color:#6b3fa0;border:1px solid rgba(179,157,219,0.4);
+}
+.btn-primary{
+  background:linear-gradient(135deg,#c49ee0,#9c67b0,#7b4db8);
+  color:#fff;position:relative;overflow:hidden;
+  box-shadow:0 4px 15px rgba(156,103,176,.3);
+}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#DFB8FD,#B8B7FD,#a07dd6);opacity:0;transition:opacity .3s}
+.btn-primary:hover::before{opacity:1}
+.btn-primary:hover{box-shadow:0 6px 25px rgba(156,103,176,.45);transform:translateY(-2px)}
+.btn-primary span{position:relative;z-index:1}
+.btn-outline{border:2px solid rgba(179,157,219,0.8);color:#9c67b0;background:rgba(255,255,255,0.5);position:relative;overflow:hidden}
+.btn-outline::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(223,184,253,.25),rgba(184,183,253,.25));opacity:0;transition:opacity .3s}
+.btn-outline:hover::before{opacity:1}
+.btn-outline:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(156,103,176,.2)}
+.btn-outline span{position:relative;z-index:1}
+.accent-text{background:linear-gradient(135deg,#7b4db8,#9c67b0,#b39ddb,#ce93d8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-bg{background:rgba(252,240,255,0.92);border-bottom:1px solid rgba(223,184,253,0.4);backdrop-filter:blur(14px)}
+.mobile-nav-bg{background:rgba(252,240,255,0.97);border-top:1px solid rgba(223,184,253,0.4)}
+.nav-link-h{color:#3d2460}
+.nav-link-h:hover,.nav-link-h.active{color:#9c67b0}
+.icon-box{background:linear-gradient(135deg,rgba(223,184,253,.5),rgba(184,183,253,.5));color:#7b4db8}
+.skill-pill{
+  background:linear-gradient(135deg,rgba(255,255,255,.7),rgba(223,184,253,.35));
+  color:#6b3fa0;border:1px solid rgba(179,157,219,.4);
+}
+.skill-pill:hover{
+  background:linear-gradient(135deg,#b39ddb,#9c67b0);
+  color:#fff;box-shadow:0 4px 14px rgba(179,157,219,.4);
+  border-color:transparent;
+}
+.timeline-line{background:linear-gradient(to bottom,rgba(223,184,253,0),#DFB8FD,#b39ddb,#9c67b0,#b39ddb,#DFB8FD,rgba(223,184,253,0))}
+.timeline-dot{
+  background:linear-gradient(135deg,#b39ddb,#9c67b0);
+  box-shadow:0 0 0 4px rgba(179,157,219,.3),0 0 14px rgba(156,103,176,.4);
+}
+.edu-badge{background:linear-gradient(135deg,rgba(184,206,255,.5),rgba(184,183,253,.4));color:#4a60a0}
+.exp-badge{background:linear-gradient(135deg,rgba(255,184,223,.5),rgba(242,214,233,.5));color:#9c2070}
+.input-style{
+  background:rgba(255,255,255,0.7);
+  border:1.5px solid rgba(179,157,219,.45);color:#2D1B4E;
+  backdrop-filter:blur(6px);
+}
+.input-style:focus{border-color:#b39ddb;outline:0;box-shadow:0 0 0 3px rgba(179,157,219,.2);background:rgba(255,255,255,0.9)}
+.input-style::placeholder{color:rgba(100,80,130,.4)}
+.social-icon{
+  background:linear-gradient(135deg,rgba(223,184,253,.5),rgba(184,183,253,.45));
+  color:#7b4db8;
+  box-shadow:0 2px 10px rgba(156,103,176,.12);
+}
+.social-icon:hover{
+  background:linear-gradient(135deg,#b39ddb,#9c67b0);
+  color:#fff;box-shadow:0 6px 18px rgba(156,103,176,.35);
+}
+#scroll-progress{background:linear-gradient(90deg,#DFB8FD,#b39ddb,#9c67b0,#7b4db8)}
+.footer-bg{background:linear-gradient(135deg,rgba(242,214,233,.5),rgba(221,192,220,.4),rgba(184,183,253,.3),rgba(184,206,255,.2))}
+.proj-icon-bg{background:linear-gradient(135deg,rgba(223,184,253,.6),rgba(184,183,253,.55));color:#7b4db8}
+#loading-screen{background:linear-gradient(135deg,#fdf0fb,#f4eaff,#e6f0ff)}
+.loader-ring{border-top-color:#9c67b0;border-right-color:rgba(223,184,253,.3);border-bottom-color:rgba(184,183,253,.2);border-left-color:rgba(184,206,255,.2)}
+.back-top{background:linear-gradient(135deg,#b39ddb,#9c67b0);color:#fff;box-shadow:0 4px 14px rgba(156,103,176,.35)}
+.back-top:hover{box-shadow:0 6px 22px rgba(156,103,176,.55);transform:translateY(-3px) !important}
+.float-wa{background:#25d366;color:#fff;box-shadow:0 4px 14px rgba(37,211,102,.45)}
+.toggle-bg{background:linear-gradient(135deg,#c49ee0,#9c67b0)}
+.section-title-line{background:linear-gradient(90deg,#DFB8FD,#9c67b0,#7b4db8)}
 
-      .card-body {
-        flex-grow: 1;
-      }
+/* Card hover */
+.card{transition:transform .3s,box-shadow .3s}
+.card-hover:hover{transform:translateY(-5px)}
+body .card-hover:hover{box-shadow:0 18px 45px rgba(156,103,176,.18)}
 
-      section {
-        padding-top: 5rem;
-      }
-    </style>
-    <!-- End My CSS -->
-    <title>Portofolio Ncy</title>
-  </head>
-  <body id="home">
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="#">Nancy Akisya</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav" style="margin-left: 100px">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ncy.html">Portofolio Ncy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- End Navbar -->
+/* Contact social icon (ncy.html style) */
+.csocial-wrap{margin-top:4px;padding-top:16px;border-top:1px solid rgba(179,157,219,.3)}
+.csocial-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:12px}
+.csocial-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(223,184,253,.55),rgba(184,183,253,.5));
+  border:1.5px solid rgba(179,157,219,.5);
+  color:#7b4db8;font-size:1.3rem;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;transition:all .3s;position:relative;
+}
+.csocial-icon:hover{
+  background:linear-gradient(135deg,#b39ddb,#9c67b0);
+  color:#fff;transform:translateY(-5px);
+  box-shadow:0 8px 22px rgba(156,103,176,.38);
+  border-color:transparent;
+}
+.csocial-icon .stt{
+  position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);
+  background:rgba(124,77,184,.88);color:#fff;
+  padding:2px 9px;border-radius:5px;font-size:.66rem;
+  opacity:0;transition:opacity .25s;white-space:nowrap;pointer-events:none;
+  font-family:'Poppins',sans-serif;font-weight:500;
+}
+.csocial-icon:hover .stt{opacity:1}
 
-    <!-- Jumbotron -->
-    <section class="jumbotron text-center">
-      <img src="Ncy.jpg" alt="Nncy Akisya" width="200" class="rounded-circle img-thumbnail" />
-      <h1 class="display-4">Nancy Akisya</h1>
-      <p class="lead">Student at SMK Negeri 5 Malang | Software and Game Development (PPLG)</p>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#ffffff"
-          fill-opacity="1"
-          d="M0,192L26.7,170.7C53.3,149,107,107,160,80C213.3,53,267,43,320,69.3C373.3,96,427,160,480,197.3C533.3,235,587,245,640,229.3C693.3,213,747,171,800,176C853.3,181,907,235,960,261.3C1013.3,288,1067,288,1120,256C1173.3,224,1227,160,1280,122.7C1333.3,85,1387,75,1413,69.3L1440,64L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"
-        ></path>
-      </svg>
-    </section>
-    <!-- End Jumbotron -->
+/* ===== DARK MODE ===== */
+.dark body{background:#0a0a2a;color:#fff}
+.dark .card{background:rgba(15,15,45,.7);border:1px solid rgba(93,46,142,.3);box-shadow:0 10px 30px rgba(0,0,0,.3);backdrop-filter:blur(12px)}
+.dark .section-alt{background:rgba(5,5,24,.8)}
+.dark .section-alt::before{display:none}
+.dark .badge{background:rgba(0,247,255,.1);color:#00f7ff;border:1px solid rgba(0,247,255,.2)}
+.dark .btn-primary{background:linear-gradient(135deg,#5d2e8e,rgba(0,247,255,.3));color:#00f7ff;border:1px solid #00f7ff;box-shadow:0 4px 14px rgba(0,247,255,.2)}
+.dark .btn-primary::before{background:linear-gradient(135deg,rgba(0,247,255,.2),rgba(255,0,200,.2))}
+.dark .btn-outline{border:2px solid #ff00c8;color:#ff00c8;background:transparent}
+.dark .btn-outline::before{background:rgba(255,0,200,.15)}
+.dark .accent-text{background:linear-gradient(135deg,#00f7ff,#ff00c8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dark .nav-bg{background:rgba(10,10,42,.92);border-bottom:1px solid rgba(93,46,142,.4)}
+.dark .mobile-nav-bg{background:rgba(10,10,42,.97);border-top:1px solid rgba(93,46,142,.4)}
+.dark .nav-link-h{color:#fff}
+.dark .nav-link-h:hover,.dark .nav-link-h.active{color:#00f7ff}
+.dark .icon-box{background:rgba(93,46,142,.3);color:#00f7ff}
+.dark .skill-pill{background:rgba(93,46,142,.3);color:#00f7ff;border:1px solid rgba(93,46,142,.5)}
+.dark .skill-pill:hover{background:rgba(0,247,255,.2);box-shadow:0 0 12px rgba(0,247,255,.4);color:#00f7ff}
+.dark .timeline-line{background:linear-gradient(to bottom,rgba(93,46,142,.3),#5d2e8e,rgba(93,46,142,.3))}
+.dark .timeline-dot{background:#00f7ff;box-shadow:0 0 0 4px rgba(0,247,255,.2),0 0 15px rgba(0,247,255,.5)}
+.dark .edu-badge{background:rgba(0,247,255,.1);color:#00f7ff}
+.dark .exp-badge{background:rgba(255,0,200,.1);color:#ff00c8}
+.dark .input-style{background:rgba(25,25,60,.7);border:1.5px solid rgba(93,46,142,.5);color:#fff}
+.dark .input-style::placeholder{color:rgba(192,192,255,.5)}
+.dark .input-style:focus{border-color:#00f7ff;box-shadow:0 0 0 3px rgba(0,247,255,.15)}
+.dark .social-icon{background:rgba(93,46,142,.3);color:#00f7ff}
+.dark .social-icon:hover{background:rgba(0,247,255,.2);box-shadow:0 0 16px rgba(0,247,255,.3)}
+.dark #scroll-progress{background:linear-gradient(90deg,#00f7ff,#ff00c8)}
+.dark .footer-bg{background:linear-gradient(135deg,rgba(5,5,20,.9),rgba(10,10,42,.95))}
+.dark .proj-icon-bg{background:linear-gradient(135deg,rgba(93,46,142,.5),rgba(26,6,57,.6));color:#00f7ff}
+.dark #loading-screen{background:#050518}
+.dark .loader-ring{border-top-color:#00f7ff;border-right-color:rgba(0,247,255,.1);border-bottom-color:rgba(255,0,200,.1);border-left-color:rgba(93,46,142,.2)}
+.dark .back-top{background:linear-gradient(135deg,#5d2e8e,rgba(0,247,255,.3));color:#00f7ff;border:1px solid #00f7ff}
+.dark .float-wa{background:#25d366}
+.dark .toggle-bg{background:#5d2e8e}
+.dark .section-title-line{background:linear-gradient(90deg,#00f7ff,#ff00c8)}
+.dark .card-hover:hover{box-shadow:0 16px 40px rgba(0,247,255,.1)}
+.dark .csocial-icon{background:rgba(93,46,142,.3);border-color:rgba(93,46,142,.5);color:#00f7ff}
+.dark .csocial-icon:hover{background:linear-gradient(135deg,rgba(0,247,255,.25),rgba(255,0,200,.15));color:#00f7ff;box-shadow:0 0 20px rgba(0,247,255,.3)}
+.dark .csocial-icon .stt{background:rgba(0,247,255,.85);color:#0a0a2a}
+.dark .csocial-wrap{border-top-color:rgba(93,46,142,.3)}
 
-    <!-- About -->
-    <section id="about">
-      <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col">
-            <h2>About Me</h2>
-          </div>
-        </div>
-        <div class="row justify-content-center fs-5 text-center">
-          <div class="col-md-4 mb-3">
-            <p>I am a student at SMK Negeri 5 Malang majoring in Software and Game Development (PPLG). Passionate about programming and developing practical applications to solve real-world problems.</p>
-          </div>
-          <div class="col-md-4 mb-3">
-            <p>With skills in various programming languages and frameworks, I enjoy creating applications that are both functional and user-friendly. My projects range from educational tools to e-commerce solutions.</p>
-          </div>
-        </div>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#e2edff"
-          fill-opacity="1"
-          d="M0,96L34.3,117.3C68.6,139,137,181,206,192C274.3,203,343,181,411,144C480,107,549,53,617,53.3C685.7,53,754,107,823,144C891.4,181,960,203,1029,202.7C1097.1,203,1166,181,1234,154.7C1302.9,128,1371,96,1406,80L1440,64L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-        ></path>
-      </svg>
-    </section>
-    <!-- End About -->
+/* ===== GALAXY BG (dark) ===== */
+.stars-layer,.twinkling-layer,.nebula-layer{position:fixed;inset:0;z-index:0;pointer-events:none}
+.stars-layer{background-image:radial-gradient(white,rgba(255,255,255,.2) 1px,transparent 2px),radial-gradient(white,rgba(255,255,255,.15) 1px,transparent 1.5px),radial-gradient(white,rgba(255,255,255,.1) 1px,transparent 1px);background-size:550px 550px,350px 350px,250px 250px;background-position:0 0,40px 60px,130px 270px;animation:starsMove 120s linear infinite}
+@keyframes starsMove{from{background-position:0 0,40px 60px,130px 270px}to{background-position:-550px 0,-310px 60px,-120px 270px}}
+.nebula-layer{background-image:radial-gradient(circle at 10% 20%,rgba(93,46,142,.15) 0%,transparent 30%),radial-gradient(circle at 80% 30%,rgba(0,247,255,.1) 0%,transparent 25%),radial-gradient(circle at 40% 70%,rgba(255,0,200,.1) 0%,transparent 30%),radial-gradient(circle at 70% 80%,rgba(93,46,142,.12) 0%,transparent 25%);animation:nebulaShift 60s linear infinite alternate}
+@keyframes nebulaShift{from{opacity:.7}to{opacity:1}}
+.planet{position:fixed;border-radius:50%;z-index:0;pointer-events:none;animation:floatPlanet 20s ease-in-out infinite alternate}
+.planet-1{width:80px;height:80px;top:15%;right:8%;background:radial-gradient(circle at 35% 35%,#9b59b6,#2c0040);box-shadow:0 0 30px rgba(93,46,142,.4)}
+.planet-2{width:50px;height:50px;bottom:25%;left:5%;background:radial-gradient(circle at 35% 35%,#00b4d8,#03045e);box-shadow:0 0 20px rgba(0,180,216,.4);animation-delay:-10s}
+@keyframes floatPlanet{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-20px) rotate(5deg)}}
+body:not(.dark) .stars-layer,body:not(.dark) .twinkling-layer,body:not(.dark) .nebula-layer,body:not(.dark) .planet{display:none}
 
-    <!-- Projects -->
-    <section id="projects">
-      <div class="container">
-        <div class="row text-center mb-4">
-          <div class="col">
-            <h2>My Projects</h2>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="1.jpg" class="card-img-top img-project" alt="Symbolab-like Calculator" />
-              <div class="card-body">
-                <h5 class="card-title">Symbolab-like Calculator</h5>
-                <p class="card-text">A sophisticated calculator application that can solve complex mathematical equations with step-by-step solutions, similar to Symbolab.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="2.jpg" class="card-img-top img-project" alt="Self-Service Store App" />
-              <div class="card-body">
-                <h5 class="card-title">Self-Service Store App</h5>
-                <p class="card-text">An application for both sellers and buyers that enables self-service transactions in retail environments with inventory management.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="3.jpg" class="card-img-top img-project" alt="Warehouse Inventory System" />
-              <div class="card-body">
-                <h5 class="card-title">Warehouse Inventory System</h5>
-                <p class="card-text">A comprehensive inventory management system for warehouses with barcode scanning, stock tracking, and reporting features.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="4.jpg" class="card-img-top img-project" alt="E-Commerce Platform" />
-              <div class="card-body">
-                <h5 class="card-title">E-Commerce Platform</h5>
-                <p class="card-text">A complete online store with integrated payment systems, shipping calculations, and customer management features.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="6.jpeg" class="card-img-top img-project" alt="Food Delivery App" />
-              <div class="card-body">
-                <h5 class="card-title">Food Delivery App</h5>
-                <p class="card-text">A food delivery application with Google Maps integration, distance calculation, and dynamic pricing based on delivery parameters.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#ffffff"
-          fill-opacity="1"
-          d="M0,0L48,37.3C96,75,192,149,288,202.7C384,256,480,288,576,250.7C672,213,768,107,864,85.3C960,64,1056,128,1152,154.7C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-        ></path>
-      </svg>
-    </section>
-    <!-- End Projects -->
+/* ===== LIGHT MODE DECORATIVE ===== */
+.light-blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(65px);animation:blobAnim 14s ease-in-out infinite alternate}
+.light-blob-1{width:420px;height:420px;top:-120px;right:-80px;background:radial-gradient(circle,#DFB8FD,#b39ddb,rgba(184,183,253,.5));opacity:.45}
+.light-blob-2{width:350px;height:350px;bottom:80px;left:-100px;background:radial-gradient(circle,#f2d6e9,#ce93d8,rgba(184,206,255,.4));opacity:.4;animation-delay:-7s}
+.light-blob-3{width:280px;height:280px;top:40%;left:45%;background:radial-gradient(circle,rgba(184,206,255,.8),rgba(184,183,253,.6));opacity:.35;animation-delay:-3.5s}
+.light-blob-4{width:200px;height:200px;top:70%;right:15%;background:radial-gradient(circle,rgba(242,214,233,.9),rgba(223,184,253,.6));opacity:.4;animation-delay:-11s}
+@keyframes blobAnim{from{transform:scale(1) translateY(0) rotate(0deg)}to{transform:scale(1.12) translateY(-22px) rotate(6deg)}}
+.dark .light-blob{display:none}
 
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <div class="row text-center">
-          <div class="col">
-            <h2>Contact Me</h2>
-          </div>
-        </div>
-        <div class="row mb-3 justify-content-center">
-          <div class="col-md-6">
-            <form name="WPU-Contact-Form">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nama</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" name="name" />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="email" name="email" />
-              </div>
-              <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" rows="3" name="pesan"></textarea>
-              </div>
+/* Floating shapes light */
+.floating-shape{position:fixed;opacity:.22;z-index:0;pointer-events:none;animation:floatShape 20s ease-in-out infinite}
+.shape-1{width:70px;height:70px;top:18%;left:8%;background:linear-gradient(135deg,#DFB8FD,#B8B7FD);border-radius:30% 70% 70% 30%/30% 30% 70% 70%;animation-duration:18s}
+.shape-2{width:45px;height:45px;top:58%;right:12%;background:linear-gradient(135deg,#f2d6e9,#DFB8FD);border-radius:50%;animation-duration:24s;animation-delay:-9s}
+.shape-3{width:55px;height:55px;bottom:28%;left:18%;background:linear-gradient(135deg,#EFFBFF,#B8CEFF);border-radius:40% 60% 70% 30%/60% 30% 70% 40%;animation-duration:16s;animation-delay:-4s}
+.shape-4{width:35px;height:35px;top:35%;right:25%;background:linear-gradient(135deg,#DED3FD,#B8B7FD);border-radius:60% 40% 30% 70%/40% 70% 30% 60%;animation-duration:22s;animation-delay:-6s}
+.shape-5{width:28px;height:28px;bottom:45%;left:40%;background:linear-gradient(135deg,#F6DDFF,#DFB8FD);border-radius:50%;animation-duration:19s;animation-delay:-2s}
+@keyframes floatShape{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-28px) rotate(6deg)}50%{transform:translateY(-8px) rotate(0deg)}75%{transform:translateY(-18px) rotate(-5deg)}}
+.dark .floating-shape{display:none}
 
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#0d6efd"
-          fill-opacity="1"
-          d="M0,224L48,229.3C96,235,192,245,288,245.3C384,245,480,235,576,229.3C672,224,768,224,864,234.7C960,245,1056,267,1152,261.3C1248,256,1344,224,1392,208L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-        ></path>
-      </svg>
-    </section>
-    <!-- End Contact -->
+/* Light sparkle particles */
+.sparkle{position:fixed;pointer-events:none;z-index:0;animation:sparkleFade 4s ease-in-out infinite;opacity:0}
+@keyframes sparkleFade{0%,100%{opacity:0;transform:scale(0)}40%{opacity:.7;transform:scale(1)}60%{opacity:.7;transform:scale(1)}}
+.dark .sparkle{display:none}
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white text-center pb-3">
-      <p>Created with <i class="bi bi-heart-fill text-danger"></i> by <a href="https://www.instagram.com/cyeraaa.zy?utm_source=qr" class="text-white fw-bold">Cyeraaa.zy</a></p>
-    </footer>
-    <!-- End Footer -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+/* Shooting stars */
+.shooting-star{position:fixed;height:2px;background:linear-gradient(90deg,transparent,#00f7ff);border-radius:2px;animation:shoot linear forwards;z-index:1}
+@keyframes shoot{0%{transform:translate(0,0) rotate(30deg);opacity:0;width:0}10%{opacity:1}100%{transform:translate(300px,150px) rotate(30deg);opacity:0;width:150px}}
+.twinkle-star{position:fixed;background:#fff;border-radius:50%;animation:twinkle ease-in-out infinite;opacity:0}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:1;transform:scale(1)}}
 
-    <script>
-      const scriptURL = "https://script.google.com/macros/s/AKfycby26hB0uf2zPadn00jvxD84tgQZlALpN4y5BEWApFIMekMef_wwJc_qQvsKQBLdqUkL0Q/exec ";
-      const form = document.forms["WPU-Contact-Form"];
+/* ===== LAYOUT ===== */
+.page-content{position:relative;z-index:1}
+section{padding:52px 0;position:relative}
+@media (max-width:768px){section{padding:32px 0}}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+/* ===== NAVBAR ===== */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .3s}
+.nav-link-h{font-size:.875rem;font-weight:500;padding:6px 12px;border-radius:8px;transition:all .2s;text-decoration:none;display:block;position:relative}
+.nav-link-h::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;border-radius:2px;transition:width .3s}
+body .nav-link-h::after{background:linear-gradient(90deg,#DFB8FD,#9c67b0)}
+.dark .nav-link-h::after{background:linear-gradient(90deg,#00f7ff,#ff00c8)}
+.nav-link-h:hover::after,.nav-link-h.active::after{width:80%}
 
-        // Mendapatkan tombol submit
-        const submitButton = form.querySelector("[type='submit']");
-        const originalHTML = submitButton.innerHTML;
+/* ===== MOBILE BOTTOM NAV ===== */
+#bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:none}
+@media (max-width:768px){#bottom-nav{display:flex}#desktop-nav-links{display:none}body{padding-bottom:64px}}
+.bottom-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 4px;font-size:10px;font-weight:500;text-decoration:none;transition:all .2s}
+body .bottom-nav-item{color:#90a4ae}
+body .bottom-nav-item.active,body .bottom-nav-item:hover{color:#9c67b0}
+.dark .bottom-nav-item{color:rgba(192,192,255,.6)}
+.dark .bottom-nav-item.active,.dark .bottom-nav-item:hover{color:#00f7ff}
+.bottom-nav-item i{font-size:1.1rem}
 
-        // Membuat spinner loading
-        const spinner = document.createElement("span");
-        spinner.className = "spinner";
-        spinner.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <style>
-          .spinner {
-            animation: rotate 1s linear infinite;
-          }
-          @keyframes rotate {
-            100% { transform: rotate(360deg); }
-          }
-        </style>
-        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" opacity="0.2"/>
-        <path d="M12 2a10 10 0 0 1 10 10h-2a8 8 0 0 0-8-8V2z"/>
-      </svg>
+/* ===== TOGGLE ===== */
+.toggle-track{width:50px;height:26px;border-radius:999px;position:relative;transition:background .3s;cursor:pointer}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:10px}
+.dark .toggle-thumb{transform:translateX(24px)}
+
+/* ===== HERO ===== */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:70px;padding-bottom:24px}
+@media (max-width:768px){#hero{padding-top:60px;padding-bottom:16px}}
+.blob-photo{border-radius:60% 40% 30% 70%/60% 30% 70% 40%;animation:blobPhoto 8s ease-in-out infinite;position:relative}
+@keyframes blobPhoto{0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}}
+.photo-wrapper{position:relative;display:inline-block}
+.photo-glow{position:absolute;inset:-6px;border-radius:60% 40% 30% 70%/60% 30% 70% 40%;animation:blobPhoto 8s ease-in-out infinite;z-index:-1}
+body .photo-glow{background:linear-gradient(135deg,#DFB8FD,#b39ddb,#9c67b0,#f2d6e9);opacity:.55;filter:blur(10px)}
+.dark .photo-glow{background:linear-gradient(135deg,#00f7ff,#ff00c8,#5d2e8e);opacity:.6;filter:blur(10px)}
+.stat-card{border-radius:16px;padding:12px 14px;text-align:center;transition:transform .3s}
+.stat-card:hover{transform:translateY(-4px)}
+body .stat-card{background:linear-gradient(135deg,rgba(255,255,255,.7),rgba(223,184,253,.3));border:1px solid rgba(179,157,219,.3)}
+.stat-num{font-size:1.75rem;font-weight:800;line-height:1}
+@media (max-width:768px){.stat-num{font-size:1.5rem}}
+
+/* ===== ABOUT PHOTO ===== */
+.about-photo-wrap{position:relative;width:100%;max-width:260px;margin:0 auto}
+@media (min-width:768px){.about-photo-wrap{max-width:240px}}
+@media (max-width:480px){.about-photo-wrap{max-width:180px}}
+.about-photo-img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px;display:block}
+.about-photo-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(124,77,184,.88) 0%,rgba(156,103,176,.4) 60%,transparent 100%);
+  padding:12px 14px 14px;border-radius:0 0 18px 18px;
+}
+.dark .about-photo-overlay{background:linear-gradient(to top,rgba(93,46,142,.92) 0%,rgba(26,6,57,.5) 60%,transparent 100%)}
+
+/* ===== HOBBIES ROW ===== */
+.hobbies-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.hobbies-row::-webkit-scrollbar{display:none}
+
+/* ===== SKILLS ===== */
+.skills-row{overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent)}
+.skills-track{display:flex;gap:10px;width:max-content}
+.skills-row:hover .skills-track{animation-play-state:paused}
+.s-anim-1{animation:scrollL 35s linear infinite}
+.s-anim-2{animation:scrollL 45s linear infinite}
+.s-anim-3{animation:scrollL 28s linear infinite}
+.s-anim-4{animation:scrollL 50s linear infinite reverse}
+@keyframes scrollL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.skill-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:.82rem;font-weight:500;white-space:nowrap;transition:all .25s;cursor:default}
+
+/* ===== TIMELINE ===== */
+.timeline-wrapper{position:relative}
+.timeline-center-line{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%)}
+.tl-item{display:grid;grid-template-columns:1fr 32px 1fr;gap:0;margin-bottom:24px;align-items:start}
+.tl-dot-col{display:flex;justify-content:center;padding-top:18px}
+.tl-dot{width:14px;height:14px;border-radius:50%;z-index:2;flex-shrink:0}
+.tl-card{padding:16px 20px}
+.tl-left{grid-column:1;text-align:right;padding-right:20px}
+.tl-right{grid-column:3;padding-left:20px}
+.tl-empty{grid-column:1}
+/* Timeline card header - badge and title side by side */
+.tl-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:nowrap;margin-bottom:8px}
+.tl-card-header.right-side{flex-direction:row-reverse}
+.tl-card-title{font-weight:700;font-size:.875rem;line-height:1.3;font-family:'Playfair Display',serif}
+.tl-card-date{font-size:.7rem;opacity:.6;margin-top:2px}
+@media (max-width:768px){
+  .timeline-center-line{left:18px}
+  .tl-item{grid-template-columns:36px 1fr}
+  .tl-dot-col{grid-column:1;padding-top:14px}
+  .tl-left,.tl-right{grid-column:2;text-align:left;padding:0}
+  .tl-empty{display:none}
+  .tl-card-header{flex-direction:row !important}
+  .tl-card-header.right-side{flex-direction:row !important}
+}
+
+/* ===== PROJECTS ===== */
+.proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:1100px){.proj-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:768px){.proj-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+/* NO 1-column override at 480px — keeps 2 columns on all mobile */
+.proj-card{border-radius:18px;overflow:hidden;text-decoration:none;display:block;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;position:relative}
+.proj-card::before{content:'';position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity .3s;z-index:0}
+body .proj-card::before{background:linear-gradient(135deg,rgba(223,184,253,.25),rgba(184,183,253,.2))}
+.dark .proj-card::before{background:linear-gradient(135deg,rgba(0,247,255,.08),rgba(255,0,200,.08))}
+.proj-card:hover{transform:translateY(-8px) scale(1.02)}
+.proj-card:hover::before{opacity:1}
+body .proj-card:hover{box-shadow:0 20px 50px rgba(156,103,176,.22)}
+.dark .proj-card:hover{box-shadow:0 20px 50px rgba(0,247,255,.14)}
+.proj-card-disabled{opacity:.65;filter:grayscale(.4)}
+.proj-card > div{position:relative;z-index:1}
+/* Project icon and title aligned */
+.proj-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.proj-icon{font-size:1.5rem;width:46px;height:46px;min-width:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+@media (max-width:768px){.proj-icon{font-size:1.25rem;width:40px;height:40px;min-width:40px;border-radius:11px}}
+.proj-title-block{flex:1;min-width:0}
+.proj-title{font-weight:700;font-size:.95rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Playfair Display',serif}
+@media (max-width:768px){.proj-title{font-size:.82rem}}
+.proj-badge-row{display:flex;justify-content:flex-end;margin-bottom:6px}
+
+/* ===== CONTACT ===== */
+.contact-input{width:100%;padding:11px 15px;border-radius:12px;font-family:inherit;font-size:.875rem;transition:all .3s}
+.contact-item-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.contact-icon-h{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+body .contact-icon-h{background:linear-gradient(135deg,rgba(223,184,253,.5),rgba(184,183,253,.45));color:#7b4db8}
+.dark .contact-icon-h{background:rgba(93,46,142,.3);color:#00f7ff}
+@media (max-width:768px){.contact-icon-h{width:38px;height:38px;font-size:.88rem}}
+
+/* Social icon (hero/footer) */
+.social-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all .25s;text-decoration:none}
+.social-icon:hover{transform:translateY(-4px)}
+@media (max-width:768px){.social-icon{width:40px;height:40px;font-size:1rem}}
+
+/* ===== FLOATING BTNS ===== */
+#back-top{position:fixed;bottom:78px;right:18px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;transform:translateY(10px);transition:all .3s;border:none;cursor:pointer}
+#back-top.show{opacity:1;transform:translateY(0)}
+#back-top:hover{transform:translateY(-3px) !important}
+#float-wa{position:fixed;bottom:130px;right:18px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;z-index:200;text-decoration:none;font-size:1.2rem;transition:transform .3s}
+#float-wa:hover{transform:scale(1.1)}
+
+/* ===== SCROLL PROGRESS ===== */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;z-index:201;width:0;transition:width .1s linear}
+
+/* ===== LOADING ===== */
+#loading-screen{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
+.loader-ring{width:58px;height:58px;border:3px solid transparent;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== MOBILE SPLASH ===== */
+#mobile-splash{
+  position:fixed;inset:0;z-index:5000;
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#fdf0fb 0%,#f0e8ff 25%,#e5ecff 50%,#ecf8ff 75%,#fdf0fb 100%);
+  transition:transform .7s cubic-bezier(.76,0,.24,1),opacity .7s;
+  cursor:pointer;overflow:hidden;
+}
+#mobile-splash.active{display:flex}
+#mobile-splash.dismiss{transform:translateY(-100%);opacity:0}
+.splash-blob{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+.splash-blob-1{width:300px;height:300px;top:-80px;right:-60px;background:radial-gradient(circle,#DFB8FD,rgba(179,157,219,.4));opacity:.6;animation:blobAnim 10s ease-in-out infinite alternate}
+.splash-blob-2{width:250px;height:250px;bottom:-60px;left:-40px;background:radial-gradient(circle,#f2d6e9,rgba(184,206,255,.5));opacity:.5;animation:blobAnim 12s ease-in-out infinite alternate;animation-delay:-5s}
+.splash-blob-3{width:180px;height:180px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(184,183,253,.6),transparent);opacity:.4;animation:blobAnim 8s ease-in-out infinite alternate;animation-delay:-3s}
+.splash-ring{width:160px;height:160px;border-radius:50%;border:2px solid rgba(179,157,219,.35);position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:28px}
+.splash-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(223,184,253,.25)}
+.splash-ring::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px dashed rgba(184,183,253,.2)}
+.splash-photo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid rgba(179,157,219,.5)}
+.splash-tap{font-size:.72rem;opacity:.5;letter-spacing:.08em;margin-top:20px;font-family:'Poppins',sans-serif}
+#splash-bar{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,#DFB8FD,#9c67b0,#7b4db8);width:0;transition:width 10s linear}
+#splash-bar.run{width:100%}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== TYPED ===== */
+#typed-cursor{animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ===== SECTION HEADING ===== */
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;font-family:'Poppins',sans-serif}
+.section-title{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.2;font-family:'Playfair Display',serif}
+.section-title-line{height:4px;width:48px;border-radius:2px;margin-top:10px}
+
+/* ===== BTN ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:12px;font-weight:600;font-size:.875rem;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+@media (max-width:768px){.btn{padding:10px 20px;font-size:.825rem}}
+
+/* ===== WAVE DIVIDER ===== */
+.wave-divider{width:100%;overflow:hidden;line-height:0;position:relative;z-index:1}
+.wave-divider svg{display:block;width:100%;height:50px}
+@media (max-width:768px){.wave-divider svg{height:35px}}
+body .wave-path{fill:url(#waveGradLight);opacity:.18}
+.dark .wave-path{fill:currentColor;opacity:.08}
+
+/* ===== MOTTO CARD ===== */
+.motto-card{position:relative;overflow:hidden}
+.motto-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(223,184,253,.18),transparent 70%);animation:mottoGlow 8s ease-in-out infinite}
+@keyframes mottoGlow{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(10%,10%) scale(1.1)}}
+.dark .motto-card::before{background:radial-gradient(circle,rgba(0,247,255,.08),transparent 70%)}
+
+/* Light mode gradient button effect */
+body .btn:active{transform:scale(.97)}
+body .btn-primary:active::before{opacity:1}
+
+/* Shimmer for light mode cards */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+</style>
+</head>
+<body>
+
+<!-- GALAXY BG (dark only) -->
+<div class="stars-layer" aria-hidden="true"></div>
+<div class="twinkling-layer" id="twinkle-container" aria-hidden="true"></div>
+<div class="nebula-layer" aria-hidden="true"></div>
+<div class="planet planet-1" aria-hidden="true"></div>
+<div class="planet planet-2" aria-hidden="true"></div>
+
+<!-- LIGHT BLOBS (light only) -->
+<div class="light-blob light-blob-1" aria-hidden="true"></div>
+<div class="light-blob light-blob-2" aria-hidden="true"></div>
+<div class="light-blob light-blob-3" aria-hidden="true"></div>
+<div class="light-blob light-blob-4" aria-hidden="true"></div>
+
+<!-- FLOATING SHAPES (light only) -->
+<div class="floating-shape shape-1" aria-hidden="true"></div>
+<div class="floating-shape shape-2" aria-hidden="true"></div>
+<div class="floating-shape shape-3" aria-hidden="true"></div>
+<div class="floating-shape shape-4" aria-hidden="true"></div>
+<div class="floating-shape shape-5" aria-hidden="true"></div>
+
+<!-- WAVE GRADIENT DEF -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<linearGradient id="waveGradLight" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="#DFB8FD"/>
+<stop offset="50%" stop-color="#b39ddb"/>
+<stop offset="100%" stop-color="#B8CEFF"/>
+</linearGradient>
+</defs>
+</svg>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- LOADING -->
+<div id="loading-screen">
+<div class="loader-ring mb-4"></div>
+<p class="text-2xl font-bold accent-text" style="font-family:'Playfair Display',serif">Nancy Akisya</p>
+<p class="text-sm mt-2 opacity-60" style="font-family:'Poppins',sans-serif;letter-spacing:.05em">Loading portfolio...</p>
+</div>
+
+<!-- MOBILE SPLASH SCREEN -->
+<div id="mobile-splash" aria-hidden="true">
+  <div class="splash-blob splash-blob-1"></div>
+  <div class="splash-blob splash-blob-2"></div>
+  <div class="splash-blob splash-blob-3"></div>
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 30px">
+    <div class="splash-ring">
+      <img src="ncy.jpeg" alt="Nancy Akisya" class="splash-photo" onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=\'width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:rgba(223,184,253,.3)\'>👩‍💻</div>'"/>
+    </div>
+    <p style="font-size:.85rem;color:#7b5ea7;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;font-family:'Poppins',sans-serif">Welcome to</p>
+    <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;line-height:1.1;margin-bottom:6px;background:linear-gradient(135deg,#7b4db8,#9c67b0,#b39ddb,#ce93d8);-webkit-background-clip:text;background-clip:text;color:transparent">Nancy Akisya</h1>
+    <p style="font-size:.82rem;color:#6b5080;opacity:.8;margin-bottom:4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem">Software & Game Developer</p>
+    <p style="font-size:.72rem;color:#9b7bb0;opacity:.7;letter-spacing:.06em;font-family:'Poppins',sans-serif">SMK Negeri 5 Malang · PPLG</p>
+    <p class="splash-tap"><i class="fas fa-hand-pointer" style="margin-right:4px;opacity:.6"></i>Tap to enter · or wait 10s</p>
+  </div>
+  <div id="splash-bar"></div>
+</div>
+
+<!-- FLOATING BTNS -->
+<a id="float-wa" href="https://wa.me/6285117294311" target="_blank" aria-label="WhatsApp" class="float-wa"><i class="fab fa-whatsapp"></i></a>
+<button id="back-top" type="button" aria-label="Back to top" class="back-top"><i class="fas fa-arrow-up text-sm"></i></button>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="nav-bg">
+<div class="container flex items-center justify-between py-3">
+<a href="#hero" class="font-extrabold text-xl accent-text" style="text-decoration:none;font-family:'Playfair Display',serif">N'zier<span style="font-weight:400;font-style:italic">aaa</span></a>
+<div id="desktop-nav-links" class="hidden md:flex items-center gap-1">
+<a href="#about" class="nav-link-h">About</a>
+<a href="#skills" class="nav-link-h">Skills</a>
+<a href="#edu-exp" class="nav-link-h">Journey</a>
+<a href="#projects" class="nav-link-h">Projects</a>
+<a href="#contact" class="nav-link-h">Contact</a>
+</div>
+<div class="flex items-center gap-3">
+<button id="theme-toggle" type="button" class="toggle-track toggle-bg" aria-label="Toggle theme">
+<div class="toggle-thumb">
+<i class="fas fa-sun text-yellow-500 dark:hidden" style="font-size:9px"></i>
+<i class="fas fa-moon text-blue-300 hidden dark:block" style="font-size:9px"></i>
+</div>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav id="bottom-nav" class="mobile-nav-bg">
+<a href="#hero" class="bottom-nav-item active" data-section="hero"><i class="fas fa-home"></i><span>Home</span></a>
+<a href="#about" class="bottom-nav-item" data-section="about"><i class="fas fa-user"></i><span>About</span></a>
+<a href="#skills" class="bottom-nav-item" data-section="skills"><i class="fas fa-code"></i><span>Skills</span></a>
+<a href="#projects" class="bottom-nav-item" data-section="projects"><i class="fas fa-rocket"></i><span>Projects</span></a>
+<a href="#contact" class="bottom-nav-item" data-section="contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+</nav>
+
+<div class="page-content">
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+<div class="container">
+<div class="grid md:grid-cols-2 gap-8 items-center">
+<div class="reveal">
+<p class="text-xs font-semibold uppercase tracking-widest mb-2 accent-text" style="font-family:'Poppins',sans-serif;opacity:.8">Portfolio · 2025</p>
+<h1 class="font-extrabold leading-tight mb-2" style="font-size:clamp(2.1rem,5vw,3.4rem)">
+  <span class="block" style="font-family:'Poppins',sans-serif;font-weight:300;font-size:.55em;letter-spacing:.08em;opacity:.75">Hi, I'm</span>
+  <span class="accent-text block" style="font-family:'Playfair Display',serif">Nancy Akisya</span>
+</h1>
+<div class="text-base font-medium mb-5" style="min-height:28px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic">
+<span id="typed" class="accent-text"></span><span id="typed-cursor" class="accent-text">|</span>
+</div>
+<p class="text-sm leading-relaxed mb-6 max-w-md" style="color:#4a3b5c;opacity:.9">A passionate <strong style="color:#7b4db8;font-weight:700">Software & Game Developer</strong> from SMK Negeri 5 Malang. Crafting digital experiences with code, creativity, and elegant design.</p>
+<div class="flex flex-wrap gap-3 mb-6">
+<a href="#projects" class="btn btn-primary"><span><i class="fas fa-rocket text-sm"></i> View Projects</span></a>
+<a href="#contact" class="btn btn-outline"><span><i class="fas fa-paper-plane text-sm"></i> Contact Me</span></a>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="text-xs font-medium mr-1" style="color:#6b5080;opacity:.75">Find me:</span>
+<a href="https://github.com/Nzieraaa" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+<a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+<a href="https://t.me/Syahraz" target="_blank" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+</div>
+</div>
+<div class="reveal flex flex-col items-center gap-4" style="transition-delay:.15s">
+<div class="photo-wrapper">
+<div class="photo-glow"></div>
+<div class="blob-photo overflow-hidden" style="width:clamp(200px,38vw,240px);height:clamp(200px,38vw,240px)">
+<img src="ncy.jpeg" alt="Nancy Akisya" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,rgba(223,184,253,.3),rgba(184,183,253,.3))\'>👩‍💻</div>'"/>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3 w-full max-w-xs">
+<div class="stat-card"><div class="stat-num accent-text" data-count="18">0</div><div class="text-xs mt-1" style="opacity:.65;font-family:'Poppins',sans-serif">Projects</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,rgba(242,214,233,.6),rgba(223,184,253,.35));border:1px solid rgba(221,192,220,.4)"><div class="stat-num accent-text" data-count="3">0</div><div class="text-xs mt-1" style="opacity:.65">Awards</div></div>
+<div class="stat-card" style="background:linear-gradient(135deg,rgba(184,206,255,.5),rgba(184,183,253,.35));border:1px solid rgba(184,206,255,.4)"><div class="stat-num accent-text" data-count="20">0</div><div class="text-xs mt-1" style="opacity:.65">Skills+</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+<svg viewBox="0 0 1200 50" preserveAspectRatio="none">
+<path d="M0,25 C300,50 900,0 1200,25 L1200,50 L0,50 Z" class="wave-path"/>
+</svg>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" class="section-alt">
+<div class="container">
+<div class="reveal text-center mb-8">
+<p class="section-label accent-text">Who I Am</p>
+<h2 class="section-title">About Me</h2>
+<div class="section-title-line mx-auto"></div>
+</div>
+
+<!-- Main about grid: photo | content -->
+<div class="grid md:grid-cols-3 gap-5">
+
+<!-- Photo card -->
+<div class="reveal">
+<div class="card overflow-hidden" style="height:fit-content">
+<div class="about-photo-wrap">
+<img src="ncy.jpeg" alt="Nancy Akisya" class="about-photo-img" onerror="this.style.background='linear-gradient(135deg,rgba(223,184,253,.3),rgba(184,183,253,.3))';this.style.minHeight='240px';this.src=''"/>
+<div class="about-photo-overlay">
+<p class="text-xs font-medium italic" style="font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#fff;line-height:1.4">"Creativity is intelligence having fun."</p>
+<p style="font-size:.68rem;margin-top:3px;color:rgba(255,255,255,.75);font-family:'Poppins',sans-serif">— Nancy Akisya</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- About content -->
+<div class="md:col-span-2 flex flex-col gap-4 reveal" style="transition-delay:.1s">
+<div class="card p-5 card-hover">
+<h3 class="font-bold text-base mb-3" style="font-family:'Playfair Display',serif;font-size:1.1rem">Professional Profile</h3>
+<p class="text-sm leading-relaxed mb-2" style="opacity:.85;color:#3d2460">I'm <strong style="color:#7b4db8">Nancy Akisya Nurwijayanti</strong>, a dedicated student at SMK Negeri 5 Malang specializing in Software and Game Development (PPLG). With a passion for creating innovative digital solutions, I'm constantly expanding my skills in web and mobile application development.</p>
+<p class="text-sm leading-relaxed" style="opacity:.8;color:#3d2460">My approach combines technical expertise with creative problem-solving to deliver user-centric solutions that make an impact.</p>
+</div>
+<div class="card p-5 card-hover">
+<h3 class="font-bold text-base mb-3" style="font-family:'Playfair Display',serif;font-size:1.05rem">Personal Details</h3>
+<div class="grid sm:grid-cols-2 gap-2.5">
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-user"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Full Name</div><div class="text-sm font-semibold" style="color:#3d2460">Nancy Akisya Nurwijayanti</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-birthday-cake"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Date of Birth</div><div class="text-sm font-semibold" style="color:#3d2460">February 13, 2009</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-graduation-cap"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Education</div><div class="text-sm font-semibold" style="color:#3d2460">SMK Negeri 5 Malang (PPLG)</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-map-marker-alt"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Location</div><div class="text-sm font-semibold" style="color:#3d2460">Malang, East Java, ID</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-envelope"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Email</div><div class="text-sm font-semibold" style="color:#3d2460">nancyakisya@gmail.com</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-phone"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Phone</div><div class="text-sm font-semibold" style="color:#3d2460">+62 851-1729-4311</div></div>
+</div>
+<div class="flex items-start gap-3">
+<div class="icon-box w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs"><i class="fas fa-language"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Languages</div><div class="text-sm font-semibold" style="color:#3d2460">Indonesian, English</div></div>
+</div>
+</div>
+</div>
+<div class="card p-5 card-hover motto-card">
+<div class="flex items-center gap-2 mb-2">
+<i class="fas fa-quote-left accent-text" style="font-size:1.3rem;opacity:.5"></i>
+<h3 class="font-bold text-sm" style="font-family:'Poppins',sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;opacity:.7">My Personal Motto</h3>
+</div>
+<p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;line-height:1.5;color:#3d2460">"The best way to predict the future is to create it — one line of code at a time."</p>
+</div>
+</div>
+
+</div><!-- /grid -->
+
+<!-- Hobbies row: 1 baris di bawah, full width -->
+<div class="reveal mt-5" style="transition-delay:.2s">
+<div class="card p-4">
+<p class="text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2" style="opacity:.6;font-family:'Poppins',sans-serif"><i class="fas fa-heart accent-text"></i> Hobbies &amp; Interests</p>
+<div class="hobbies-row">
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0"><i class="fas fa-gamepad" style="font-size:11px"></i>Game Dev</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0" style="background:linear-gradient(135deg,rgba(242,214,233,.5),rgba(223,184,253,.4));"><i class="fas fa-paint-brush" style="font-size:11px"></i>UI/UX Design</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0" style="background:linear-gradient(135deg,rgba(184,206,255,.45),rgba(184,183,253,.4));"><i class="fas fa-music" style="font-size:11px"></i>Karawitan</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0" style="background:linear-gradient(135deg,rgba(221,192,220,.5),rgba(242,214,233,.4));"><i class="fas fa-microphone" style="font-size:11px"></i>Vocal</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0"><i class="fas fa-code" style="font-size:11px"></i>Open Source</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0" style="background:linear-gradient(135deg,rgba(184,206,255,.5),rgba(184,183,253,.35));"><i class="fas fa-book" style="font-size:11px"></i>Reading</span>
+<span class="badge rounded-full px-3 py-1.5 text-xs flex items-center gap-1.5 flex-shrink-0" style="background:linear-gradient(135deg,rgba(255,240,200,.5),rgba(242,214,233,.4));"><i class="fas fa-palette" style="font-size:11px"></i>Digital Art</span>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="transform:scaleY(-1)">
+<svg viewBox="0 0 1200 50" preserveAspectRatio="none">
+<path d="M0,25 C300,50 900,0 1200,25 L1200,50 L0,50 Z" class="wave-path"/>
+</svg>
+</div>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+<div class="container mb-6">
+<div class="reveal text-center">
+<p class="section-label accent-text">What I Do</p>
+<h2 class="section-title">Skills &amp; Expertise</h2>
+<div class="section-title-line mx-auto"></div>
+</div>
+</div>
+<div class="mb-3 reveal">
+<p class="text-xs font-bold uppercase tracking-widest px-5 mb-2 flex items-center gap-2" style="opacity:.6"><i class="fas fa-code accent-text"></i> Programming Languages</p>
+<div class="skills-row"><div class="skills-track s-anim-1">
+<span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">JavaScript</span><span class="skill-pill">PHP</span><span class="skill-pill">Python</span><span class="skill-pill">C++</span><span class="skill-pill">C#</span><span class="skill-pill">Java</span><span class="skill-pill">TypeScript</span><span class="skill-pill">SQL</span><span class="skill-pill">Dart</span><span class="skill-pill">XML / JSON</span>
+<span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">JavaScript</span><span class="skill-pill">PHP</span><span class="skill-pill">Python</span><span class="skill-pill">C++</span><span class="skill-pill">C#</span><span class="skill-pill">Java</span><span class="skill-pill">TypeScript</span><span class="skill-pill">SQL</span><span class="skill-pill">Dart</span><span class="skill-pill">XML / JSON</span>
+</div></div>
+</div>
+<div class="mb-3 reveal">
+<p class="text-xs font-bold uppercase tracking-widest px-5 mb-2 flex items-center gap-2" style="opacity:.6"><i class="fas fa-layer-group accent-text"></i> Frameworks &amp; Libraries</p>
+<div class="skills-row"><div class="skills-track s-anim-2">
+<span class="skill-pill">React.js</span><span class="skill-pill">Vue.js</span><span class="skill-pill">Node.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Laravel</span><span class="skill-pill">CodeIgniter</span><span class="skill-pill">Flutter</span><span class="skill-pill">Bootstrap</span><span class="skill-pill">Tailwind CSS</span><span class="skill-pill">jQuery</span><span class="skill-pill">AJAX</span><span class="skill-pill">REST API</span>
+<span class="skill-pill">React.js</span><span class="skill-pill">Vue.js</span><span class="skill-pill">Node.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Laravel</span><span class="skill-pill">CodeIgniter</span><span class="skill-pill">Flutter</span><span class="skill-pill">Bootstrap</span><span class="skill-pill">Tailwind CSS</span><span class="skill-pill">jQuery</span><span class="skill-pill">AJAX</span><span class="skill-pill">REST API</span>
+</div></div>
+</div>
+<div class="mb-3 reveal">
+<p class="text-xs font-bold uppercase tracking-widest px-5 mb-2 flex items-center gap-2" style="opacity:.6"><i class="fas fa-tools accent-text"></i> Dev Tools &amp; Databases</p>
+<div class="skills-row"><div class="skills-track s-anim-3">
+<span class="skill-pill">Git &amp; GitHub</span><span class="skill-pill">VS Code</span><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">Figma</span><span class="skill-pill">Canva</span><span class="skill-pill">Construct 3</span><span class="skill-pill">Unity</span><span class="skill-pill">Postman</span><span class="skill-pill">Firebase</span><span class="skill-pill">AdminLTE</span><span class="skill-pill">WordPress</span>
+<span class="skill-pill">Git &amp; GitHub</span><span class="skill-pill">VS Code</span><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">Figma</span><span class="skill-pill">Canva</span><span class="skill-pill">Construct 3</span><span class="skill-pill">Unity</span><span class="skill-pill">Postman</span><span class="skill-pill">Firebase</span><span class="skill-pill">AdminLTE</span><span class="skill-pill">WordPress</span>
+</div></div>
+</div>
+<div class="reveal">
+<p class="text-xs font-bold uppercase tracking-widest px-5 mb-2 flex items-center gap-2" style="opacity:.6"><i class="fas fa-heart accent-text"></i> Soft Skills</p>
+<div class="skills-row"><div class="skills-track s-anim-4">
+<span class="skill-pill">Creative Thinking</span><span class="skill-pill">Problem Solving</span><span class="skill-pill">Team Leadership</span><span class="skill-pill">Communication</span><span class="skill-pill">Project Management</span><span class="skill-pill">Fast Learner</span><span class="skill-pill">Adaptability</span><span class="skill-pill">Time Management</span><span class="skill-pill">Public Speaking</span>
+<span class="skill-pill">Creative Thinking</span><span class="skill-pill">Problem Solving</span><span class="skill-pill">Team Leadership</span><span class="skill-pill">Communication</span><span class="skill-pill">Project Management</span><span class="skill-pill">Fast Learner</span><span class="skill-pill">Adaptability</span><span class="skill-pill">Time Management</span><span class="skill-pill">Public Speaking</span>
+</div></div>
+</div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+<svg viewBox="0 0 1200 50" preserveAspectRatio="none">
+<path d="M0,25 C400,0 800,50 1200,25 L1200,50 L0,50 Z" class="wave-path"/>
+</svg>
+</div>
+
+<!-- ===== EDUCATION & JOURNEY ===== -->
+<section id="edu-exp" class="section-alt">
+<div class="container">
+<div class="reveal text-center mb-8">
+<p class="section-label accent-text">My Path</p>
+<h2 class="section-title">Education &amp; Journey</h2>
+<div class="section-title-line mx-auto"></div>
+</div>
+<div class="timeline-wrapper">
+<div class="timeline-center-line timeline-line hidden md:block"></div>
+
+<div class="tl-item reveal">
+<div class="tl-left">
+<div class="card tl-card card-hover">
+<div class="tl-card-header">
+<span class="inline-block px-3 py-1 rounded-full text-xs font-bold edu-badge flex-shrink-0"><i class="fas fa-graduation-cap mr-1"></i>Education</span>
+<div class="text-right">
+<h3 class="tl-card-title">SMK Negeri 5 Malang</h3>
+<p class="tl-card-date"><i class="fas fa-calendar mr-1"></i>2024 – Present</p>
+</div>
+</div>
+<p class="text-xs mt-1" style="opacity:.75">Software and Game Development (PPLG). Specializing in web development, mobile apps, and game design.</p>
+</div>
+</div>
+<div class="tl-dot-col"><div class="tl-dot timeline-dot"></div></div>
+<div></div>
+</div>
+
+<div class="tl-item reveal" style="transition-delay:.1s">
+<div></div>
+<div class="tl-dot-col"><div class="tl-dot timeline-dot"></div></div>
+<div class="tl-right">
+<div class="card tl-card card-hover">
+<div class="tl-card-header tl-card-header right-side">
+<div>
+<h3 class="tl-card-title">Inntexia Academy</h3>
+<p class="tl-card-date"><i class="fas fa-calendar mr-1"></i>2024</p>
+</div>
+<span class="inline-block px-3 py-1 rounded-full text-xs font-bold edu-badge flex-shrink-0"><i class="fas fa-laptop-code mr-1"></i>Bootcamp</span>
+</div>
+<p class="text-xs mt-1" style="opacity:.75">Intensive Coding Bootcamp focusing on full-stack web development and practical software engineering.</p>
+</div>
+</div>
+</div>
+
+<div class="tl-item reveal" style="transition-delay:.2s">
+<div class="tl-left">
+<div class="card tl-card card-hover">
+<div class="tl-card-header">
+<span class="inline-block px-3 py-1 rounded-full text-xs font-bold exp-badge flex-shrink-0"><i class="fas fa-award mr-1"></i>Achievement</span>
+<div class="text-right">
+<h3 class="tl-card-title">Duta Putri Pelajar Vohi5ma</h3>
+<p class="tl-card-date"><i class="fas fa-calendar mr-1"></i>2024 – 2026</p>
+</div>
+</div>
+<p class="text-xs mt-1" style="opacity:.75">Student ambassador promoting discipline, leading social initiatives, and serving as role model.</p>
+</div>
+</div>
+<div class="tl-dot-col"><div class="tl-dot timeline-dot"></div></div>
+<div></div>
+</div>
+
+<div class="tl-item reveal" style="transition-delay:.3s">
+<div></div>
+<div class="tl-dot-col"><div class="tl-dot timeline-dot"></div></div>
+<div class="tl-right">
+<div class="card tl-card card-hover">
+<div class="tl-card-header tl-card-header right-side">
+<div>
+<h3 class="tl-card-title">Head of Delegation &amp; Lead Vocalist</h3>
+<p class="tl-card-date"><i class="fas fa-calendar mr-1"></i>2025</p>
+</div>
+<span class="inline-block px-3 py-1 rounded-full text-xs font-bold exp-badge flex-shrink-0"><i class="fas fa-microphone-alt mr-1"></i>Leadership</span>
+</div>
+<p class="text-xs mt-1" style="opacity:.75">Represented school in FLS2N National Festival as Lead Female Vocalist. Managed team coordination and rehearsals.</p>
+</div>
+</div>
+</div>
+
+<div class="tl-item reveal" style="transition-delay:.4s">
+<div class="tl-left">
+<div class="card tl-card card-hover">
+<div class="tl-card-header">
+<span class="inline-block px-3 py-1 rounded-full text-xs font-bold exp-badge flex-shrink-0"><i class="fas fa-music mr-1"></i>Leadership</span>
+<div class="text-right">
+<h3 class="tl-card-title">Chairperson of Karawitan Club</h3>
+<p class="tl-card-date"><i class="fas fa-calendar mr-1"></i>2024 – 2026</p>
+</div>
+</div>
+<p class="text-xs mt-1" style="opacity:.75">Leading traditional Javanese musical ensemble. Managing schedules, recruitment, and cultural heritage preservation.</p>
+</div>
+</div>
+<div class="tl-dot-col"><div class="tl-dot timeline-dot"></div></div>
+<div></div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="transform:scaleY(-1)">
+<svg viewBox="0 0 1200 50" preserveAspectRatio="none">
+<path d="M0,25 C400,0 800,50 1200,25 L1200,50 L0,50 Z" class="wave-path"/>
+</svg>
+</div>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+<div class="container">
+<div class="reveal text-center mb-8">
+<p class="section-label accent-text">What I've Built</p>
+<h2 class="section-title">Featured Projects</h2>
+<div class="section-title-line mx-auto"></div>
+</div>
+<div class="proj-grid">
+
+<a href="https://fintrack-app-xi.vercel.app/" target="_blank" class="proj-card card reveal">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-wallet"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">FinTrack</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Mobile App</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Smart personal finance tracker. Savings goals, expense tracking, and monthly spending management.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">HTML/CSS/JS</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Finance</span>
+</div>
+</div>
+</a>
+
+<div class="proj-card card reveal proj-card-disabled" style="cursor:default;transition-delay:.03s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-key"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">School API Docs</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="rounded-full px-2 py-0.5 text-xs font-bold" style="background:rgba(251,191,36,.15);color:#d97706">Coming Soon</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Comprehensive docs for school API — covering API key & no-key endpoints with examples.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">REST API</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Docs</span>
+</div>
+</div>
+</div>
+
+<a href="https://nzieraaa.github.io/API.html" target="_blank" class="proj-card card reveal" style="transition-delay:.06s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-moon"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">API Material &amp; NASA</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Web App</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Educational API content with NASA Open API integration. Moon phase data based on birth dates.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">PHP</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">NASA API</span>
+</div>
+</div>
+</a>
+
+<a href="https://nzieraaa.github.io/v5.html" target="_blank" class="proj-card card reveal" style="transition-delay:.09s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-palette"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Batik Heritage DB</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Web</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Database of 36 batik patterns with history, techniques, and cultural significance.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">HTML/CSS/JS</span>
+</div>
+</div>
+</a>
+
+<a href="http://103.186.167.18:8002/rpl1/game/void-scavenge/" target="_blank" class="proj-card card reveal" style="transition-delay:.12s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-gem"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Void Scavenge</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Game</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Strategic maze game where players collect 10 specific gems from 15 treasures.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Construct 3</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">JS</span>
+</div>
+</div>
+</a>
+
+<a href="http://103.186.167.18:8001/rpl1/kel1/" target="_blank" class="proj-card card reveal" style="transition-delay:.15s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-school"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">School Management</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Full-Stack</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">4-role system with Google Auth for parents, students, teachers, and staff.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">PHP</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Tailwind</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">MVC</span>
+</div>
+</div>
+</a>
+
+<a href="https://nzieraaa.github.io/k13/" target="_blank" class="proj-card card reveal" style="transition-delay:.18s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-book-open"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">K13 Learning Portal</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Education</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">K13 curriculum materials for grades 7–9 with practice questions.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Blogger</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">HTML/CSS</span>
+</div>
+</div>
+</a>
+
+<a href="https://ncyakisya13.wordpress.com/" target="_blank" class="proj-card card reveal" style="transition-delay:.21s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-code-branch"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Framework Masterclass</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Docs</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Guide covering 7+ frameworks including CodeIgniter, Laravel, and modern web tech.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">WordPress</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Documentation</span>
+</div>
+</div>
+</a>
+
+<a href="https://github.com/Nzieraaa/news_reader_pro" target="_blank" class="proj-card card reveal" style="transition-delay:.24s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-newspaper"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">News Reader Pro</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Mobile</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Multi-language news app with dark mode, topic search, and category filtering.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Flutter</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">REST API</span>
+</div>
+</div>
+</a>
+
+<a href="https://github.com/Nzieraaa/notes-app-flutter" target="_blank" class="proj-card card reveal" style="transition-delay:.27s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-sticky-note"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">QuickNote Flutter</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Mobile</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Xiaomi-inspired notes app with swipe shortcuts and task reminders.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Flutter</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Local DB</span>
+</div>
+</div>
+</a>
+
+<a href="https://github.com/Nzieraaa/umkm-ecommerce-web" target="_blank" class="proj-card card reveal" style="transition-delay:.30s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-store"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">UMKM E-Commerce</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">E-Commerce</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Single-store marketplace with catalog, reviews, cart, checkout, and payment.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Laravel 10</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Payment API</span>
+</div>
+</div>
+</a>
+
+<a href="https://youtu.be/7z2S-cyWyD4" target="_blank" class="proj-card card reveal" style="transition-delay:.33s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-warehouse"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Warehouse Inventory</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">System</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Complete warehouse system with analytics and sender/receiver reports.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">PHP</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">MySQL</span>
+</div>
+</div>
+</a>
+
+<div class="proj-card card reveal proj-card-disabled" style="cursor:default;transition-delay:.36s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-book"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">CI Library System</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="rounded-full px-2 py-0.5 text-xs font-bold" style="background:rgba(156,103,176,.12);color:#9c67b0">Private</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Library management system built with CodeIgniter. Book catalog, borrowing records, and member management.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">CodeIgniter</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">MySQL</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card card reveal proj-card-disabled" style="cursor:default;transition-delay:.39s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-calculator"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Geometry Calculator</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="rounded-full px-2 py-0.5 text-xs font-bold" style="background:rgba(156,103,176,.12);color:#9c67b0">Private</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Calculate area and perimeter of 2D shapes with an interactive visual interface.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">HTML/CSS/JS</span>
+</div>
+</div>
+</div>
+
+<a href="https://www.figma.com/design/LBFfWnSr73hJZVgBVDGxR6/" target="_blank" class="proj-card card reveal" style="transition-delay:.42s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-piggy-bank"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">FinTrack Savings UI</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">UI/UX</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Full Figma UI/UX design for FinTrack — savings goals and expense tracking.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Figma</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">UI/UX</span>
+</div>
+</div>
+</a>
+
+<a href="http://103.186.167.18:8002/rpl1/laravel/KaggleNancy/" target="_blank" class="proj-card card reveal" style="transition-delay:.45s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-language"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">Kaggle Learning Hub</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="badge rounded-full px-2 py-0.5 text-xs font-bold">Education</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Translated Kaggle tutorials for SQL and Python learning in Indonesian.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Laravel</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Translation</span>
+</div>
+</div>
+</a>
+
+<div class="proj-card card reveal proj-card-disabled" style="cursor:default;transition-delay:.48s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-brain"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">YouTube Recommender ML</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="rounded-full px-2 py-0.5 text-xs font-bold" style="background:rgba(59,130,246,.15);color:#3b82f6">In Progress</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Machine Learning video recommendation using K-Means clustering algorithm for YouTube content.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">Python</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">K-Means</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">ML</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card card reveal proj-card-disabled" style="cursor:default;transition-delay:.51s">
+<div class="p-4">
+<div class="proj-header">
+<div class="proj-icon proj-icon-bg"><i class="fas fa-book-reader"></i></div>
+<div class="proj-title-block">
+<h3 class="proj-title">SI Perpustakaan CI</h3>
+</div>
+</div>
+<div class="proj-badge-row"><span class="rounded-full px-2 py-0.5 text-xs font-bold" style="background:rgba(156,103,176,.12);color:#9c67b0">Private</span></div>
+<p class="text-xs leading-relaxed mb-3" style="opacity:.72">Sistem informasi perpustakaan sekolah. Manajemen buku, anggota, dan transaksi peminjaman.</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="badge rounded-full px-2 py-0.5 text-xs">CodeIgniter</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">MySQL</span>
+<span class="badge rounded-full px-2 py-0.5 text-xs">Bootstrap</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider">
+<svg viewBox="0 0 1200 50" preserveAspectRatio="none">
+<path d="M0,25 C300,50 900,0 1200,25 L1200,50 L0,50 Z" class="wave-path"/>
+</svg>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="section-alt">
+<div class="container">
+<div class="reveal text-center mb-8">
+<p class="section-label accent-text">Get In Touch</p>
+<h2 class="section-title">Let's Connect</h2>
+<div class="section-title-line mx-auto"></div>
+<p class="text-sm mt-3 max-w-md mx-auto" style="opacity:.7;font-family:'Poppins',sans-serif">Have a project in mind or want to say hi? Drop me a message — I'll reply via Gmail! <i class="fas fa-envelope-open-text text-xs accent-text"></i></p>
+</div>
+<div class="grid md:grid-cols-2 gap-5">
+<div class="reveal">
+<div class="card p-5 card-hover">
+<h3 class="font-bold text-base mb-4" style="font-family:'Playfair Display',serif">Send a Message</h3>
+<form id="contactForm" class="flex flex-col gap-3">
+<div class="grid sm:grid-cols-2 gap-3">
+<div>
+<label class="block text-xs font-semibold mb-1.5" style="opacity:.7">Your Name *</label>
+<input name="name" type="text" required placeholder="e.g. Budi Santoso" class="contact-input input-style rounded-xl"/>
+</div>
+<div>
+<label class="block text-xs font-semibold mb-1.5" style="opacity:.7">Email *</label>
+<input name="email" type="email" required placeholder="budi@email.com" class="contact-input input-style rounded-xl"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold mb-1.5" style="opacity:.7">Subject *</label>
+<input name="subject" type="text" required placeholder="What's this about?" class="contact-input input-style rounded-xl"/>
+</div>
+<div>
+<label class="block text-xs font-semibold mb-1.5" style="opacity:.7">Message *</label>
+<textarea name="message" required rows="4" placeholder="Tell me about your project or just say hi!" class="contact-input input-style rounded-xl" style="resize:none"></textarea>
+</div>
+<button type="submit" id="submitBtn" class="btn btn-primary w-full justify-center">
+<span id="submitText"><i class="fas fa-paper-plane text-sm"></i> Send Message</span>
+<span id="submitSpinner" class="hidden"><i class="fas fa-spinner fa-spin text-sm"></i> Sending...</span>
+</button>
+<div id="formMsg" class="text-center text-sm"></div>
+</form>
+</div>
+</div>
+
+<div class="reveal flex flex-col gap-4" style="transition-delay:.15s">
+<div class="card p-5 card-hover">
+<h3 class="font-bold text-base mb-4" style="font-family:'Playfair Display',serif">Contact Information</h3>
+<div class="flex flex-col">
+<div class="contact-item-h">
+<div class="contact-icon-h"><i class="fas fa-map-marker-alt"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Location</div><div class="text-sm font-semibold" style="color:#3d2460">Malang, East Java, Indonesia</div></div>
+</div>
+<div class="contact-item-h">
+<div class="contact-icon-h"><i class="fas fa-envelope"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Email</div><div class="text-sm font-semibold" style="color:#3d2460">nancyakisya@gmail.com</div></div>
+</div>
+<div class="contact-item-h">
+<div class="contact-icon-h"><i class="fas fa-phone"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Phone / WhatsApp</div><div class="text-sm font-semibold" style="color:#3d2460">+62 851-1729-4311</div></div>
+</div>
+<div class="contact-item-h" style="margin-bottom:0">
+<div class="contact-icon-h"><i class="fas fa-graduation-cap"></i></div>
+<div><div class="text-xs font-medium" style="opacity:.6">Education</div><div class="text-sm font-semibold" style="color:#3d2460">SMK Negeri 5 Malang, PPLG</div></div>
+</div>
+</div>
+<!-- Social icons (ncy.html style) -->
+<div class="csocial-wrap">
+<h4 class="text-center text-sm font-bold mb-1" style="font-family:'Playfair Display',serif;opacity:.8">Connect With Me</h4>
+<div class="csocial-grid">
+<a href="https://github.com/Nzieraaa" target="_blank" class="csocial-icon"><i class="fab fa-github"></i><span class="stt">GitHub</span></a>
+<a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="csocial-icon"><i class="fab fa-instagram"></i><span class="stt">Instagram</span></a>
+<a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="csocial-icon"><i class="fab fa-youtube"></i><span class="stt">YouTube</span></a>
+<a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="csocial-icon"><i class="fab fa-tiktok"></i><span class="stt">TikTok</span></a>
+<a href="https://wa.me/6285117294311" target="_blank" class="csocial-icon"><i class="fab fa-whatsapp"></i><span class="stt">WhatsApp</span></a>
+<a href="https://t.me/Syahraz" target="_blank" class="csocial-icon"><i class="fab fa-telegram"></i><span class="stt">Telegram</span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-bg relative overflow-hidden pt-10 pb-5">
+<svg class="absolute top-0 left-0 w-full" viewBox="0 0 1200 40" preserveAspectRatio="none" style="height:20px">
+<path d="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,0 L0,0 Z" style="fill:url(#waveGradLight);opacity:.15"/>
+</svg>
+<div class="container text-center" style="position:relative;z-index:1">
+<div class="font-extrabold text-2xl accent-text mb-1" style="font-family:'Playfair Display',serif">Nancy Akisya</div>
+<p class="text-xs mb-4" style="opacity:.55;font-family:'Poppins',sans-serif;letter-spacing:.04em">Software & Game Developer · UI/UX Enthusiast · SMK Negeri 5 Malang</p>
+<div class="flex justify-center gap-3 mb-5 flex-wrap">
+<a href="https://github.com/Nzieraaa" target="_blank" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+<a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+<a href="https://wa.me/6285117294311" target="_blank" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="https://t.me/Syahraz" target="_blank" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+</div>
+<div class="flex justify-center flex-wrap gap-4 text-xs mb-4" style="opacity:.5">
+<a href="#about" class="hover:opacity-100 transition-opacity" style="text-decoration:none;color:inherit">About</a>
+<a href="#skills" class="hover:opacity-100 transition-opacity" style="text-decoration:none;color:inherit">Skills</a>
+<a href="#edu-exp" class="hover:opacity-100 transition-opacity" style="text-decoration:none;color:inherit">Journey</a>
+<a href="#projects" class="hover:opacity-100 transition-opacity" style="text-decoration:none;color:inherit">Projects</a>
+<a href="#contact" class="hover:opacity-100 transition-opacity" style="text-decoration:none;color:inherit">Contact</a>
+</div>
+<div class="w-16 h-px mx-auto mb-3 opacity-25" style="background:linear-gradient(90deg,#9c67b0,#b39ddb)"></div>
+<p class="text-xs" style="opacity:.4"><i class="fas fa-heart text-red-400" style="font-size:9px"></i> &copy; 2025 Nancy Akisya Nurwijayanti · Built with Tailwind CSS</p>
+</div>
+</footer>
+
+</div><!-- /page-content -->
+
+<script>
+// ===== LOADING =====
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loading-screen');
+    l.style.opacity='0';l.style.pointerEvents='none';
+    setTimeout(()=>{
+      if(l.parentNode)l.remove();
+      startCounters();
+      checkReveal();
+      createTwinkleStars();
+      createSparkles();
+      initMobileSplash();
+    },600);
+  },1200);
+});
+
+// ===== MOBILE SPLASH =====
+function initMobileSplash(){
+  if(window.innerWidth>768)return;
+  const splash=document.getElementById('mobile-splash');
+  const bar=document.getElementById('splash-bar');
+  splash.classList.add('active');
+  document.body.style.overflow='hidden';
+  // start progress bar
+  setTimeout(()=>{bar.classList.add('run')},50);
+  const dismiss=()=>{
+    splash.classList.add('dismiss');
+    document.body.style.overflow='';
+    setTimeout(()=>{
+      splash.remove();
+      const about=document.getElementById('about');
+      if(about)about.scrollIntoView({behavior:'smooth',block:'start'});
+    },700);
+  };
+  splash.addEventListener('click',dismiss);
+  setTimeout(dismiss,10000);
+}
+
+// ===== THEME TOGGLE =====
+const html=document.documentElement,body=document.body;
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  html.classList.toggle('dark');
+  body.classList.toggle('dark');
+  if(body.classList.contains('dark')){createTwinkleStars();}
+});
+
+// ===== SCROLL =====
+window.addEventListener('scroll',()=>{
+  const st=window.scrollY,dh=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('scroll-progress').style.width=(st/dh*100)+'%';
+  const bt=document.getElementById('back-top');
+  if(st>400){bt.classList.add('show');}else{bt.classList.remove('show');}
+  checkReveal();
+  updateBottomNav();
+});
+
+// ===== BACK TO TOP =====
+document.getElementById('back-top').addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ===== REVEAL =====
+function checkReveal(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-60)el.classList.add('visible');
+  });
+}
+
+// ===== COUNTER =====
+function startCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const t=+el.getAttribute('data-count');
+    let n=0;const s=Math.ceil(t/30);
+    const iv=setInterval(()=>{
+      n=Math.min(n+s,t);el.textContent=n+(t>=20?'+':'');
+      if(n>=t)clearInterval(iv);
+    },50);
+  });
+}
+
+// ===== TYPED =====
+const roles=['Software Developer','Game Developer','UI/UX Enthusiast','PPLG Student','Full-Stack Dev'];
+let ri=0,ci=0,del=false;
+const typedEl=document.getElementById('typed');
+function type(){
+  const cur=roles[ri];
+  if(!del){typedEl.textContent=cur.slice(0,++ci);if(ci===cur.length){del=true;setTimeout(type,2200);return;}
+  }else{typedEl.textContent=cur.slice(0,--ci);if(ci===0){del=false;ri=(ri+1)%roles.length;}}
+  setTimeout(type,del?55:100);
+}
+setTimeout(type,1800);
+
+// ===== GALAXY (dark only) =====
+function createTwinkleStars(){
+  if(!body.classList.contains('dark'))return;
+  const c=document.getElementById('twinkle-container');
+  c.innerHTML='';
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');s.className='twinkle-star';
+    const sz=Math.random()*2.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${2+Math.random()*5}s;animation-delay:${Math.random()*5}s`;
+    c.appendChild(s);
+  }
+}
+function createShootingStar(){
+  if(!body.classList.contains('dark'))return;
+  const s=document.createElement('div');s.className='shooting-star';
+  s.style.cssText=`top:${Math.random()*60}%;left:${Math.random()*70}%;width:${80+Math.random()*80}px;animation-duration:${2+Math.random()*2}s`;
+  document.body.appendChild(s);setTimeout(()=>s.remove(),5000);
+}
+setInterval(createShootingStar,4000);
+
+// ===== SPARKLES (light only) =====
+function createSparkles(){
+  if(body.classList.contains('dark'))return;
+  const colors=['#DFB8FD','#B8B7FD','#f2d6e9','#B8CEFF','#DED3FD','#F6DDFF'];
+  for(let i=0;i<18;i++){
+    const sp=document.createElement('div');sp.className='sparkle';
+    const size=3+Math.random()*5;
+    sp.style.cssText=`
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;top:${Math.random()*100}%;
+      border-radius:50%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${3+Math.random()*4}s;
+      animation-delay:${Math.random()*6}s;
+      box-shadow:0 0 ${size*2}px ${colors[Math.floor(Math.random()*colors.length)]};
     `;
+    document.body.appendChild(sp);
+  }
+}
 
-        // Menambahkan spinner dan mengubah teks tombol
-        submitButton.innerHTML = "";
-        submitButton.appendChild(spinner);
-        submitButton.insertAdjacentHTML("beforeend", " Mengirim...");
-        submitButton.disabled = true;
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
 
-        fetch(scriptURL, {
-          method: "POST",
-          body: new FormData(form),
-        })
-          .then((response) => {
-            console.log("Success!", response);
-            alert("Form berhasil dikirim!");
-            form.reset();
-          })
-          .catch((error) => {
-            console.error("Error!", error.message);
-            alert("Terjadi kesalahan saat mengirim form. Silakan coba lagi.");
-          })
-          .finally(() => {
-            // Mengembalikan tombol ke keadaan semula
-            submitButton.innerHTML = originalHTML;
-            submitButton.disabled = false;
-          });
-      });
-    </script>
-  </body>
+// ===== BOTTOM NAV =====
+function updateBottomNav(){
+  const sections=['hero','about','skills','edu-exp','projects','contact'];
+  const navMap={'hero':'hero','about':'about','skills':'skills','edu-exp':'skills','projects':'projects','contact':'contact'};
+  let current='hero';
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&window.scrollY>=el.offsetTop-100)current=navMap[id]||id;
+  });
+  document.querySelectorAll('.bottom-nav-item').forEach(item=>{
+    item.classList.toggle('active',item.getAttribute('data-section')===current);
+  });
+}
+
+// ===== CONTACT FORM =====
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn'),
+        text=document.getElementById('submitText'),
+        spin=document.getElementById('submitSpinner'),
+        msg=document.getElementById('formMsg');
+  text.classList.add('hidden');spin.classList.remove('hidden');btn.disabled=true;msg.textContent='';
+  const data={name:this.name.value,email:this.email.value,subject:this.subject.value,message:this.message.value};
+  fetch('https://script.google.com/macros/s/AKfycbwZLbFWgGNzEFyaaoJ9ZnyDbK997WDqdRDCpUc_i0w_E946enukNxqWnnaNm9WpyfddCQ/exec',{
+    method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams(data).toString()
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.result==='success'){
+      this.reset();
+      msg.innerHTML='<span style="color:#22c55e"><i class="fas fa-check-circle mr-1"></i>Pesan terkirim! Saya akan segera membalas.</span>';
+    }else{
+      msg.innerHTML='<span style="color:#ef4444"><i class="fas fa-exclamation-circle mr-1"></i>Gagal mengirim, coba lagi.</span>';
+    }
+  })
+  .catch(()=>{msg.innerHTML='<span style="color:#ef4444"><i class="fas fa-exclamation-circle mr-1"></i>Error koneksi, coba lagi.</span>';})
+  .finally(()=>{text.classList.remove('hidden');spin.classList.add('hidden');btn.disabled=false;});
+});
+
+// Initial checks
+checkReveal();
+</script>
+</body>
 </html>
