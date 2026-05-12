@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nancy Akisya — Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- MOBILE SPLASH SCREEN (10s auto, click to skip) -->
+<div id="mobile-splash" class="mobile-splash">
+  <div class="splash-content">
+    <div class="splash-photo-wrap">
+      <div class="splash-photo-glow"></div>
+      <div class="splash-photo">
+        <img src="ncy.jpeg" alt="Nancy Akisya" onerror="this.style.display='none'"/>
+      </div>
+    </div>
+    <h1 class="splash-title">Hi, I'm <span class="accent-text">Nancy Akisya</span></h1>
+    <p class="splash-subtitle">Software & Game Developer</p>
+    <div class="splash-timer"><span id="splash-countdown">10</span>s</div>
+    <p class="splash-tap">Tap anywhere to skip</p>
+  </div>
+</div>
+
+<!-- GALAXY BG (dark) -->
+<div class="stars-layer" aria-hidden="true"></div>
+<div class="twinkling-layer" id="twinkle-container" aria-hidden="true"></div>
+<div class="nebula-layer" aria-hidden="true"></div>
+<div class="planet planet-1" aria-hidden="true"></div>
+<div class="planet planet-2" aria-hidden="true"></div>
+
+<!-- LIGHT BLOBS & SHAPES -->
+<div class="light-blob light-blob-1" aria-hidden="true"></div>
+<div class="light-blob light-blob-2" aria-hidden="true"></div>
+<div class="light-blob light-blob-3" aria-hidden="true"></div>
+<div class="floating-shape shape-1" aria-hidden="true"></div>
+<div class="floating-shape shape-2" aria-hidden="true"></div>
+<div class="floating-shape shape-3" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="loader-ring mb-4"></div>
+  <p class="text-xl font-bold accent-text">Nancy Akisya</p>
+  <p class="text-sm mt-2 opacity-60">Loading portfolio...</p>
+</div>
+
+<!-- FLOATING BTN -->
+<a id="float-wa" href="https://wa.me/6285117294311" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<button id="back-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="nav-bg">
+  <div class="container">
+    <a href="#hero" class="nav-brand">N'zier<span>aaa</span></a>
+    <div id="desktop-nav-links" class="desktop-nav">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#edu-exp" class="nav-link">Journey</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      <div class="toggle-thumb">
+        <i class="fas fa-sun sun-icon"></i>
+        <i class="fas fa-moon moon-icon"></i>
+      </div>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav id="bottom-nav" class="mobile-nav-bg">
+  <a href="#hero" class="bottom-nav-item active" data-section="hero"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="#about" class="bottom-nav-item" data-section="about"><i class="fas fa-user"></i><span>About</span></a>
+  <a href="#skills" class="bottom-nav-item" data-section="skills"><i class="fas fa-code"></i><span>Skills</span></a>
+  <a href="#projects" class="bottom-nav-item" data-section="projects"><i class="fas fa-rocket"></i><span>Projects</span></a>
+  <a href="#contact" class="bottom-nav-item" data-section="contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+</nav>
+
+<div class="page-content">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <h1 class="hero-title">Hi, I'm <span class="accent-text">Nancy Akisya</span></h1>
+        <div class="hero-typed">
+          <span id="typed" class="accent-text"></span><span id="typed-cursor" class="accent-text">|</span>
+        </div>
+        <p class="hero-desc">A passionate <strong>Software & Game Developer</strong> from SMK Negeri 5 Malang. Crafting digital experiences with code, creativity, and elegant design.</p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary"><span><i class="fas fa-rocket"></i> View Projects</span></a>
+          <a href="#contact" class="btn btn-outline"><span><i class="fas fa-paper-plane"></i> Contact Me</span></a>
+        </div>
+        <div class="hero-socials">
+          <span class="socials-label">Find me:</span>
+          <a href="https://github.com/Nzieraaa" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+          <a href="https://t.me/Syahraz" target="_blank" class="social-icon"><i class="fab fa-telegram"></i></a>
+        </div>
+      </div>
+      <div class="hero-photo reveal">
+        <div class="photo-wrapper">
+          <div class="photo-glow"></div>
+          <div class="blob-photo">
+            <img src="ncy.jpeg" alt="Nancy Akisya" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card card"><div class="stat-num accent-text" data-count="18">0</div><div class="stat-label">Projects</div></div>
+          <div class="stat-card card"><div class="stat-num accent-text" data-count="3">0</div><div class="stat-label">Awards</div></div>
+          <div class="stat-card card"><div class="stat-num accent-text" data-count="20">0</div><div class="stat-label">Skills+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" class="wave-path"/></svg></div>
+
+<!-- ABOUT -->
+<section id="about" class="section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label accent-text">Who I Am</p>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <!-- Photo -->
+      <div class="about-photo-col reveal">
+        <div class="card about-photo-card">
+          <div class="about-photo-wrap">
+            <img src="ncy.jpeg" alt="Nancy Akisya" class="about-photo-img" onerror="this.style.display='none'"/>
+            <div class="about-photo-overlay">
+              <p class="photo-quote">"Creativity is intelligence having fun."</p>
+              <p class="photo-author">— Nancy Akisya</p>
+            </div>
+          </div>
+          <div class="about-hobbies">
+            <h4 class="hobbies-title">Hobbies & Interests</h4>
+            <div class="hobbies-row">
+              <span class="badge"><i class="fas fa-gamepad"></i>Game Dev</span>
+              <span class="badge"><i class="fas fa-paint-brush"></i>UI/UX</span>
+              <span class="badge"><i class="fas fa-music"></i>Karawitan</span>
+              <span class="badge"><i class="fas fa-microphone"></i>Vocal</span>
+              <span class="badge"><i class="fas fa-code"></i>Open Source</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Profile -->
+      <div class="about-profile-col reveal">
+        <div class="card card-hover">
+          <h3 class="card-title">Professional Profile</h3>
+          <p class="card-text">I'm <strong>Nancy Akisya Nurwijayanti</strong>, a dedicated student at SMK Negeri 5 Malang specializing in Software and Game Development (PPLG). With a passion for creating innovative digital solutions, I'm constantly expanding my skills in web and mobile application development.</p>
+          <p class="card-text">My approach combines technical expertise with creative problem-solving to deliver user-centric solutions that make an impact.</p>
+        </div>
+      </div>
+      <!-- Details -->
+      <div class="about-details-col reveal">
+        <div class="card card-hover">
+          <h3 class="card-title">Personal Details</h3>
+          <div class="details-grid">
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-user"></i></div>
+              <div><div class="detail-label">Full Name</div><div class="detail-value">Nancy Akisya Nurwijayanti</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-birthday-cake"></i></div>
+              <div><div class="detail-label">Date of Birth</div><div class="detail-value">February 13, 2009</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div><div class="detail-label">Education</div><div class="detail-value">SMK Negeri 5 Malang (PPLG)</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div><div class="detail-label">Location</div><div class="detail-value">Malang, East Java, ID</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+              <div><div class="detail-label">Email</div><div class="detail-value">nancyakisya@gmail.com</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-phone"></i></div>
+              <div><div class="detail-label">Phone</div><div class="detail-value">+62 851-1729-4311</div></div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-icon"><i class="fas fa-language"></i></div>
+              <div><div class="detail-label">Languages</div><div class="detail-value">Indonesian, English</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Motto -->
+      <div class="about-motto-col reveal">
+        <div class="card card-hover motto-card">
+          <div class="motto-header">
+            <i class="fas fa-quote-left motto-icon"></i>
+            <h3 class="card-title">My Personal Motto</h3>
+          </div>
+          <p class="motto-text">"The best way to predict the future is to create it — one line of code at a time."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider wave-flip"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" class="wave-path"/></svg></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label accent-text">What I Do</p>
+      <h2 class="section-title">Skills & Expertise</h2>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <div class="skills-container">
+    <div class="skill-row reveal">
+      <p class="skill-row-label"><i class="fas fa-code"></i> Programming Languages</p>
+      <div class="skills-scroll"><div class="skills-track anim-1">
+        <span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">JavaScript</span><span class="skill-pill">PHP</span><span class="skill-pill">Python</span><span class="skill-pill">C++</span><span class="skill-pill">C#</span><span class="skill-pill">Java</span><span class="skill-pill">TypeScript</span><span class="skill-pill">SQL</span><span class="skill-pill">Dart</span><span class="skill-pill">XML / JSON</span>
+        <span class="skill-pill">HTML5</span><span class="skill-pill">CSS3</span><span class="skill-pill">JavaScript</span><span class="skill-pill">PHP</span><span class="skill-pill">Python</span><span class="skill-pill">C++</span><span class="skill-pill">C#</span><span class="skill-pill">Java</span><span class="skill-pill">TypeScript</span><span class="skill-pill">SQL</span><span class="skill-pill">Dart</span><span class="skill-pill">XML / JSON</span>
+      </div></div>
+    </div>
+    <div class="skill-row reveal">
+      <p class="skill-row-label"><i class="fas fa-layer-group"></i> Frameworks & Libraries</p>
+      <div class="skills-scroll"><div class="skills-track anim-2">
+        <span class="skill-pill">React.js</span><span class="skill-pill">Vue.js</span><span class="skill-pill">Node.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Laravel</span><span class="skill-pill">CodeIgniter</span><span class="skill-pill">Flutter</span><span class="skill-pill">Bootstrap</span><span class="skill-pill">Tailwind CSS</span><span class="skill-pill">jQuery</span><span class="skill-pill">AJAX</span><span class="skill-pill">REST API</span>
+        <span class="skill-pill">React.js</span><span class="skill-pill">Vue.js</span><span class="skill-pill">Node.js</span><span class="skill-pill">Express.js</span><span class="skill-pill">Laravel</span><span class="skill-pill">CodeIgniter</span><span class="skill-pill">Flutter</span><span class="skill-pill">Bootstrap</span><span class="skill-pill">Tailwind CSS</span><span class="skill-pill">jQuery</span><span class="skill-pill">AJAX</span><span class="skill-pill">REST API</span>
+      </div></div>
+    </div>
+    <div class="skill-row reveal">
+      <p class="skill-row-label"><i class="fas fa-tools"></i> Dev Tools & Databases</p>
+      <div class="skills-scroll"><div class="skills-track anim-3">
+        <span class="skill-pill">Git & GitHub</span><span class="skill-pill">VS Code</span><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">Figma</span><span class="skill-pill">Canva</span><span class="skill-pill">Construct 3</span><span class="skill-pill">Unity</span><span class="skill-pill">Postman</span><span class="skill-pill">Firebase</span><span class="skill-pill">AdminLTE</span><span class="skill-pill">WordPress</span>
+        <span class="skill-pill">Git & GitHub</span><span class="skill-pill">VS Code</span><span class="skill-pill">MySQL</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">Figma</span><span class="skill-pill">Canva</span><span class="skill-pill">Construct 3</span><span class="skill-pill">Unity</span><span class="skill-pill">Postman</span><span class="skill-pill">Firebase</span><span class="skill-pill">AdminLTE</span><span class="skill-pill">WordPress</span>
+      </div></div>
+    </div>
+    <div class="skill-row reveal">
+      <p class="skill-row-label"><i class="fas fa-heart"></i> Soft Skills</p>
+      <div class="skills-scroll"><div class="skills-track anim-4">
+        <span class="skill-pill">Creative Thinking</span><span class="skill-pill">Problem Solving</span><span class="skill-pill">Team Leadership</span><span class="skill-pill">Communication</span><span class="skill-pill">Project Management</span><span class="skill-pill">Fast Learner</span><span class="skill-pill">Adaptability</span><span class="skill-pill">Time Management</span><span class="skill-pill">Public Speaking</span>
+        <span class="skill-pill">Creative Thinking</span><span class="skill-pill">Problem Solving</span><span class="skill-pill">Team Leadership</span><span class="skill-pill">Communication</span><span class="skill-pill">Project Management</span><span class="skill-pill">Fast Learner</span><span class="skill-pill">Adaptability</span><span class="skill-pill">Time Management</span><span class="skill-pill">Public Speaking</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" class="wave-path"/></svg></div>
+
+<!-- EDU & EXP -->
+<section id="edu-exp" class="section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label accent-text">My Path</p>
+      <h2 class="section-title">Education & Journey</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline-wrapper">
+      <div class="timeline-line"></div>
+      
+      <div class="timeline-item reveal">
+        <div class="timeline-content timeline-left">
+          <div class="card card-hover timeline-card">
+            <div class="timeline-header">
+              <span class="badge edu-badge"><i class="fas fa-graduation-cap"></i>Education</span>
+              <div class="timeline-info">
+                <h3 class="timeline-title">SMK Negeri 5 Malang</h3>
+                <p class="timeline-date"><i class="fas fa-calendar"></i>2024 – Present</p>
+              </div>
+            </div>
+            <p class="timeline-desc">Software and Game Development (PPLG). Specializing in web development, mobile apps, and game design.</p>
+          </div>
+        </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-empty"></div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content timeline-right">
+          <div class="card card-hover timeline-card">
+            <div class="timeline-header">
+              <span class="badge edu-badge"><i class="fas fa-laptop-code"></i>Bootcamp</span>
+              <div class="timeline-info">
+                <h3 class="timeline-title">Inntexia Academy</h3>
+                <p class="timeline-date"><i class="fas fa-calendar"></i>2024</p>
+              </div>
+            </div>
+            <p class="timeline-desc">Intensive Coding Bootcamp focusing on full-stack web development and practical software engineering.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-content timeline-left">
+          <div class="card card-hover timeline-card">
+            <div class="timeline-header">
+              <span class="badge exp-badge"><i class="fas fa-award"></i>Achievement</span>
+              <div class="timeline-info">
+                <h3 class="timeline-title">Duta Putri Pelajar Vo5ma</h3>
+                <p class="timeline-date"><i class="fas fa-calendar"></i>2024 – 2026</p>
+              </div>
+            </div>
+            <p class="timeline-desc">Student ambassador promoting discipline, leading social initiatives, and serving as role model.</p>
+          </div>
+        </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-empty"></div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content timeline-right">
+          <div class="card card-hover timeline-card">
+            <div class="timeline-header">
+              <span class="badge exp-badge"><i class="fas fa-microphone-alt"></i>Leadership</span>
+              <div class="timeline-info">
+                <h3 class="timeline-title">Head of Delegation & Lead Vocalist</h3>
+                <p class="timeline-date"><i class="fas fa-calendar"></i>2025</p>
+              </div>
+            </div>
+            <p class="timeline-desc">Represented school in FLS2N National Festival as Lead Female Vocalist. Managed team coordination.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-content timeline-left">
+          <div class="card card-hover timeline-card">
+            <div class="timeline-header">
+              <span class="badge exp-badge"><i class="fas fa-music"></i>Leadership</span>
+              <div class="timeline-info">
+                <h3 class="timeline-title">Chairperson of Karawitan Club</h3>
+                <p class="timeline-date"><i class="fas fa-calendar"></i>2024 – 2026</p>
+              </div>
+            </div>
+            <p class="timeline-desc">Leading traditional Javanese musical ensemble. Managing schedules, recruitment, and cultural preservation.</p>
+          </div>
+        </div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-empty"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider wave-flip"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" class="wave-path"/></svg></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label accent-text">What I've Built</p>
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid" id="projects-grid">
+      <!-- Projects will be inserted by JS -->
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" class="wave-path"/></svg></div>
+
+<!-- CONTACT -->
+<section id="contact" class="section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label accent-text">Get In Touch</p>
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="section-line"></div>
+      <p class="section-desc">Have a project in mind or want to say hi? Drop me a message — I'll reply via Gmail! <i class="fas fa-envelope-open-text"></i></p>
+    </div>
+    <div class="contact-grid">
+      <!-- Form -->
+      <div class="contact-form-col reveal">
+        <div class="card card-hover">
+          <h3 class="card-title">Send a Message</h3>
+          <form id="contactForm" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name *</label>
+                <input name="name" type="text" required placeholder="e.g. Budi Santoso" class="form-input"/>
+              </div>
+              <div class="form-group">
+                <label>Email *</label>
+                <input name="email" type="email" required placeholder="budi@email.com" class="form-input"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Subject *</label>
+              <input name="subject" type="text" required placeholder="What's this about?" class="form-input"/>
+            </div>
+            <div class="form-group">
+              <label>Message *</label>
+              <textarea name="message" required rows="4" placeholder="Tell me about your project or just say hi! 👋" class="form-input form-textarea"></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-full">
+              <span id="submitText"><i class="fas fa-paper-plane"></i> Send Message</span>
+              <span id="submitSpinner" class="hidden"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+            </button>
+            <div id="formMsg" class="form-msg"></div>
+          </form>
+        </div>
+      </div>
+      <!-- Info -->
+      <div class="contact-info-col reveal">
+        <div class="card card-hover">
+          <h3 class="card-title">Contact Information</h3>
+          <div class="contact-info-list">
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div><div class="contact-info-label">Location</div><div class="contact-info-value">Malang, East Java, Indonesia</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+              <div><div class="contact-info-label">Email</div><div class="contact-info-value">nancyakisya@gmail.com</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+              <div><div class="contact-info-label">Phone / WhatsApp</div><div class="contact-info-value">+62 851-1729-4311</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div><div class="contact-info-label">Education</div><div class="contact-info-value">SMK Negeri 5 Malang, PPLG</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-hover">
+          <h3 class="card-title">Connect With Me</h3>
+          <div class="social-grid">
+            <a href="https://github.com/Nzieraaa" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6285117294311" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/Syahraz" target="_blank" class="social-icon"><i class="fab fa-telegram"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-bg">
+  <svg class="footer-wave" viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path d="M0,40 C200,80 400,0 600,40 C800,80 1000,0 1200,40 L1200,0 L0,0 Z" class="wave-path"/>
+  </svg>
+  <div class="container footer-content">
+    <div class="footer-brand accent-text">Nancy Akisya</div>
+    <p class="footer-tagline">Software & Game Developer · UI/UX Enthusiast · SMK Negeri 5 Malang</p>
+    <div class="footer-socials">
+      <a href="https://github.com/Nzieraaa" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+      <a href="https://www.instagram.com/cyeraaa.zy" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@Ncy_A13" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.tiktok.com/@cleancy13putri_aurora" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+      <a href="https://wa.me/6285117294311" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/Syahraz" target="_blank" class="social-icon"><i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#edu-exp">Journey</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy"><i class="fas fa-heart"></i> © 2026 Nancy Akisya Nurwijayanti</p>
+  </div>
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
